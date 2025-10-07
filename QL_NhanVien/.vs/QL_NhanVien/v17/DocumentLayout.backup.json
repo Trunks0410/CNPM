@@ -1,0 +1,76 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\WORK\\HK_2025_2026\\HEQTCSDL\\ProjectCuoiKy\\QL_NhanVien\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{7E8BC166-7156-442E-B2A9-2A8E420C514B}|QL_NhanVien\\QL_NhanVien.csproj|d:\\work\\hk_2025_2026\\heqtcsdl\\projectcuoiky\\ql_nhanvien\\ql_nhanvien\\frmdangnhap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{7E8BC166-7156-442E-B2A9-2A8E420C514B}|QL_NhanVien\\QL_NhanVien.csproj|solutionrelative:ql_nhanvien\\frmdangnhap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7E8BC166-7156-442E-B2A9-2A8E420C514B}|QL_NhanVien\\QL_NhanVien.csproj|D:\\WORK\\HK_2025_2026\\HEQTCSDL\\ProjectCuoiKy\\QL_NhanVien\\ql_nhanvien\\frmchitietnhanvien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{7E8BC166-7156-442E-B2A9-2A8E420C514B}|QL_NhanVien\\QL_NhanVien.csproj|solutionrelative:ql_nhanvien\\frmchitietnhanvien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7E8BC166-7156-442E-B2A9-2A8E420C514B}|QL_NhanVien\\QL_NhanVien.csproj|D:\\WORK\\HK_2025_2026\\HEQTCSDL\\ProjectCuoiKy\\QL_NhanVien\\ql_nhanvien\\frmgiaodienchinh.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{7E8BC166-7156-442E-B2A9-2A8E420C514B}|QL_NhanVien\\QL_NhanVien.csproj|solutionrelative:ql_nhanvien\\frmgiaodienchinh.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 248,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "frmChiTietNhanVien.cs [Design]",
+              "DocumentMoniker": "D:\\WORK\\HK_2025_2026\\HEQTCSDL\\ProjectCuoiKy\\QL_NhanVien\\QL_NhanVien\\frmChiTietNhanVien.cs",
+              "RelativeDocumentMoniker": "QL_NhanVien\\frmChiTietNhanVien.cs",
+              "ToolTip": "D:\\WORK\\HK_2025_2026\\HEQTCSDL\\ProjectCuoiKy\\QL_NhanVien\\QL_NhanVien\\frmChiTietNhanVien.cs [Design]",
+              "RelativeToolTip": "QL_NhanVien\\frmChiTietNhanVien.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-18T06:42:53.563Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "frmGiaoDienChinh.cs [Design]",
+              "DocumentMoniker": "D:\\WORK\\HK_2025_2026\\HEQTCSDL\\ProjectCuoiKy\\QL_NhanVien\\QL_NhanVien\\frmGiaoDienChinh.cs",
+              "RelativeDocumentMoniker": "QL_NhanVien\\frmGiaoDienChinh.cs",
+              "ToolTip": "D:\\WORK\\HK_2025_2026\\HEQTCSDL\\ProjectCuoiKy\\QL_NhanVien\\QL_NhanVien\\frmGiaoDienChinh.cs [Design]",
+              "RelativeToolTip": "QL_NhanVien\\frmGiaoDienChinh.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-18T06:10:17.973Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "frmDangNhap.cs [Design]",
+              "DocumentMoniker": "D:\\WORK\\HK_2025_2026\\HEQTCSDL\\ProjectCuoiKy\\QL_NhanVien\\QL_NhanVien\\frmDangNhap.cs",
+              "RelativeDocumentMoniker": "QL_NhanVien\\frmDangNhap.cs",
+              "ToolTip": "D:\\WORK\\HK_2025_2026\\HEQTCSDL\\ProjectCuoiKy\\QL_NhanVien\\QL_NhanVien\\frmDangNhap.cs [Design]",
+              "RelativeToolTip": "QL_NhanVien\\frmDangNhap.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-14T10:35:34.877Z",
+              "EditorCaption": " [Design]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
