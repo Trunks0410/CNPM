@@ -20,6 +20,7 @@ namespace QL_NhanVien
         private void btnThoat_Click(object sender, EventArgs e)
         {
             Application.Exit();
+            //Hello World
         }
     }
 }
