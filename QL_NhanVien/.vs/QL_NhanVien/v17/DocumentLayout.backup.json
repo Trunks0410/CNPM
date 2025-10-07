@@ -15,7 +15,7 @@
       "RelativeMoniker": "D:0:0:{7E8BC166-7156-442E-B2A9-2A8E420C514B}|QL_NhanVien\\QL_NhanVien.csproj|solutionrelative:ql_nhanvien\\frmdangnhap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7E8BC166-7156-442E-B2A9-2A8E420C514B}|QL_NhanVien\\QL_NhanVien.csproj|d:\\code\\winform\\cnpm\\ql_nhanvien\\ql_nhanvien\\packages.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "AbsoluteMoniker": "D:0:0:{7E8BC166-7156-442E-B2A9-2A8E420C514B}|QL_NhanVien\\QL_NhanVien.csproj|D:\\Code\\Winform\\CNPM\\QL_NhanVien\\ql_nhanvien\\packages.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
       "RelativeMoniker": "D:0:0:{7E8BC166-7156-442E-B2A9-2A8E420C514B}|QL_NhanVien\\QL_NhanVien.csproj|solutionrelative:ql_nhanvien\\packages.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
     {
@@ -56,7 +56,7 @@
               "RelativeDocumentMoniker": "QL_NhanVien\\frmDangNhap.cs",
               "ToolTip": "D:\\Code\\Winform\\CNPM\\QL_NhanVien\\QL_NhanVien\\frmDangNhap.cs",
               "RelativeToolTip": "QL_NhanVien\\frmDangNhap.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAmwBgAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABAAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-07T14:05:40.626Z",
               "EditorCaption": ""
@@ -71,8 +71,7 @@
               "RelativeToolTip": "QL_NhanVien\\packages.config",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
-              "WhenOpened": "2025-10-07T13:55:56.218Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-07T13:55:56.218Z"
             },
             {
               "$type": "Document",
@@ -83,8 +82,7 @@
               "ToolTip": "D:\\Code\\Winform\\CNPM\\QL_NhanVien\\QL_NhanVien\\frmBaoCao.cs [Design]",
               "RelativeToolTip": "QL_NhanVien\\frmBaoCao.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-07T13:55:52.387Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2025-10-07T13:55:52.387Z"
             },
             {
               "$type": "Document",
@@ -150,8 +148,7 @@
               "ToolTip": "D:\\Code\\Winform\\CNPM\\QL_NhanVien\\QL_NhanVien\\frmDangNhap.cs [Design]",
               "RelativeToolTip": "QL_NhanVien\\frmDangNhap.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-18T08:19:11.806Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2025-09-18T08:19:11.806Z"
             }
           ]
         }

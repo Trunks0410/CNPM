@@ -21,6 +21,7 @@ namespace QL_NhanVien
         {
             Application.Exit();
             //Hello World
+            // anh kiệt
         }
     }
 }
