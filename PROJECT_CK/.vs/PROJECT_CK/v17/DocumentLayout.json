@@ -3,18 +3,12 @@
   "WorkspaceRootPath": "E:\\CNPM\\CNPM\\PROJECT_CK\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|E:\\CNPM\\CNPM\\PROJECT_CK\\project_ck\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|e:\\cnpm\\cnpm\\project_ck\\project_ck\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|solutionrelative:project_ck\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|PROJECT_CK||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|e:\\cnpm\\cnpm\\project_ck\\project_ck\\app.manifest||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|E:\\CNPM\\CNPM\\PROJECT_CK\\project_ck\\app.manifest||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
       "RelativeMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|solutionrelative:project_ck\\app.manifest||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|e:\\cnpm\\cnpm\\project_ck\\project_ck\\||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|5e9a8ac2-4f34-4521-858f-4c248ba31532"
     }
   ],
   "DocumentGroupContainers": [
@@ -24,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -48,7 +42,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "app.manifest",
               "DocumentMoniker": "E:\\CNPM\\CNPM\\PROJECT_CK\\PROJECT_CK\\app.manifest",
               "RelativeDocumentMoniker": "PROJECT_CK\\app.manifest",
@@ -56,20 +50,7 @@
               "RelativeToolTip": "PROJECT_CK\\app.manifest",
               "ViewState": "AgIAAAAAAAAAAAAAAAAkwBQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001203|",
-              "WhenOpened": "2025-10-09T08:38:53.762Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "PROJECT_CK",
-              "DocumentMoniker": "E:\\CNPM\\CNPM\\PROJECT_CK\\PROJECT_CK\\PROJECT_CK.csproj",
-              "RelativeDocumentMoniker": "PROJECT_CK\\PROJECT_CK.csproj",
-              "ToolTip": "E:\\CNPM\\CNPM\\PROJECT_CK\\PROJECT_CK\\PROJECT_CK.csproj",
-              "RelativeToolTip": "PROJECT_CK\\PROJECT_CK.csproj",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-10-09T08:36:10.565Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-09T08:38:53.762Z"
             },
             {
               "$type": "Document",
