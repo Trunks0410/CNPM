@@ -1,29 +1,22 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\Code\\Winform\\CNPM\\PROJECT_CK\\",
+  "WorkspaceRootPath": "D:\\Code\\CNPM\\PROJECT_CK\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|d:\\code\\winform\\cnpm\\project_ck\\project_ck\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|d:\\code\\cnpm\\project_ck\\project_ck\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|solutionrelative:project_ck\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|D:\\Code\\Winform\\CNPM\\PROJECT_CK\\project_ck\\quanlynhapxe_kho.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|solutionrelative:project_ck\\quanlynhapxe_kho.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|D:\\Code\\Winform\\CNPM\\PROJECT_CK\\project_ck\\app.manifest||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|solutionrelative:project_ck\\app.manifest||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|D:\\Code\\Winform\\CNPM\\PROJECT_CK\\project_ck\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|d:\\code\\cnpm\\project_ck\\project_ck\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|solutionrelative:project_ck\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|PROJECT_CK||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|d:\\code\\cnpm\\project_ck\\project_ck\\main.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|solutionrelative:project_ck\\main.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|D:\\Code\\Winform\\CNPM\\PROJECT_CK\\project_ck\\main.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|solutionrelative:project_ck\\main.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|D:\\Code\\CNPM\\PROJECT_CK\\project_ck\\quanlynhapxe_kho.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|solutionrelative:project_ck\\quanlynhapxe_kho.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -37,74 +30,54 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "PROJECT_CK",
-              "DocumentMoniker": "D:\\Code\\Winform\\CNPM\\PROJECT_CK\\PROJECT_CK\\PROJECT_CK.csproj",
-              "RelativeDocumentMoniker": "PROJECT_CK\\PROJECT_CK.csproj",
-              "ToolTip": "D:\\Code\\Winform\\CNPM\\PROJECT_CK\\PROJECT_CK\\PROJECT_CK.csproj",
-              "RelativeToolTip": "PROJECT_CK\\PROJECT_CK.csproj",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-10-09T11:20:26.064Z"
+              "DocumentIndex": 2,
+              "Title": "Main.Designer.cs",
+              "DocumentMoniker": "D:\\Code\\CNPM\\PROJECT_CK\\PROJECT_CK\\Main.Designer.cs",
+              "RelativeDocumentMoniker": "PROJECT_CK\\Main.Designer.cs",
+              "ToolTip": "D:\\Code\\CNPM\\PROJECT_CK\\PROJECT_CK\\Main.Designer.cs",
+              "RelativeToolTip": "PROJECT_CK\\Main.Designer.cs",
+              "ViewState": "AgIAANweAAAAAAAAAADgv/MeAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-09T15:40:03.466Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "app.manifest",
-              "DocumentMoniker": "D:\\Code\\Winform\\CNPM\\PROJECT_CK\\PROJECT_CK\\app.manifest",
-              "RelativeDocumentMoniker": "PROJECT_CK\\app.manifest",
-              "ToolTip": "D:\\Code\\Winform\\CNPM\\PROJECT_CK\\PROJECT_CK\\app.manifest",
-              "RelativeToolTip": "PROJECT_CK\\app.manifest",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001203|",
-              "WhenOpened": "2025-10-09T10:31:31.735Z"
+              "DocumentIndex": 1,
+              "Title": "Main.cs [Design]",
+              "DocumentMoniker": "D:\\Code\\CNPM\\PROJECT_CK\\PROJECT_CK\\Main.cs",
+              "RelativeDocumentMoniker": "PROJECT_CK\\Main.cs",
+              "ToolTip": "D:\\Code\\CNPM\\PROJECT_CK\\PROJECT_CK\\Main.cs [Design]",
+              "RelativeToolTip": "PROJECT_CK\\Main.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-09T11:43:08.505Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Main.cs",
-              "DocumentMoniker": "D:\\Code\\Winform\\CNPM\\PROJECT_CK\\PROJECT_CK\\Main.cs",
+              "DocumentMoniker": "D:\\Code\\CNPM\\PROJECT_CK\\PROJECT_CK\\Main.cs",
               "RelativeDocumentMoniker": "PROJECT_CK\\Main.cs",
-              "ToolTip": "D:\\Code\\Winform\\CNPM\\PROJECT_CK\\PROJECT_CK\\Main.cs",
+              "ToolTip": "D:\\Code\\CNPM\\PROJECT_CK\\PROJECT_CK\\Main.cs",
               "RelativeToolTip": "PROJECT_CK\\Main.cs",
-              "ViewState": "AgIAAEwAAAAAAAAAAAAkwF0AAAAiAAAAAAAAAA==",
+              "ViewState": "AgIAACYAAAAAAAAAAIA5wEYAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-09T10:10:37.468Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "QuanLyNhapXe_Kho.cs",
-              "DocumentMoniker": "D:\\Code\\Winform\\CNPM\\PROJECT_CK\\PROJECT_CK\\QuanLyNhapXe_Kho.cs",
+              "DocumentMoniker": "D:\\Code\\CNPM\\PROJECT_CK\\PROJECT_CK\\QuanLyNhapXe_Kho.cs",
               "RelativeDocumentMoniker": "PROJECT_CK\\QuanLyNhapXe_Kho.cs",
-              "ToolTip": "D:\\Code\\Winform\\CNPM\\PROJECT_CK\\PROJECT_CK\\QuanLyNhapXe_Kho.cs",
+              "ToolTip": "D:\\Code\\CNPM\\PROJECT_CK\\PROJECT_CK\\QuanLyNhapXe_Kho.cs",
               "RelativeToolTip": "PROJECT_CK\\QuanLyNhapXe_Kho.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAABcAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-09T09:44:19.727Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Main.Designer.cs",
-              "DocumentMoniker": "D:\\Code\\Winform\\CNPM\\PROJECT_CK\\PROJECT_CK\\Main.Designer.cs",
-              "RelativeDocumentMoniker": "PROJECT_CK\\Main.Designer.cs",
-              "ToolTip": "D:\\Code\\Winform\\CNPM\\PROJECT_CK\\PROJECT_CK\\Main.Designer.cs",
-              "RelativeToolTip": "PROJECT_CK\\Main.Designer.cs",
-              "ViewState": "AgIAABkxAAAAAAAAAAAmwDIxAAA1AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-09T09:34:28.944Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Main.cs [Design]",
-              "DocumentMoniker": "D:\\Code\\Winform\\CNPM\\PROJECT_CK\\PROJECT_CK\\Main.cs",
-              "RelativeDocumentMoniker": "PROJECT_CK\\Main.cs",
-              "ToolTip": "D:\\Code\\Winform\\CNPM\\PROJECT_CK\\PROJECT_CK\\Main.cs [Design]",
-              "RelativeToolTip": "PROJECT_CK\\Main.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-09T08:33:10.753Z"
+              "WhenOpened": "2025-10-09T09:44:19.727Z",
+              "EditorCaption": ""
             }
           ]
         }
