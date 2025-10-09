@@ -120,6 +120,7 @@
     <Compile Include="DangNhap.Designer.cs">
       <DependentUpon>DangNhap.cs</DependentUpon>
     </Compile>
+    <Compile Include="QuanLyNhapXe_Kho.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
