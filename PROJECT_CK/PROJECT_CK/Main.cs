@@ -28,12 +28,15 @@ namespace PROJECT_CK
         private int maPhieuCurrent;
         System.Drawing.Image editIcon = Properties.Resources.chinhsua;
         System.Drawing.Image deleteIcon = Properties.Resources.xoa;
+
+        public QuanLyKhachHang quanLyKH;
         public Main()
         {
             InitializeComponent();
  
             quanLyNhapXe_Kho = new QuanLyNhapXe_Kho();
             //ApplyRolePermissions();
+            quanLyKH = new QuanLyKhachHang();
         }
 
         private void ApplyRolePermissions()
@@ -69,6 +72,9 @@ namespace PROJECT_CK
             LoadTongQuanTonKho();
             LoadXeTonKho();
             LoadTextBoxAutoComplete();
+            //---
+            LoadDataKhachHang();
+            LoadDataLichHen();
         }
 
         private void LoadPhieuNhap()
@@ -1744,6 +1750,381 @@ namespace PROJECT_CK
                 btnpSuaDanhMuc.Enabled = false;
                 btnpXoaDanhMuc.Enabled = false;
             }
+        }
+
+        //--------------------------------------------------------------------------------------------------
+
+        private void LoadDataKhachHang()
+        {
+            try
+            {
+                string sql = @"SELECT * FROM dbo.fn_DSKH() ORDER BY KhachHangID";
+                DataTable dt = quanLyKH.ExecuteQuery(sql);
+                dgvDSKH.DataSource = dt;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi load dữ liệu: " + ex.Message, "Thông báo lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void LoadLoaiKH()
+        {
+            string query = "SELECT MaLoaiKH, TenLoaiKH FROM PhanLoaiKH";
+            try
+            {
+                DataTable dtLoaiKH = quanLyKH.ExecuteQuery(query);
+                cbbLoaiKH.DataSource = dtLoaiKH;
+                cbbLoaiKH.DisplayMember = "TenLoaiKH";
+                cbbLoaiKH.ValueMember = "MaLoaiKH";
+                cbbLoaiKH.SelectedIndex = -1;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi nạp dữ liệu: " + ex.Message);
+            }
+        }
+        private void dgvDSKH_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvDSKH.CurrentRow != null && dgvDSKH.CurrentRow.Index >= 0)
+            {
+                LoadLoaiKH();
+
+                DataGridViewRow row = dgvDSKH.CurrentRow;
+                txtMaKH.Text = row.Cells["MaKH"].Value?.ToString() ?? "";
+                txtHoTenKH.Text = row.Cells["HoTen"].Value?.ToString() ?? "";
+                txtSoDT.Text = row.Cells["SDT_KH"].Value?.ToString() ?? "";
+                txtDiaChi.Text = row.Cells["DiaChi"].Value?.ToString() ?? "";
+                string tenLoaiKH = row.Cells["LoaiKH"].Value?.ToString() ?? "";
+                cbbLoaiKH.SelectedIndex = cbbLoaiKH.FindStringExact(tenLoaiKH);
+            }
+            else
+            {
+                txtMaKH.Clear();
+                txtHoTenKH.Clear();
+                txtSoDT.Clear();
+                txtDiaChi.Clear();
+                cbbLoaiKH.Text = "";
+            }
+        }
+        private void btnThemKH_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var parameters = new Dictionary<string, object>
+                {
+                    { "@HoTen", txtHoTenKH?.Text ?? string.Empty },
+                    { "@TenLoaiKH", cbbLoaiKH.Text.ToString() },
+                    { "@DiaChi", txtDiaChi?.Text ?? string.Empty },
+                    { "@SoDienThoai", txtSoDT?.Text ?? string.Empty },
+
+                };
+                int rows = quanLyKH.ExecuteNonQuery("sp_InsertKhachHang", parameters);
+
+                if (rows > 0)
+                    MessageBox.Show("Thêm khách hàng thành công!");
+                else
+                    MessageBox.Show("Không thêm được khách hàng.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi: " + ex.Message);
+            }
+            LoadDataKhachHang();
+        }
+
+        private void btnSuaKH_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(txtMaKH.Text))
+                {
+                    MessageBox.Show("Vui lòng chọn khách hàng cần cập nhật!");
+                    return;
+                }
+
+                var parameters = new Dictionary<string, object>
+                {
+                    { "@MaKH", txtMaKH?.Text ?? string.Empty },
+                    { "@HoTen", txtHoTenKH?.Text ?? string.Empty },
+                    { "@TenLoaiKH", cbbLoaiKH.Text.ToString() },
+                    { "@DiaChi", txtDiaChi?.Text ?? string.Empty },
+                    { "@SoDienThoai", txtSoDT?.Text ?? string.Empty },
+
+                };
+
+                int rows = quanLyKH.ExecuteNonQuery("sp_UpdateKhachHang", parameters);
+
+                if (rows > 0)
+                    MessageBox.Show("Cập nhật khách hàng thành công!");
+                else
+                    MessageBox.Show("Không cập nhật được khách hàng.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi: " + ex.Message);
+            }
+            LoadDataKhachHang();
+        }
+
+        private void btnXoaKH_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(txtMaKH.Text))
+                {
+                    MessageBox.Show("Vui lòng chọn khách hàng cần xóa!");
+                    return;
+                }
+
+                DialogResult dr = MessageBox.Show(
+                    "Bạn có chắc chắn muốn xóa khách hàng này?",
+                    "Xác nhận xóa",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning);
+
+                if (dr == DialogResult.Yes)
+                {
+                    var parameters = new Dictionary<string, object>
+                    {
+                        { "@MaKH", txtMaKH.Text }
+                    };
+
+                    int rows = quanLyKH.ExecuteNonQuery("sp_DeleteKhachHang", parameters);
+
+                    if (rows > 0)
+                        MessageBox.Show("Xóa khách hàng thành công!");
+                    else
+                        MessageBox.Show("Không thể xóa khách hàng.");
+
+                    LoadDataKhachHang();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi: " + ex.Message);
+            }
+        }
+
+        private void btnTimKiemKH_Click(object sender, EventArgs e)
+        {
+            string loaiTim = cbbLoaiTim.SelectedItem?.ToString();
+            string tuKhoa = txtThongTinTimKiem.Text.Trim();
+
+            if (string.IsNullOrEmpty(tuKhoa))
+            {
+                MessageBox.Show("Vui lòng nhập thông tin cần tìm!");
+                LoadDataKhachHang();
+                return;
+            }
+
+            string query = "";
+            SqlParameter param = null;
+
+            switch (loaiTim)
+            {
+                case "Họ tên":
+                    query = "SELECT * FROM dbo.fn_FindKhachHangByHoTen(@HoTen)";
+                    param = new SqlParameter("@HoTen", tuKhoa);
+                    break;
+
+                case "SĐT":
+                    query = "SELECT * FROM dbo.fn_FindKhachHangBySDT(@SDT)";
+                    param = new SqlParameter("@SDT", tuKhoa);
+                    break;
+
+                case "Loại KH":
+                    query = "SELECT * FROM dbo.fn_FindKhachHangByLoaiKH(@TenLoaiKH)";
+                    param = new SqlParameter("@TenLoaiKH", tuKhoa);
+                    break;
+
+                default:
+                    MessageBox.Show("Vui lòng chọn loại tìm kiếm!");
+                    return;
+            }
+
+            try
+            {
+                DataTable dt = quanLyKH.ExecuteQuery(query, param);
+
+                if (dt.Rows.Count > 0)
+                {
+                    dgvDSKH.DataSource = dt;
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy khách hàng nào.");
+                    var schema = (dgvDSKH.DataSource as DataTable)?.Clone() ?? new DataTable();
+                    dgvDSKH.DataSource = schema;
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tìm kiếm: " + ex.Message);
+            }
+        }
+
+        public void LoadDataLichHen()
+        {
+            try
+            {
+                string sql = "SELECT * FROM dbo.fn_LichHenBaoTri_KhachHang()";
+                DataTable dt = quanLyKH.ExecuteQuery(sql);
+                dgvLichHen.DataSource = dt;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi load dữ liệu: " + ex.Message, "Thông báo lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnThemLH_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var parameters = new Dictionary<string, object>
+                {
+                    { "@SoKhung", txtXeCTID.Text.ToString() },
+                    { "@NgayHen", dtpNgayHen.Value },
+                    { "@CaLamViec", cbbCaLamViec.Text },
+                    { "@LyDoHen", txtLyDoHen.Text.ToString() },
+                    { "@GhiChu", txtGhiChu.Text.ToString()}
+                };
+                quanLyKH.ExecuteNonQuery("sp_DatLichHen", parameters);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            LoadDataLichHen();
+        }
+
+
+        private void dgvLichHen_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvLichHen.CurrentRow != null && dgvLichHen.CurrentRow.Index >= 0)
+            {
+
+
+                int maLichHen = Convert.ToInt32(dgvLichHen.CurrentRow.Cells["MaLH"].Value);
+                string query = "SELECT * FROM dbo.fn_GetLichHen(@MaLichHen)";
+
+                SqlParameter param = new SqlParameter("@MaLichHen", maLichHen);
+
+
+                DataTable dt = quanLyKH.ExecuteQuery(query, param);
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    DataRow row = dt.Rows[0];
+
+                    txtMaLichHen.Text = maLichHen.ToString();
+                    txtXeCTID.Text = row["XeCTID"].ToString();
+                    dtpNgayHen.Value = Convert.ToDateTime(row["NgayHen"]);
+                    dtpNgayTao.Value = Convert.ToDateTime(row["NgayTao"]);
+                    cbbCaLamViec.Text = row["CaLamViec"].ToString();
+                    txtLyDoHen.Text = row["LyDoHen"].ToString();
+                    txtGhiChu.Text = row["GhiChu"].ToString();
+                    txtTrangThaiHen.Text = row["TrangThaiHen"].ToString();
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy thông tin lịch hẹn!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn một lịch hẹn để cập nhật!");
+            }
+        }
+
+        private void btnCapNhatLH_Click(object sender, EventArgs e)
+        {
+            if (dgvLichHen.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Vui lòng chọn dòng cần sửa");
+                return;
+            }
+            int maLH = Convert.ToInt32(dgvLichHen.SelectedRows[0].Cells["MaLH"].Value);
+
+            var result = MessageBox.Show(
+                "Bạn có chắc muốn sửa dòng này?",
+                "Xác nhận sửa",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning
+            );
+
+            try
+            {
+                var parameters = new Dictionary<string, object>
+                    {
+                        { "@MaLichHen", maLH },
+                        { "@NgayHen", dtpNgayHen.Value },
+                        { "@CaLamViec", cbbCaLamViec.Text },
+                        { "@LyDoHen", txtLyDoHen.Text.ToString() },
+                        { "@GhiChu", txtGhiChu.Text.ToString()},
+                        { "@TrangThaiHen", txtTrangThaiHen.Text.ToString() },
+                    };
+
+                quanLyKH.ExecuteNonQuery("sp_UpdateLichHen", parameters);
+                MessageBox.Show("Cập nhật Lich hen thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            LoadDataLichHen();
+
+
+        }
+
+        private void btnHuyLH_Click(object sender, EventArgs e)
+        {
+            if (dgvLichHen.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Vui lòng chọn dòng cần hủy");
+                return;
+            }
+            int maLH = Convert.ToInt32(dgvLichHen.SelectedRows[0].Cells["MaLH"].Value);
+
+            var result = MessageBox.Show(
+                "Bạn có chắc muốn hủy lịch này?",
+                "Xác nhận hủy",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning
+            );
+            try
+            {
+                var parameters = new Dictionary<string, object>
+                {
+                    { "@MaLichHen", maLH }
+                };
+                quanLyKH.ExecuteNonQuery("sp_HuyLichHen", parameters);
+                MessageBox.Show("Hủy Lich hen thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        private void btnTimKiemLH_Click(object sender, EventArgs e)
+        {
+            DateTime dtNgayhen = Convert.ToDateTime(dtpTimKiemNgayHen.Value);
+            string query = "SELECT * FROM dbo.fn_FindLichHen_NgayHen(@NgayHen)";
+
+            SqlParameter param = new SqlParameter("@NgayHen", dtNgayhen);
+
+
+            DataTable dt = quanLyKH.ExecuteQuery(query, param);
+
+            dgvLichHen.DataSource = dt;
         }
     }
 }
