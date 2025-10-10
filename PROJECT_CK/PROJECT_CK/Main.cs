@@ -28,12 +28,13 @@ namespace PROJECT_CK
         private int maPhieuCurrent;
         System.Drawing.Image editIcon = Properties.Resources.chinhsua;
         System.Drawing.Image deleteIcon = Properties.Resources.xoa;
+        private QuanLyNhanVien qlnv = new QuanLyNhanVien();
 
         public QuanLyKhachHang quanLyKH;
         public Main()
         {
             InitializeComponent();
- 
+
             quanLyNhapXe_Kho = new QuanLyNhapXe_Kho();
             //ApplyRolePermissions();
             quanLyKH = new QuanLyKhachHang();
@@ -75,6 +76,17 @@ namespace PROJECT_CK
             //---
             LoadDataKhachHang();
             LoadDataLichHen();
+            //Nhân viên
+            dgvDSNV.AutoGenerateColumns = true;
+            LoadNhanVienList();
+            dgvChamCong.AutoGenerateColumns = true;
+            LoadChamCongList();
+            dgvThongBao.AutoGenerateColumns = true;
+            LoadThongBaoList();
+            dgvBangLuong.AutoGenerateColumns = true;
+            LoadBangLuong();
+            SetupCbbTieuChiNV();
+            LoadTatCaBaoCao();
         }
 
         private void LoadPhieuNhap()
@@ -1486,7 +1498,7 @@ namespace PROJECT_CK
         {
             try
             {
-                cbbHangXeFilter.SelectedIndex = -1; 
+                cbbHangXeFilter.SelectedIndex = -1;
                 cbbLoaiXeFilter.SelectedIndex = -1;
                 cbbMauSacFilter.SelectedIndex = -1;
                 cbbTinhTrangFilter.SelectedIndex = -1;
@@ -1498,7 +1510,7 @@ namespace PROJECT_CK
                 txtSoKhungFilter.Clear();
                 txtSoMayFilter.Clear();
 
-                dgvTonKhoChiTiet.DataSource = dtXeTonKho; 
+                dgvTonKhoChiTiet.DataSource = dtXeTonKho;
                 FormatTonKhoGrid();
             }
             catch (Exception ex)
@@ -2125,6 +2137,564 @@ namespace PROJECT_CK
             DataTable dt = quanLyKH.ExecuteQuery(query, param);
 
             dgvLichHen.DataSource = dt;
+        }
+
+        private void LoadNhanVienList()
+        {
+            try
+            {
+                dgvDSNV.DataSource = qlnv.GetNhanVienList();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tải danh sách nhân viên: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void btnThemNV_Click(object sender, EventArgs e)
+        {
+            Them_Sua_NV f = new Them_Sua_NV(0);
+            if (f.ShowDialog() == DialogResult.OK)
+            {
+                LoadNhanVienList();
+            }
+        }
+        private void btnCapNhatNV_Click(object sender, EventArgs e)
+        {
+            if (dgvDSNV.SelectedRows.Count > 0)
+            {
+                int maNV = Convert.ToInt32(dgvDSNV.SelectedRows[0].Cells["MaNV"].Value);
+                // Gọi Form Them_Sua_NV với MaNV > 0 (Cập nhật)
+                Them_Sua_NV f = new Them_Sua_NV(maNV);
+                if (f.ShowDialog() == DialogResult.OK)
+                {
+                    LoadNhanVienList();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn một nhân viên để cập nhật.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+        private void btnXoaNV_Click(object sender, EventArgs e)
+        {
+            if (dgvDSNV.SelectedRows.Count > 0)
+            {
+                int maNV = Convert.ToInt32(dgvDSNV.SelectedRows[0].Cells["MaNV"].Value);
+                string hoTen = dgvDSNV.SelectedRows[0].Cells["HoTenNV"].Value.ToString();
+
+                if (MessageBox.Show($"Xóa nhân viên **{hoTen}**?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    try
+                    {
+                        qlnv.DeleteNhanVien(maNV);
+                        MessageBox.Show("Xóa nhân viên thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        LoadNhanVienList();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Lỗi khi xóa: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+        private void LoadChamCongList()
+        {
+            try
+            {
+                dgvChamCong.DataSource = qlnv.GetChamCongList();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tải danh sách chấm công: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void btnThemCC_Click(object sender, EventArgs e)
+        {
+            Them_Sua_ChamCong f = new Them_Sua_ChamCong(0);
+            if (f.ShowDialog() == DialogResult.OK)
+            {
+                LoadChamCongList();
+            }
+        }
+        private void btnCapNhatCC_Click(object sender, EventArgs e)
+        {
+            if (dgvChamCong.SelectedRows.Count > 0)
+            {
+                int maCC = Convert.ToInt32(dgvChamCong.SelectedRows[0].Cells["MaCC"].Value);
+                Them_Sua_ChamCong f = new Them_Sua_ChamCong(maCC);
+                if (f.ShowDialog() == DialogResult.OK)
+                {
+                    LoadChamCongList();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn một bản ghi chấm công để cập nhật.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+        private void btnXoaCC_Click(object sender, EventArgs e)
+        {
+            if (dgvChamCong.SelectedRows.Count > 0)
+            {
+                int maCC = Convert.ToInt32(dgvChamCong.SelectedRows[0].Cells["MaCC"].Value);
+
+                if (MessageBox.Show($"Xóa bản ghi chấm công Mã CC: {maCC}?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    try
+                    {
+                        qlnv.DeleteChamCong(maCC);
+                        MessageBox.Show("Xóa chấm công thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        LoadChamCongList();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Lỗi khi xóa: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+        private void LoadThongBaoList()
+        {
+            try
+            {
+                dgvThongBao.DataSource = qlnv.GetThongBaoList();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tải danh sách thông báo: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void dgvThongBao_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvThongBao.SelectedRows.Count > 0)
+            {
+                DataGridViewRow selectedRow = dgvThongBao.SelectedRows[0];
+
+                object noiDungValue = selectedRow.Cells["NoiDung"].Value;
+
+                if (noiDungValue != null)
+                {
+                    txtNoiDungChiTiet.Text = noiDungValue.ToString();
+                }
+                else
+                {
+                    txtNoiDungChiTiet.Text = "Không có nội dung chi tiết.";
+                }
+            }
+            else
+            {
+                txtNoiDungChiTiet.Clear();
+            }
+        }
+        private void btnThemThongBao_Click(object sender, EventArgs e)
+        {
+            // Gọi Form ThemThongBao
+            ThemThongBao f = new ThemThongBao();
+            if (f.ShowDialog() == DialogResult.OK)
+            {
+                LoadThongBaoList();
+            }
+        }
+        private void btnXoaThongBao_Click(object sender, EventArgs e)
+        {
+            if (dgvThongBao.SelectedRows.Count > 0)
+            {
+                int maTB = Convert.ToInt32(dgvThongBao.SelectedRows[0].Cells["MaTB"].Value);
+
+                if (MessageBox.Show($"Xóa thông báo Mã TB: {maTB}?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    try
+                    {
+                        MessageBox.Show("Xóa thông báo thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        LoadThongBaoList();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Lỗi khi xóa: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+        private void btnTaiLaiThongBao_Click(object sender, EventArgs e)
+        {
+            LoadThongBaoList();
+            MessageBox.Show("Tải lại danh sách thông báo thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void btnTimKiemTTNV_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string searchText = txtTimKiemTTNV.Text.Trim();
+
+                dgvDSNV.DataSource = qlnv.SearchNhanVien(searchText);
+
+                LoadNhanVienList();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tìm kiếm nhân viên: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void ThucHienTimKiemChamCong()
+        {
+            try
+            {
+                DateTime? ngayLamViec = dtpChamCong.Value.Date;
+
+                string maNVText = txtTimKiemCC.Text.Trim();
+
+                // 3. Gọi hàm tìm kiếm từ DAL
+                dgvChamCong.DataSource = qlnv.SearchChamCong(ngayLamViec, maNVText);
+
+                LoadChamCongList();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tìm kiếm chấm công: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void btnTimKiemCC_Click(object sender, EventArgs e)
+        {
+            ThucHienTimKiemChamCong();
+        }
+        private void dtpChamCong_ValueChanged(object sender, EventArgs e)
+        {
+            ThucHienTimKiemChamCong();
+        }
+        private int selectedMaNVLuong = -1;
+        private DataTable currentBangLuong = null;
+        private void LoadBangLuong()
+        {
+            try
+            {
+                DateTime selectedMonth = dtpLuong.Value.Date;
+
+                currentBangLuong = qlnv.GetBangLuongList(selectedMonth);
+                dgvBangLuong.DataSource = currentBangLuong;
+
+                FormatDGVLuong(); 
+
+                if (dgvBangLuong.Rows.Count > 0)
+                {
+                    dgvBangLuong.Rows[0].Selected = true;
+                    dgvBangLuong_CellClick(null, new DataGridViewCellEventArgs(0, 0));
+                }
+                else
+                {
+                    ClearChiTietLuong();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tải bảng lương: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void FormatDGVLuong()
+        {
+            if (dgvBangLuong.Columns.Contains("Lương tạm tính"))
+            {
+                dgvBangLuong.Columns["Lương tạm tính"].DefaultCellStyle.Format = "N0"; 
+            }
+
+            if (dgvBangLuong.Columns.Contains("Lương cơ bản"))
+            {
+                dgvBangLuong.Columns["Lương cơ bản"].Visible = false;
+            }
+        }
+
+        private void ClearChiTietLuong()
+        {
+            txtLuongCoBan.Text = "0";
+            txtKhoanThuongPhuCap.Text = "0";
+            txtKhoanKhauTru.Text = "0";
+            txtLuongThucNhan.Text = "0";
+            selectedMaNVLuong = -1;
+        }
+        private void dtpLuong_ValueChanged(object sender, EventArgs e)
+        {
+            LoadBangLuong();
+        }
+        private void dgvBangLuong_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.RowIndex >= dgvBangLuong.Rows.Count) return;
+
+            DataGridViewRow row = dgvBangLuong.Rows[e.RowIndex];
+
+            if (row.Cells["Mã NV"].Value == null) return;
+
+            selectedMaNVLuong = Convert.ToInt32(row.Cells["Mã NV"].Value);
+            decimal luongTamTinh = Convert.ToDecimal(row.Cells["Lương tạm tính"].Value);
+            decimal luongCoBan = qlnv.GetLuongCoBanByMaNV(selectedMaNVLuong);
+            decimal phuCapThuong = 0;
+            decimal khauTru = 0;
+            string thuongText = txtKhoanThuongPhuCap.Text.Replace(",", "").Replace(".", "");
+            if (!decimal.TryParse(thuongText, out phuCapThuong))
+            {
+                phuCapThuong = 0;
+                txtKhoanThuongPhuCap.Text = phuCapThuong.ToString("N0");
+            }
+
+            string khauTruText = txtKhoanKhauTru.Text.Replace(",", "").Replace(".", "");
+            if (!decimal.TryParse(khauTruText, out khauTru))
+            {
+                khauTru = 0;
+                txtKhoanKhauTru.Text = khauTru.ToString("N0");
+            }
+            decimal luongThucNhanCuoi = luongTamTinh + phuCapThuong - khauTru;
+            txtLuongCoBan.Text = luongCoBan.ToString("N0");
+            txtLuongThucNhan.Text = luongThucNhanCuoi.ToString("N0");
+        }
+        private void UpdateLuongThucNhan(object sender, EventArgs e)
+        {
+            if (selectedMaNVLuong == -1) return;
+
+            if (dgvBangLuong.SelectedRows.Count == 0) return;
+
+            DataGridViewRow row = dgvBangLuong.SelectedRows[0];
+            decimal luongTamTinh = Convert.ToDecimal(row.Cells["Lương tạm tính"].Value);
+
+            decimal phuCapThuong = 0;
+            decimal khauTru = 0;
+            string thuongText = txtKhoanThuongPhuCap.Text.Replace(",", "").Replace(".", "");
+            if (decimal.TryParse(thuongText, out decimal tempThuong))
+            {
+                phuCapThuong = tempThuong;
+                txtKhoanThuongPhuCap.Text = phuCapThuong.ToString("N0"); 
+            }
+
+            string khauTruText = txtKhoanKhauTru.Text.Replace(",", "").Replace(".", "");
+            if (decimal.TryParse(khauTruText, out decimal tempKhauTru))
+            {
+                khauTru = tempKhauTru;
+                txtKhoanKhauTru.Text = khauTru.ToString("N0"); 
+            }
+            decimal luongThucNhanCuoi = luongTamTinh + phuCapThuong - khauTru;
+            txtLuongThucNhan.Text = luongThucNhanCuoi.ToString("N0");
+        }
+        private void btnTinhLuong_Click(object sender, EventArgs e)
+        {
+            if (selectedMaNVLuong == -1 || dgvBangLuong.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Vui lòng chọn một nhân viên trong bảng lương trước khi tính.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                DateTime thangTinhLuong = dtpLuong.Value.Date;
+
+                decimal luongThucNhan = decimal.Parse(txtLuongThucNhan.Text.Replace(",", "").Replace(".", ""));
+                decimal khoanThuong = decimal.Parse(txtKhoanThuongPhuCap.Text.Replace(",", "").Replace(".", ""));
+                decimal khoanKhauTru = decimal.Parse(txtKhoanKhauTru.Text.Replace(",", "").Replace(".", ""));
+                bool success = qlnv.LuuBangLuong(
+                    selectedMaNVLuong,
+                    thangTinhLuong,
+                    luongThucNhan,
+                    khoanThuong,
+                    khoanKhauTru
+                );
+
+                if (success)
+                {
+                    MessageBox.Show($"Đã lưu bảng lương tháng {thangTinhLuong.Month}/{thangTinhLuong.Year} cho Mã NV: {selectedMaNVLuong} thành công!", "Hoàn thành", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LoadBangLuong();
+                }
+                else
+                {
+                    MessageBox.Show("Lưu bảng lương thất bại. Vui lòng kiểm tra lại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tính và lưu lương: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void ExportToExcel(DataTable dt, string sheetName)
+        {
+            if (dt == null || dt.Rows.Count == 0)
+            {
+                MessageBox.Show("Không có dữ liệu để xuất.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "Excel Workbook|*.xlsx", FileName = $"{sheetName}_{dtpLuong.Value.ToString("yyyyMM")}" })
+            {
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        Microsoft.Office.Interop.Excel.Application excelApp = new Microsoft.Office.Interop.Excel.Application();
+                        excelApp.Visible = false;
+                        Microsoft.Office.Interop.Excel.Workbook workbook = excelApp.Workbooks.Add(Type.Missing);
+                        Microsoft.Office.Interop.Excel.Worksheet worksheet = (Microsoft.Office.Interop.Excel.Worksheet)workbook.Sheets[1];
+                        worksheet.Name = sheetName;
+
+                        for (int i = 0; i < dt.Columns.Count; i++)
+                        {
+                            worksheet.Cells[1, i + 1] = dt.Columns[i].ColumnName;
+                        }
+
+                        for (int i = 0; i < dt.Rows.Count; i++)
+                        {
+                            for (int j = 0; j < dt.Columns.Count; j++)
+                            {
+                                worksheet.Cells[i + 2, j + 1] = dt.Rows[i][j].ToString();
+                            }
+                        }
+                        workbook.SaveAs(sfd.FileName);
+                        workbook.Close();
+                        excelApp.Quit();
+
+                        MessageBox.Show("Xuất file Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Lỗi khi xuất file Excel: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+        private void btnXuatExcel_Click(object sender, EventArgs e)
+        {
+            if (currentBangLuong == null || currentBangLuong.Rows.Count == 0)
+            {
+                MessageBox.Show("Không có dữ liệu bảng lương để xuất.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            ExportToExcel(currentBangLuong, "BangLuong");
+        }
+        private void LoadTatCaBaoCao()
+        {
+            try
+            {
+                int nam = dtpBaoCao.Value.Year;
+                string criteriaNV = "ChucVu";
+
+                if (cbbTieuChiNV.SelectedItem != null)
+                {
+                    if (cbbTieuChiNV.SelectedItem.ToString() == "Giới tính")
+                        criteriaNV = "GioiTinh";
+                    else
+                        criteriaNV = "ChucVu";
+                }
+
+                DataTable dtKPI = qlnv.GetDataForBarChartKPI(nam);
+                LoadBarChart(chartKPI, dtKPI, "Thang", "DiemTrungBinh", "KPI TB", $"Biểu đồ KPI ({nam})");
+
+                DataTable dtLuongBar = qlnv.GetDataForBarChartLuongTong();
+                LoadBarChart(chartLuongTong, dtLuongBar, "Thang", "TongLuong", "Tổng lương", "Biểu đồ tổng lương");
+
+                // Biểu đồ 3: Lương (Đường - Lương TB)
+                DataTable dtLuongLine = qlnv.GetDataForLineChartLuong();
+                LoadLineChart(chartLuongTB, dtLuongLine, "Thang", "LuongTrungBinh", "Lương TB", "Biểu đồ xu hướng lương TB");
+
+                // Biểu đồ 4: Chấm công (Cột - Trạng thái)
+                DataTable dtChamCong = qlnv.GetDataForBarChartChamCong();
+                LoadBarChart(chartChamCong, dtChamCong, "TrangThai", "SoLuong", "Số lượng", "Biểu đồ chấm công");
+
+                // Biểu đồ 5: Nhân viên (Tròn)
+                DataTable dtNhanVien = qlnv.GetDataForPieChartNhanVien(criteriaNV);
+                LoadPieChart(chartNhanVien, dtNhanVien, "Tiêu chí", "Số lượng", $"Biểu đồ nhân viên theo {criteriaNV}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tải dữ liệu báo cáo: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void LoadBarChart(Chart chartControl, DataTable dt, string xValue, string yValue, string seriesName, string chartTitle)
+        {
+            chartControl.Series.Clear();
+            chartControl.Titles.Clear();
+
+            Series series = chartControl.Series.Add(seriesName);
+            series.ChartType = SeriesChartType.Column;
+            series.IsValueShownAsLabel = true;
+            series.LegendText = seriesName;
+
+            series.XValueMember = xValue;
+            series.YValueMembers = yValue;
+            chartControl.DataSource = dt;
+            chartControl.DataBind();
+
+            if (chartControl.ChartAreas.Count > 0)
+            {
+                chartControl.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
+                chartControl.ChartAreas[0].AxisY.Minimum = 0;
+            }
+            chartControl.Titles.Add(chartTitle);
+        }
+        private void LoadLineChart(Chart chartControl, DataTable dt, string xValue, string yValue, string seriesName, string chartTitle)
+        {
+            chartControl.Series.Clear();
+            chartControl.Titles.Clear();
+
+            Series series = chartControl.Series.Add(seriesName);
+            series.ChartType = SeriesChartType.Line;
+            series.MarkerStyle = MarkerStyle.Circle;
+            series.MarkerSize = 8;
+            series.BorderWidth = 3;
+            series.LegendText = seriesName;
+            series.XValueMember = xValue;
+            series.YValueMembers = yValue;
+            chartControl.DataSource = dt;
+            chartControl.DataBind();
+
+            if (chartControl.ChartAreas.Count > 0)
+            {
+                chartControl.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
+                chartControl.ChartAreas[0].AxisY.Minimum = 0;
+            }
+            chartControl.Titles.Add(chartTitle);
+        }
+        private void LoadPieChart(Chart chartControl, DataTable dt, string nameValue, string yValue, string chartTitle)
+        {
+            chartControl.Series.Clear();
+            chartControl.Titles.Clear();
+
+            Series series = chartControl.Series.Add("Default");
+            series.ChartType = SeriesChartType.Pie;
+            series.IsValueShownAsLabel = true;
+            series.Label = "#VALY";
+            series.LegendText = "#VALX (#PERCENT)";
+
+            chartControl.DataSource = dt;
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                string label = dt.Rows[i][nameValue].ToString();
+                double value = Convert.ToDouble(dt.Rows[i][yValue]);
+                series.Points.AddXY(label, value);
+            }
+            chartControl.Titles.Add(chartTitle);
+        }
+        private void SetupCbbTieuChiNV()
+        {
+            if (cbbTieuChiNV == null) return;
+
+            cbbTieuChiNV.Items.Clear();
+
+            cbbTieuChiNV.Items.Add("Chức vụ");
+            cbbTieuChiNV.Items.Add("Giới tính");
+
+            if (cbbTieuChiNV.Items.Count > 0)
+            {
+                cbbTieuChiNV.SelectedIndex = 0;
+            }
+        }
+        private void dtpBaoCao_ValueChanged(object sender, EventArgs e)
+        {
+            LoadTatCaBaoCao();
+        }
+        private void cbbTieuChiNV_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadTatCaBaoCao();
+        }
+        private void btnTaiLaiBaoCao_Click(object sender, EventArgs e)
+        {
+            LoadTatCaBaoCao();
         }
     }
 }

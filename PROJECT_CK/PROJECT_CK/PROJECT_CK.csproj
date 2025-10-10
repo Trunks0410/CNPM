@@ -51,6 +51,10 @@
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.9.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1001\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -121,6 +125,7 @@
       <DependentUpon>DangNhap.cs</DependentUpon>
     </Compile>
     <Compile Include="QuanLyKhachHang.cs" />
+    <Compile Include="QuanLyNhanVien.cs" />
     <Compile Include="QuanLyNhapXe_Kho.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
@@ -140,6 +145,12 @@
     </Compile>
     <Compile Include="QuenMatKhau.Designer.cs">
       <DependentUpon>QuenMatKhau.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ThemKhuyenMai.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ThemKhuyenMai.Designer.cs">
+      <DependentUpon>ThemKhuyenMai.cs</DependentUpon>
     </Compile>
     <Compile Include="ThemThongBao.cs">
       <SubType>Form</SubType>
@@ -175,6 +186,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="QuenMatKhau.resx">
       <DependentUpon>QuenMatKhau.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ThemKhuyenMai.resx">
+      <DependentUpon>ThemKhuyenMai.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ThemThongBao.resx">
       <DependentUpon>ThemThongBao.cs</DependentUpon>
