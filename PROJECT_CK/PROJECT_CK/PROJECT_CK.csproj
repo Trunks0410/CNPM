@@ -108,12 +108,20 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Banhang.cs" />
+    <Compile Include="Chitiet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chitiet.Designer.cs">
+      <DependentUpon>Chitiet.cs</DependentUpon>
+    </Compile>
     <Compile Include="ChiTietXe.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ChiTietXe.Designer.cs">
       <DependentUpon>ChiTietXe.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConnectDB.cs" />
     <Compile Include="DangNhap.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -126,6 +134,8 @@
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="Product.cs" />
+    <Compile Include="ProductPanel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -157,6 +167,9 @@
     <Compile Include="Them_Sua_NV.Designer.cs">
       <DependentUpon>Them_Sua_NV.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Chitiet.resx">
+      <DependentUpon>Chitiet.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ChiTietXe.resx">
       <DependentUpon>ChiTietXe.cs</DependentUpon>
     </EmbeddedResource>

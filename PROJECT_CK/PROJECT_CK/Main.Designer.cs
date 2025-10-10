@@ -1048,6 +1048,7 @@
             this.tabControlMain.TabButtonSize = new System.Drawing.Size(210, 76);
             this.tabControlMain.TabIndex = 1;
             this.tabControlMain.TabMenuBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.tabControlMain.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControlMain_Selected);
             // 
             // tabPageTrangChu
             // 
@@ -13030,7 +13031,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn NgayHen;
         private System.Windows.Forms.DataGridViewTextBoxColumn CaLamViec;
         private System.Windows.Forms.Label label13;
-        private Guna.UI2.WinForms.Guna2Panel panelDanhMucXe;
         private Guna.UI2.WinForms.Guna2ImageButton guna2ImageButton3;
         private Guna.UI2.WinForms.Guna2ImageButton guna2ImageButton2;
         private Guna.UI2.WinForms.Guna2TextBox guna2TextBox1;
@@ -13450,5 +13450,6 @@
         private Guna.UI2.WinForms.Guna2TextBox guna2TextBox51;
         private System.Windows.Forms.Label label41;
         private Guna.UI2.WinForms.Guna2ImageCheckBox cbAnHienMatKhau;
+        private Guna.UI2.WinForms.Guna2Panel panelDanhMucXe;
     }
 }
