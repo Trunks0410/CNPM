@@ -124,6 +124,7 @@
     <Compile Include="DangNhap.Designer.cs">
       <DependentUpon>DangNhap.cs</DependentUpon>
     </Compile>
+    <Compile Include="QuanLyBanXe.cs" />
     <Compile Include="QuanLyKhachHang.cs" />
     <Compile Include="QuanLyNhanVien.cs" />
     <Compile Include="QuanLyNhapXe_Kho.cs" />

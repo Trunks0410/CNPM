@@ -28,6 +28,7 @@ namespace PROJECT_CK
         private int maPhieuCurrent;
         System.Drawing.Image editIcon = Properties.Resources.chinhsua;
         System.Drawing.Image deleteIcon = Properties.Resources.xoa;
+        public System.Globalization.CultureInfo cultureInfoVN = new System.Globalization.CultureInfo("vi-VN");
         private QuanLyNhanVien qlnv = new QuanLyNhanVien();
 
         public QuanLyKhachHang quanLyKH;
@@ -87,6 +88,8 @@ namespace PROJECT_CK
             LoadBangLuong();
             SetupCbbTieuChiNV();
             LoadTatCaBaoCao();
+            //Bán xe
+            
         }
 
         private void LoadPhieuNhap()
@@ -2670,6 +2673,171 @@ namespace PROJECT_CK
             }
             chartControl.Titles.Add(chartTitle);
         }
+
+        public void VeBieuDoDoanhThuNam(DataTable dtDoanhThu)
+        {
+            chart3.Series.Clear();
+            chart3.ChartAreas.Clear();
+            decimal tongtien = 0M;
+
+            if (dtDoanhThu == null || dtDoanhThu.Rows.Count == 0)
+            {
+                // Bạn có thể muốn hiển thị thông báo ở đây
+                chart3.Series.Clear();
+                return;
+            }
+
+            // 1. Setup Chart Area và Định Dạng
+            ChartArea chartArea = new ChartArea("MainArea");
+            chartArea.AxisX.Title = "Tháng";
+            chartArea.AxisX.Interval = 1;
+            chartArea.AxisY.Title = "Doanh Thu";
+            chart3.ChartAreas.Add(chartArea);
+
+            // Tùy chỉnh định dạng trục Y để trông giống mẫu (có thể cần chia cho 1 tỷ nếu giá trị lớn)
+            chart3.ChartAreas["MainArea"].AxisY.LabelStyle.Format = "N0"; // Định dạng số không có thập phân
+            chart3.ChartAreas["MainArea"].AxisY.LabelStyle.Font = new Font("Arial", 10, FontStyle.Regular);
+
+            // 2. Lấy Năm và Chia Dữ Liệu
+            // Sử dụng Linq để lấy năm nhỏ nhất (Năm cũ) và năm lớn nhất (Năm mới)
+            int nam1 = dtDoanhThu.AsEnumerable().Min(row => row.Field<int>("Nam"));
+            int nam2 = dtDoanhThu.AsEnumerable().Max(row => row.Field<int>("Nam"));
+            tongtien = dtDoanhThu.AsEnumerable()
+           .Where(row => row.Field<int>("Nam") == nam2)
+           .Sum(row => Convert.ToDecimal(row["TongDoanhThu"]));
+
+            // 3. Tạo Series cho Từng Năm (Giống màu trong mẫu)
+
+            // Series 1: Năm Cũ (Màu Vàng - Yellow)
+            Series seriesNam1 = new Series(nam1.ToString())
+            {
+                ChartArea = "MainArea",
+                ChartType = SeriesChartType.Column,
+                IsValueShownAsLabel = false,
+                Color = Color.Gold, // Màu vàng
+                LegendText = nam1.ToString(),
+                Legend = "LegendDoanhThu"
+            };
+
+            // Series 2: Năm Mới (Màu Cam - Orange)
+            Series seriesNam2 = new Series(nam2.ToString())
+            {
+                ChartArea = "MainArea",
+                ChartType = SeriesChartType.Column,
+                IsValueShownAsLabel = false,
+                Color = Color.Orange, // Màu cam
+                LegendText = nam2.ToString(),
+                Legend = "LegendDoanhThu"
+            };
+
+
+            for (int month = 1; month <= 12; month++)
+            {
+
+                DataRow[] rowsNam1 = dtDoanhThu.Select($"Nam = {nam1} AND Thang = {month}");
+                Decimal dtNam1 = rowsNam1.Length > 0 ? Convert.ToDecimal(rowsNam1[0]["TongDoanhThu"]) : 0m;
+
+                DataRow[] rowsNam2 = dtDoanhThu.Select($"Nam = {nam2} AND Thang = {month}");
+                Decimal dtNam2 = rowsNam2.Length > 0 ? Convert.ToDecimal(rowsNam2[0]["TongDoanhThu"]) : 0m;
+
+                string XLabel = $"Tháng {month}";
+                seriesNam1.Points.AddXY(XLabel, dtNam1);
+                seriesNam2.Points.AddXY(XLabel, dtNam2);
+            }
+
+
+            chart3.Series.Add(seriesNam1);
+            chart3.Series.Add(seriesNam2);
+
+
+            chart3.Legends.Clear();
+            Legend legend = new Legend("LegendDoanhThu")
+            {
+                Docking = Docking.Bottom,
+                Alignment = StringAlignment.Center,
+                Font = new Font("Arial", 10, FontStyle.Regular)
+            };
+            chart3.Legends.Add(legend);
+
+            chart3.BringToFront();
+            chart3.Invalidate();
+            label21.Text = string.Format(cultureInfoVN, "{0:N0}", tongtien) + " VNĐ";
+        }
+        public void LoadPieChartForMonthlyOrders(Chart chartControl, DataTable dataTable)
+        {
+
+            chartControl.Series.Clear();
+
+            chartControl.Legends.Clear();
+            ChartArea chartArea = chartControl.ChartAreas[0];
+            chartArea.Position = new ElementPosition(0, 10, 60, 80); // X=0, Y=20, Width=50%, Height=75%
+            chartArea.BackColor = Color.Transparent;
+            Legend customLegend = new Legend("CustomLegend")
+            {
+                Docking = Docking.Right, // Đặt chú thích bên phải
+                Alignment = StringAlignment.Near,
+                // Điều chỉnh vị trí thủ công (X=50, Y=20, Width=45%, Height=75%)
+                Position = new ElementPosition(60, 10, 40, 80),
+                LegendStyle = LegendStyle.Table,
+                IsEquallySpacedItems = true, // Căn chỉnh các mục cho đều nhau
+                TextWrapThreshold = 15
+            };
+            chartControl.Legends.Add(customLegend);
+
+
+            Series series = new Series("MonthlyOrders")
+            {
+                ChartType = SeriesChartType.Pie,
+
+                LegendText = "#VALX",
+                IsValueShownAsLabel = true,
+
+                Label = "#PERCENT"
+            };
+
+
+            DataView dv = dataTable.DefaultView;
+            bool hasData = false;
+
+            foreach (DataRowView row in dv)
+            {
+                // Đảm bảo cột có tồn tại và giá trị là số
+                if (row["SoLuongDonHang"] != DBNull.Value && Convert.ToInt32(row["SoLuongDonHang"]) > 0)
+                {
+                    int thang = Convert.ToInt32(row["Thang"]);
+                    int soLuong = Convert.ToInt32(row["SoLuongDonHang"]);
+
+
+                    int pointIndex = series.Points.AddY(soLuong);
+
+                    DataPoint point = series.Points[pointIndex];
+
+                    // Thiết lập nhãn X (tên danh mục)
+                    point.AxisLabel = thang.ToString();
+
+                    point.LegendText = $"Tháng {thang} ({soLuong} đơn)";
+
+                    point.Label = $"{point.AxisLabel} - #PERCENT";
+                    hasData = true;
+                }
+            }
+
+            // Nếu không có dữ liệu > 0, dừng lại
+            if (!hasData)
+            {
+                // Có thể thêm một điểm dữ liệu "Không có dữ liệu" nếu cần
+                chartControl.Titles.Add("Không có dữ liệu đơn hàng trong năm này.");
+                return;
+            }
+
+            // 4. Tùy chỉnh hiển thị
+            series["PieLabelStyle"] = "Outside";
+            series["PieStartAngle"] = "270";
+
+            // 5. Thêm Series vào Chart Control
+            chartControl.Series.Add(series);
+        }
+
         private void SetupCbbTieuChiNV()
         {
             if (cbbTieuChiNV == null) return;
@@ -2695,6 +2863,219 @@ namespace PROJECT_CK
         private void btnTaiLaiBaoCao_Click(object sender, EventArgs e)
         {
             LoadTatCaBaoCao();
+        }
+
+        private void tabControlTrangChu_Selected(object sender, TabControlEventArgs e)
+        {
+            if (tabControlTrangChu.SelectedTab == tabPageDoanhThu)
+            {
+                VeBieuDoDoanhThuNam(QuanLyBanXe.GetDoanhThuNamHienTai());
+                LoadPieChartForMonthlyOrders(chart2, QuanLyBanXe.LayBaoCaoSoDonHangTheoThang(DateTime.Now.Year));
+                label22.Text = QuanLyBanXe.LayTongSoDonHangTheoNam(DateTime.Now.Year).ToString("N0");
+            }
+            
+            else if (tabControlTrangChu.SelectedTab == tabPageXeBanChay)
+            {
+                //LoadTatCaBaoCao();
+            }
+            else if (tabControlTrangChu.SelectedTab == tabPageXeDSThap)
+            {
+                //LoadTatCaBaoCao();
+            }
+        }
+
+        private void loadBanchay_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                guna2ComboBox19.SelectedIndex = -1;
+                DataTable data = QuanLyBanXe.GetDanhSachBanChay(guna2DateTimePicker8.Value, guna2DateTimePicker7.Value,null);
+
+                // 2. Gán DataTable làm nguồn dữ liệu (AutoGenerateColumns = true)
+                dgvDMXBC.DataSource = data;
+                if (dgvDMXBC.Columns.Count >= 3)
+                {
+                    // Tên cột trong C# phải khớp với tên cột trả về từ SQL (STT, TenSanPham, TongSoLuongBan)
+
+                    // Cột 1: Số Thứ Tự
+                    dgvDMXBC.Columns["STT"].HeaderText = "STT";
+                    dgvDMXBC.Columns["STT"].Width = 50; // Đặt độ rộng cố định
+
+                    // Cột 2: Tên Sản Phẩm (có Hãng và Phiên bản)
+                    dgvDMXBC.Columns["TenSanPham"].HeaderText = "Tên Sản Phẩm";
+                    dgvDMXBC.Columns["TenSanPham"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill; // Tự động lấp đầy không gian
+
+                    // Cột 3: Số Lượng Bán
+                    dgvDMXBC.Columns["TongSoLuongBan"].HeaderText = "Số Lượng Bán";
+                    dgvDMXBC.Columns["TongSoLuongBan"].Width = 300;
+
+                    // Căn lề số lượng
+                    dgvDMXBC.Columns["TongSoLuongBan"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                }
+
+                // Tùy chọn: Ngăn người dùng chỉnh sửa dữ liệu thống kê
+                dgvDMXBC.ReadOnly = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tải dữ liệu: " + ex.Message);
+
+
+            }
+        }
+
+        private void guna2ComboBox19_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                string type;
+                if (guna2ComboBox19.SelectedIndex == 0)
+                {
+                    type = "TayGa";
+                }
+                else if (guna2ComboBox19.SelectedIndex == 1)
+                {
+                    type = "XeSo";
+                }
+                else if (guna2ComboBox19.SelectedIndex == 2)
+                {
+                    type = "ConTay";
+                }
+                else if (guna2ComboBox19.SelectedIndex == 3)
+                {
+                    type = "Dien";
+                }
+                else type = null;
+                DataTable data = QuanLyBanXe.GetDanhSachBanChay(guna2DateTimePicker8.Value, guna2DateTimePicker7.Value, type);
+
+                // 2. Gán DataTable làm nguồn dữ liệu (AutoGenerateColumns = true)
+                dgvDMXBC.DataSource = data;
+                if (dgvDMXBC.Columns.Count >= 3)
+                {
+                    // Tên cột trong C# phải khớp với tên cột trả về từ SQL (STT, TenSanPham, TongSoLuongBan)
+
+                    // Cột 1: Số Thứ Tự
+                    dgvDMXBC.Columns["STT"].HeaderText = "STT";
+                    dgvDMXBC.Columns["STT"].Width = 50; // Đặt độ rộng cố định
+
+                    // Cột 2: Tên Sản Phẩm (có Hãng và Phiên bản)
+                    dgvDMXBC.Columns["TenSanPham"].HeaderText = "Tên Sản Phẩm";
+                    dgvDMXBC.Columns["TenSanPham"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill; // Tự động lấp đầy không gian
+
+                    // Cột 3: Số Lượng Bán
+                    dgvDMXBC.Columns["TongSoLuongBan"].HeaderText = "Số Lượng Bán";
+                    dgvDMXBC.Columns["TongSoLuongBan"].Width = 300;
+
+                    // Căn lề số lượng
+                    dgvDMXBC.Columns["TongSoLuongBan"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                }
+
+                // Tùy chọn: Ngăn người dùng chỉnh sửa dữ liệu thống kê
+                dgvDMXBC.ReadOnly = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tải dữ liệu: " + ex.Message);
+
+
+            }
+        }
+
+        private void loadBancham_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                guna2ComboBox20.SelectedIndex = -1;
+                DataTable data = QuanLyBanXe.GetDanhSachBanCham(null);
+
+                // 2. Gán DataTable làm nguồn dữ liệu (AutoGenerateColumns = true)
+                dgvBancham.DataSource = data;
+                if (dgvBancham.Columns.Count >= 3)
+                {
+                    // Tên cột trong C# phải khớp với tên cột trả về từ SQL (STT, TenSanPham, TongSoLuongBan)
+
+                    // Cột 1: Số Thứ Tự
+                    dgvBancham.Columns["STT"].HeaderText = "STT";
+                    dgvBancham.Columns["STT"].Width = 50; // Đặt độ rộng cố định
+
+                    // Cột 2: Tên Sản Phẩm (có Hãng và Phiên bản)
+                    dgvBancham.Columns["TenSanPham"].HeaderText = "Tên Sản Phẩm";
+                    dgvBancham.Columns["TenSanPham"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill; // Tự động lấp đầy không gian
+
+                    // Cột 3: Số Lượng Bán
+                    dgvBancham.Columns["TongSoLuongBan"].HeaderText = "Số Lượng Bán";
+                    dgvBancham.Columns["TongSoLuongBan"].Width = 300;
+
+                    // Căn lề số lượng
+                    dgvBancham.Columns["TongSoLuongBan"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                }
+
+                // Tùy chọn: Ngăn người dùng chỉnh sửa dữ liệu thống kê
+                dgvBancham.ReadOnly = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tải dữ liệu: " + ex.Message);
+
+
+            }
+        }
+
+        private void guna2ComboBox20_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                string type;
+                if (guna2ComboBox20.SelectedIndex == 0)
+                {
+                    type = "TayGa";
+                }
+                else if (guna2ComboBox20.SelectedIndex == 1)
+                {
+                    type = "XeSo";
+                }
+                else if (guna2ComboBox20.SelectedIndex == 2)
+                {
+                    type = "ConTay";
+                }
+                else if (guna2ComboBox20.SelectedIndex == 3)
+                {
+                    type = "Dien";
+                }
+                else type = null;
+                DataTable data = QuanLyBanXe.GetDanhSachBanCham(type);
+
+                // 2. Gán DataTable làm nguồn dữ liệu (AutoGenerateColumns = true)
+                dgvBancham.DataSource = data;
+                if (dgvBancham.Columns.Count >= 3)
+                {
+                    // Tên cột trong C# phải khớp với tên cột trả về từ SQL (STT, TenSanPham, TongSoLuongBan)
+
+                    // Cột 1: Số Thứ Tự
+                    dgvBancham.Columns["STT"].HeaderText = "STT";
+                    dgvBancham.Columns["STT"].Width = 50; // Đặt độ rộng cố định
+
+                    // Cột 2: Tên Sản Phẩm (có Hãng và Phiên bản)
+                    dgvBancham.Columns["TenSanPham"].HeaderText = "Tên Sản Phẩm";
+                    dgvBancham.Columns["TenSanPham"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill; // Tự động lấp đầy không gian
+
+                    // Cột 3: Số Lượng Bán
+                    dgvBancham.Columns["TongSoLuongBan"].HeaderText = "Số Lượng Bán";
+                    dgvBancham.Columns["TongSoLuongBan"].Width = 300;
+
+                    // Căn lề số lượng
+                    dgvBancham.Columns["TongSoLuongBan"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                }
+
+                // Tùy chọn: Ngăn người dùng chỉnh sửa dữ liệu thống kê
+                dgvBancham.ReadOnly = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tải dữ liệu: " + ex.Message);
+
+
+            }
         }
     }
 }
