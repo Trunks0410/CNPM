@@ -31,7 +31,7 @@ namespace PROJECT_CK
         System.Drawing.Image deleteIcon = Properties.Resources.xoa;
         public System.Globalization.CultureInfo cultureInfoVN = new System.Globalization.CultureInfo("vi-VN");
         private QuanLyNhanVien qlnv = new QuanLyNhanVien();
-
+        private DataTable dtChiTietDonHang;
         public QuanLyKhachHang quanLyKH;
         public Main()
         {
@@ -82,18 +82,19 @@ namespace PROJECT_CK
             dgvDSNV.AutoGenerateColumns = true;
             LoadNhanVienList();
             dgvChamCong.AutoGenerateColumns = true;
-            LoadChamCongList();
+          //  LoadChamCongList();
             dgvThongBao.AutoGenerateColumns = true;
-            LoadThongBaoList();
+          //  LoadThongBaoList();
             dgvBangLuong.AutoGenerateColumns = true;
-            LoadBangLuong();
-            SetupCbbTieuChiNV();
-            LoadTatCaBaoCao();
+          //  LoadBangLuong();
+          //  SetupCbbTieuChiNV();
+          //  LoadTatCaBaoCao();
             //Bán xe
             radioAll.Checked = true;
             btnSuaUD.Visible = false;
             btnXoaUD.Visible = false;
-
+            KhoiTaoChiTietDonHang();
+            LoadActiveUuDaiToComboBox();
 
         }
 
@@ -308,7 +309,6 @@ namespace PROJECT_CK
 
                 txtTongSoXeTonKho.Text = tongSoXeTonKho.ToString();
                 txtTongGiaTriTonKho.Text = string.Format("{0:N0} VNĐ", tongGiaTriTonKho);
-                txtTongSoLuong.Text = tongSoXeTonKho.ToString();
                 txtTongLoiNhuan.Text = string.Format("{0:N0} VNĐ", tongLoiNhuan);
                 txtTong.Text = string.Format("{0:N0} VNĐ", tongGiaTriNhap);
                 txtTongXeNhap.Text = tongSoXeNhap.ToString();
@@ -3179,6 +3179,7 @@ namespace PROJECT_CK
                 }
                 
             };
+            LoadActiveUuDaiToComboBox();
 
         }
         
@@ -3212,6 +3213,7 @@ namespace PROJECT_CK
             };
             btnSuaUD.Visible = false;
             btnXoaUD.Visible = false;
+            LoadActiveUuDaiToComboBox();
 
         }
 
@@ -3232,7 +3234,384 @@ namespace PROJECT_CK
                     currentDataSource.AcceptChanges();
                 }
             }
+            LoadActiveUuDaiToComboBox();
 
+        }
+        private void KhoiTaoChiTietDonHang()
+        {
+            dtChiTietDonHang = new DataTable();
+
+            dtChiTietDonHang.Columns.Add("TenXe", typeof(string));
+            dtChiTietDonHang.Columns.Add("Hangxe", typeof(string));
+            dtChiTietDonHang.Columns.Add("Loaixe", typeof(string));
+            dtChiTietDonHang.Columns.Add("Mau", typeof(string));
+            dtChiTietDonHang.Columns.Add("Namsx", typeof(string));
+            dtChiTietDonHang.Columns.Add("Tinhtrang", typeof(string));
+
+            // Cột dữ liệu chính/chi tiết (SK, SM dùng để kiểm tra và là mã chính):
+            dtChiTietDonHang.Columns.Add("SK", typeof(string));         // Số Khung
+            dtChiTietDonHang.Columns.Add("SM", typeof(string));         // Số Máy
+
+            // Cột giá trị và tính toán:
+            dtChiTietDonHang.Columns.Add("Gia", typeof(decimal));       // Đơn giá
+
+            dgvDSSP.DataSource = dtChiTietDonHang;
+            // Thiết lập Header Text
+            dgvDSSP.Columns["TenXe"].HeaderText = "Tên xe";
+            dgvDSSP.Columns["Hangxe"].HeaderText = "Hãng xe";
+            dgvDSSP.Columns["Loaixe"].HeaderText = "Loại xe";
+            dgvDSSP.Columns["Mau"].HeaderText = "Màu sắc";
+            dgvDSSP.Columns["Namsx"].HeaderText = "Năm SX";
+            dgvDSSP.Columns["Tinhtrang"].HeaderText = "Tình trạng";
+
+            dgvDSSP.Columns["SK"].HeaderText = "Số Khung";
+            dgvDSSP.Columns["SM"].HeaderText = "Số Máy";
+
+            
+            dgvDSSP.Columns["Gia"].HeaderText = "Đơn giá";
+
+            dgvDSSP.Columns["Gia"].DefaultCellStyle.Format = "N0";
+
+
+            DataGridViewButtonColumn btnXoa = new DataGridViewButtonColumn();
+            btnXoa.Name = "ColXoa"; // Đặt tên cho cột để dễ dàng tham chiếu
+            btnXoa.Text = "Xóa";
+            btnXoa.HeaderText = "";
+            btnXoa.UseColumnTextForButtonValue = true;
+
+            // Thêm cột nút vào lưới chi tiết đơn hàng
+            dgvDSSP.Columns.Add(btnXoa);
+
+            // Bổ sung: Gán sự kiện xử lý click vào nút
+            dgvDSSP.CellContentClick += dgvDSSP_CellContentClick;
+
+        }
+
+        private void dgvTonKhoChiTiet_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0 || dgvTonKhoChiTiet.CurrentRow == null) return;
+
+            // Sử dụng biến cấp Form dtChiTietDonHang trực tiếp
+            DataTable dtDonHang = dtChiTietDonHang;
+
+            // Kiểm tra tính hợp lệ của DataSource
+            if (dtDonHang == null)
+            {
+                MessageBox.Show("Lỗi: Nguồn dữ liệu đơn hàng chưa được khởi tạo.", "Lỗi Hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            try
+            {
+                DataGridViewRow selectedRow = dgvTonKhoChiTiet.CurrentRow;
+
+                // 1. LẤY TẤT CẢ DỮ LIỆU CẦN THIẾT TRƯỚC HỘP THOẠI
+                string soKhung = selectedRow.Cells["SoKhung"].Value.ToString();
+                string soMay = selectedRow.Cells["SoMay"].Value.ToString();
+                string tenXe = selectedRow.Cells["TenXe"].Value.ToString();
+                string hangXe = selectedRow.Cells["Hangxe"].Value.ToString();
+                string loaiXe = selectedRow.Cells["Loaixe"].Value.ToString();
+                string mauXe = selectedRow.Cells["MauSac"].Value.ToString();
+                string namSx = selectedRow.Cells["NamSX"].Value.ToString();
+                string tinhTrang = selectedRow.Cells["Tinhtrang"].Value.ToString();
+                decimal donGia = Convert.ToDecimal(selectedRow.Cells["DonGia"].Value);
+
+                // 2. HIỂN THỊ HỘP THOẠI XÁC NHẬN
+                string message = $"Bạn có muốn thêm xe '{tenXe}' vào đơn hàng không?";
+                string caption = "Xác nhận Sản phẩm";
+
+                DialogResult result = MessageBox.Show(message, caption,
+                                                     MessageBoxButtons.YesNo,
+                                                     MessageBoxIcon.Question);
+
+                // 3. XỬ LÝ KHI NGƯỜI DÙNG CHỌN YES (THÊM SẢN PHẨM)
+                if (result == DialogResult.Yes)
+                {
+                    // --- Logic đã sửa nằm ở đây ---
+
+                    // Kiểm tra tính duy nhất (SK và SM)
+                    string filterExpression = $"SK = '{soKhung}' OR SM = '{soMay}'";
+                    DataRow[] existingRows = dtDonHang.Select(filterExpression);
+
+                    if (existingRows.Length > 0)
+                    {
+                        MessageBox.Show($"Xe '{tenXe}' đã được thêm vào chi tiết đơn hàng. Không thể thêm cùng một chiếc xe hai lần.", "Lỗi Trùng lặp", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        // THÊM DÒNG MỚI VÀO DATATABLE
+                        DataRow newRow = dtDonHang.NewRow();
+
+                        // ÁNH XẠ DỮ LIỆU
+                        newRow["TenXe"] = tenXe;
+                        newRow["Hangxe"] = hangXe;
+                        newRow["Loaixe"] = loaiXe;
+                        newRow["Mau"] = mauXe;
+                        newRow["Namsx"] = namSx;
+                        newRow["Tinhtrang"] = tinhTrang;
+                        newRow["SK"] = soKhung;
+                        newRow["SM"] = soMay;
+
+                        // Gán giá trị và tính toán
+                        newRow["Gia"] = donGia;
+                        
+                        
+
+                        dtDonHang.Rows.Add(newRow);
+                        MessageBox.Show($"Đã thêm xe '{tenXe}' vào đơn hàng.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+
+                    // Đồng bộ DataGridView với DataTable
+                    dtDonHang.AcceptChanges();
+                    CapNhatTongKetDonHang();
+                }
+                else if (result == DialogResult.No) { return; }
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi trong quá trình lấy giá trị hoặc xử lý logic
+                MessageBox.Show("Lỗi khi thêm sản phẩm vào đơn hàng: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+        private void dgvDSSP_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            if (e.ColumnIndex == dgvDSSP.Columns["ColXoa"].Index && e.RowIndex >= 0)
+            {
+                // QUAN TRỌNG: Nếu click vào dòng trống/dòng mới -> Dừng ngay
+                if (dgvDSSP.Rows[e.RowIndex].IsNewRow)
+                {
+                    return; // Dừng, không làm gì nếu không phải dòng dữ liệu
+                }
+
+                // --- LOGIC XÓA (CHỈ CHẠY TRÊN DÒNG CÓ DỮ LIỆU) ---
+
+                try
+                {
+                    DataRowView drv = (DataRowView)dgvDSSP.Rows[e.RowIndex].DataBoundItem;
+                    string tenXeCanXoa = drv["TenXe"]?.ToString() ?? "sản phẩm này";
+
+                    // 2. Xác nhận xóa
+                    DialogResult result = MessageBox.Show(
+                        $"Bạn có chắc chắn muốn xóa xe '{tenXeCanXoa}' khỏi đơn hàng không?",
+                        "Xác nhận Xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        // 3. Xóa dòng khỏi DataTable
+                        drv.Row.Delete();
+                        dtChiTietDonHang.AcceptChanges();
+
+                        MessageBox.Show("Đã xóa sản phẩm khỏi đơn hàng.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // CapNhatTongTienDonHang(); 
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi xóa sản phẩm: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void dgvDSSP_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex == dgvDSSP.Columns["ColXoa"].Index)
+            {
+                // 2. Nếu là dòng mới (chưa có dữ liệu) -> KHÔNG VẼ NÚT
+                if (dgvDSSP.Rows[e.RowIndex].IsNewRow)
+                {
+                    e.PaintBackground(e.CellBounds, true);
+                    e.Handled = true; // Ngăn vẽ nút mặc định
+                    return;
+                }
+
+                // 3. Nếu không phải dòng mới -> VẼ NÚT MÀU ĐỎ
+
+                // Vô hiệu hóa việc vẽ mặc định của WinForms
+                e.Paint(e.CellBounds, DataGridViewPaintParts.All & ~DataGridViewPaintParts.ContentBackground);
+
+                // Thiết lập vùng vẽ nút (cách lề 3 pixel)
+                Rectangle buttonBounds = new Rectangle(
+                    e.CellBounds.X + 3,
+                    e.CellBounds.Y + 3,
+                    e.CellBounds.Width - 6,
+                    e.CellBounds.Height - 6
+                );
+
+                
+
+                // Vẽ lại nút với màu nền ĐỎ
+                ControlPaint.DrawButton(e.Graphics, buttonBounds, ButtonState.Normal);
+
+                // Vẽ chữ "Xóa" màu trắng
+                TextRenderer.DrawText(e.Graphics,
+                                      "Xóa",
+                                      e.CellStyle.Font,
+                                      buttonBounds,
+                                      Color.Red,
+                                      TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
+
+                e.Handled = true; // Đánh dấu sự kiện đã được xử lý
+            }
+        }
+        private void CapNhatTongKetDonHang()
+        {
+            // Khởi tạo tổng tiền và tổng số lượng
+            decimal tongTien = 0;
+            int tongSoLuong = 0;
+
+            // Kiểm tra DataTable có hợp lệ không
+            if (dtChiTietDonHang == null) return;
+
+            foreach (DataRow row in dtChiTietDonHang.Rows)
+            {
+                try
+                {
+                    // Tính Tổng Tiền
+                    if (row["Gia"] != DBNull.Value && row["Gia"] != null)
+                    {
+                        tongTien += Convert.ToDecimal(row["Gia"]);
+                    }
+                    tongSoLuong++; 
+                    
+                }
+                catch (Exception ex)
+                {
+                    // Bỏ qua dòng bị lỗi định dạng và có thể ghi log
+                    Console.WriteLine("Lỗi khi tính tổng: " + ex.Message);
+                }
+            }
+
+
+            txtTongTienDH.Text = tongTien.ToString("N0") + " VNĐ"; // Định dạng số có dấu phẩy
+            txtTongSoLuongDH.Text = tongSoLuong.ToString();
+
+            
+        }
+        private void LoadActiveUuDaiToComboBox()
+        {
+            // Giả định ComboBox của bạn có tên là 'cboMaUD'
+            try
+            {
+                // 1. Lấy dữ liệu từ Service
+                DataTable dtActiveUuDai = QuanLyBanXe.GetActiveUuDaiCodes();
+
+                // 2. Thêm dòng mặc định "Không áp dụng" (Rất quan trọng)
+                DataRow defaultRow = dtActiveUuDai.NewRow();
+                defaultRow["MaUuDai"] = string.Empty; // Mã rỗng
+
+                // Cần đảm bảo DataTable có cột TenUuDai nếu bạn muốn dùng dòng này
+                // Nếu không, bạn cần thay thế bằng một cột đã tồn tại trong DataTable (ví dụ: MaUuDai)
+                // Nếu SP chỉ trả về MaUuDai, bạn phải thêm cột TenUuDai vào DataTable trước khi thêm dòng này
+                // (Chúng ta sẽ bỏ qua TenUuDai cho đơn giản)
+
+                // Chỉ thêm giá trị nếu có cột MaUuDai
+                if (dtActiveUuDai.Columns.Contains("MaUuDai"))
+                {
+                    defaultRow["MaUuDai"] = "";
+                }
+
+                dtActiveUuDai.Rows.InsertAt(defaultRow, 0);
+
+                // 3. Binding dữ liệu
+                cbUD.DataSource = dtActiveUuDai;
+
+                // Đặt cả hai thuộc tính là "MaUuDai"
+                cbUD.DisplayMember = "MaUuDai"; // Hiển thị MaUuDai
+                cbUD.ValueMember = "MaUuDai";   // Giá trị được lấy
+
+                // 4. Chọn dòng mặc định (dòng đầu tiên)
+                cbUD.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tải danh sách ưu đãi: " + ex.Message, "Lỗi Tải Dữ Liệu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnTaoDonHang_Click(object sender, EventArgs e)
+        {
+            lblTongtien.Text = "Tồng tiền (" + txtTongSoLuongDH.Text + ") sản phẩm";
+            lblGiatri.Text = txtTongTienDH.Text;
+        }
+
+        private void cbUD_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            decimal tongTienTruocGiam;
+            decimal tienGiam = 0;
+            string maUuDaiText = cbUD.SelectedValue?.ToString() ?? string.Empty;
+
+            // 1. Lấy Tổng tiền trước giảm giá (BẮT BUỘC)
+            string cleanTongTien = txtTongTienDH.Text.Replace(" VNĐ", "").Replace(",", "");
+            if (!decimal.TryParse(cleanTongTien, out tongTienTruocGiam))
+            {
+                // Nếu tổng tiền không hợp lệ, không thể tính toán giảm giá
+                // Chỉ cần đặt lại giao diện giảm giá và return
+                CapNhatGiaoDienUuDai(0, tongTienTruocGiam);
+                return;
+            }
+
+            // 2. CHỈ XỬ LÝ KHI CÓ MÃ ƯU ĐÃI ĐƯỢC CHỌN
+            if (!string.IsNullOrEmpty(maUuDaiText))
+            {
+                try
+                {
+                    DataTable dtUuDai = QuanLyBanXe.GetUuDaiByMa(maUuDaiText);
+
+                    if (dtUuDai == null || dtUuDai.Rows.Count == 0)
+                    {
+                        // Mã không tồn tại, đặt lại lựa chọn
+                        MessageBox.Show($"Mã Ưu Đãi '{maUuDaiText}' không tồn tại trong hệ thống.", "Lỗi Ưu đãi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        cbUD.SelectedIndex = 0;
+                        return;
+                    }
+
+                    DataRow row = dtUuDai.Rows[0];
+
+                    // Lấy thông tin
+                    string loaiUuDai = row["LoaiUuDai"].ToString().ToUpper();
+                    decimal giaTriGiam = Convert.ToDecimal(row["GiaTriGiam"]);
+                    DateTime from = Convert.ToDateTime(row["NgayBatDau"]);
+                    DateTime to = Convert.ToDateTime(row["NgayKetThuc"]);
+
+                    // 3. KIỂM TRA HIỆU LỰC
+                    if (DateTime.Today >= from.Date && DateTime.Today <= to.Date)
+                    {
+                        // Tính toán tiền giảm
+                        if (loaiUuDai == "PHANTRAM")
+                        {
+                            tienGiam = tongTienTruocGiam * (giaTriGiam / 100);
+                        }
+                        else if (loaiUuDai == "TRUCTIEP")
+                        {
+                            tienGiam = Math.Min(giaTriGiam, tongTienTruocGiam);
+                        }
+                    }
+                    else
+                    {
+                        // Ưu đãi hết hạn
+                        MessageBox.Show($"Ưu đãi '{maUuDaiText}' đã hết hạn sử dụng. Không thể áp dụng.", "Lỗi Ưu đãi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        cbUD.SelectedIndex = 0; // Đặt lại về không áp dụng
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi xử lý ưu đãi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+            // 4. Cập nhật giao diện với số tiền giảm và tổng tiền mới
+            CapNhatGiaoDienUuDai(tienGiam, tongTienTruocGiam);
+        }
+        private void CapNhatGiaoDienUuDai(decimal tienGiam, decimal tongTienTruocGiam)
+        {
+            decimal tongTienSauGiam = tongTienTruocGiam - tienGiam;
+
+            // Ví dụ: Giả định bạn có lblTienGiam và lblTongTienCuoiCung
+            lblUudai.Text = tienGiam.ToString("N0") + " VNĐ";
+            lblTongcong.Text = tongTienSauGiam.ToString("N0") + " VNĐ"; 
         }
     }
 }

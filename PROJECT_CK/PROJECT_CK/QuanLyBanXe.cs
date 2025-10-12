@@ -433,5 +433,27 @@ namespace PROJECT_CK
             }
             return dt;
         }
+        public static DataTable GetActiveUuDaiCodes()
+        {
+            DataTable dt = new DataTable();
+            string query = "SP_UuDai_GetAllActive";
+
+            using (SqlConnection connection = GetConnection())
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                try
+                {
+                    SqlDataAdapter adapter = new SqlDataAdapter(command);
+                    adapter.Fill(dt);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi tải danh sách mã ưu đãi: " + ex.Message, "Lỗi SQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    dt = new DataTable(); // Trả về DataTable rỗng nếu có lỗi
+                }
+            }
+            return dt;
+        }
     }
 }
