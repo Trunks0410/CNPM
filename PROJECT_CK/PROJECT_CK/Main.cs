@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using Guna.UI2.WinForms;
 using QuanLyMuaBanXeMay;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace PROJECT_CK
 {
@@ -89,7 +90,11 @@ namespace PROJECT_CK
             SetupCbbTieuChiNV();
             LoadTatCaBaoCao();
             //Bán xe
-            
+            radioAll.Checked = true;
+            btnSuaUD.Visible = false;
+            btnXoaUD.Visible = false;
+
+
         }
 
         private void LoadPhieuNhap()
@@ -3076,6 +3081,158 @@ namespace PROJECT_CK
 
 
             }
+        }
+        public void LoadDanhsachUudai(DataGridView dgv, DataTable ds)
+        {
+            if (dgv == null || ds == null)
+            {
+                
+                MessageBox.Show("Lỗi: DataGridView hoặc DataTable không được khởi tạo.", "Lỗi Dữ Liệu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            try
+            {
+                // 1. Ngắt liên kết nguồn dữ liệu hiện tại (nếu có)
+                dgv.DataSource = null;
+
+                // 2. Gán DataTable làm nguồn dữ liệu
+                dgv.DataSource = ds;
+
+                // Tùy chọn: Tinh chỉnh giao diện DataGridView sau khi load
+                // Ví dụ: Đặt lại tiêu đề cột
+                dgv.Columns["MaUuDai"].HeaderText = "Mã Ưu Đãi"; 
+                dgv.Columns["TenUuDai"].HeaderText = "Tên Chương Trình";
+                dgv.Columns["GiaTriGiam"].HeaderText = "Giá trị";
+                dgv.Columns["LoaiUuDai"].HeaderText = "Loại";
+                dgv.Columns["NgayBatDau"].HeaderText = "Từ";
+                dgv.Columns["NgayKetThuc"].HeaderText = "Đến";
+                dgv.Columns["TrangThaiHieuLuc"].HeaderText = "Trạng thái";
+                dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi load dữ liệu: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnTimuudai_Click(object sender, EventArgs e)
+        {
+            string status;
+            if(radioAll.Checked)
+            {
+                status = "TatCa";
+            }
+            else if (radioOn.Checked)
+            {
+                status = "KichHoat";
+            }
+            else if(radioOff.Checked)
+            {
+                status = "NgungKichHoat";
+            }
+            else
+            {
+                status = null;
+            }
+            LoadDanhsachUudai(dgvDsUudai, QuanLyBanXe.GetDanhSachUuDaiCombined(txtTimUudai.Text,status));
+        }
+
+        private void radioAll_CheckedChanged(object sender, EventArgs e)
+        {
+            LoadDanhsachUudai(dgvDsUudai, QuanLyBanXe.GetDanhSachUuDaiCombined(txtTimUudai.Text, "TatCa"));
+        }
+
+        private void radioOn_CheckedChanged(object sender, EventArgs e)
+        {
+            LoadDanhsachUudai(dgvDsUudai, QuanLyBanXe.GetDanhSachUuDaiCombined(txtTimUudai.Text, "KichHoat"));
+        }
+
+        private void radioOff_CheckedChanged(object sender, EventArgs e)
+        {
+            LoadDanhsachUudai(dgvDsUudai, QuanLyBanXe.GetDanhSachUuDaiCombined(txtTimUudai.Text, "NgungKichHoat"));
+        }
+
+        private void btnALLUudai_Click(object sender, EventArgs e)
+        {
+            txtTimUudai.Text = "";
+            radioAll.Checked = true;
+        }
+
+        private void btnThemUudai_Click(object sender, EventArgs e)
+        {
+            ThemKhuyenMai themKhuyenMai = new ThemKhuyenMai();
+            themKhuyenMai.Show();
+            themKhuyenMai.FormClosed += (s, args) =>
+            {
+                // Ép kiểu đối tượng gửi sự kiện (s) về lại Form ThemKhuyenMai
+                ThemKhuyenMai closedForm = s as ThemKhuyenMai;
+
+                // Kiểm tra biến cờ DataChanged
+                if (closedForm != null && closedForm.DataChanged)
+                {
+                    // Chỉ tải lại dữ liệu nếu DataChanged là TRUE
+                    LoadDanhsachUudai(
+                        dgvDsUudai,
+                        QuanLyBanXe.GetDanhSachUuDaiCombined(null, "TatCa")
+                    );
+                }
+                
+            };
+
+        }
+        
+        string selectedMaUuDai = null;
+        private void dgvDsUudai_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            btnSuaUD.Visible = true;
+            btnXoaUD.Visible = true;
+            selectedMaUuDai = dgvDsUudai.Rows[e.RowIndex].Cells["MaUuDai"].Value.ToString();
+        }
+
+        private void btnSuaUD_Click(object sender, EventArgs e)
+        {
+            ThemKhuyenMai themKhuyenMai = new ThemKhuyenMai(selectedMaUuDai);
+            themKhuyenMai.Show();
+            themKhuyenMai.FormClosed += (s, args) =>
+            {
+                // Ép kiểu đối tượng gửi sự kiện (s) về lại Form ThemKhuyenMai
+                ThemKhuyenMai closedForm = s as ThemKhuyenMai;
+
+                // Kiểm tra biến cờ DataChanged
+                if (closedForm != null && closedForm.DataChanged)
+                {
+                    // Chỉ tải lại dữ liệu nếu DataChanged là TRUE
+                    LoadDanhsachUudai(
+                        dgvDsUudai,
+                        QuanLyBanXe.GetDanhSachUuDaiCombined(null, "TatCa")
+                    );
+                }
+
+            };
+            btnSuaUD.Visible = false;
+            btnXoaUD.Visible = false;
+
+        }
+
+        private void btnXoaUD_Click(object sender, EventArgs e)
+        {
+            QuanLyBanXe.DeleteUuDai(selectedMaUuDai);
+            btnSuaUD.Visible = false;
+            btnXoaUD.Visible = false;
+            DataTable currentDataSource = dgvDsUudai.DataSource as DataTable;
+
+            if (currentDataSource != null)
+            {
+                DataRow[] rowsToDelete = currentDataSource.Select($"MaUuDai = '{selectedMaUuDai}'");
+
+                if (rowsToDelete.Length > 0)
+                {
+                    rowsToDelete[0].Delete(); 
+                    currentDataSource.AcceptChanges();
+                }
+            }
+
         }
     }
 }
