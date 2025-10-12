@@ -33,6 +33,7 @@ namespace PROJECT_CK
         private QuanLyNhanVien qlnv = new QuanLyNhanVien();
         private DataTable dtChiTietDonHang;
         public QuanLyKhachHang quanLyKH;
+        public int IdKH = 0;
         public Main()
         {
             InitializeComponent();
@@ -3612,6 +3613,112 @@ namespace PROJECT_CK
             // Ví dụ: Giả định bạn có lblTienGiam và lblTongTienCuoiCung
             lblUudai.Text = tienGiam.ToString("N0") + " VNĐ";
             lblTongcong.Text = tongTienSauGiam.ToString("N0") + " VNĐ"; 
+        }
+
+        private void btnKiemTra_Click(object sender, EventArgs e)
+        {
+            string soDienThoai = txtSoDT_XLDH.Text.Trim();
+
+            // 1. Kiểm tra đầu vào phía Client (Thêm lớp bảo vệ)
+            if (string.IsNullOrEmpty(soDienThoai))
+            {
+                MessageBox.Show("Vui lòng nhập Số điện thoại để kiểm tra.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtSoDT_XLDH.Focus();
+                return;
+            }
+
+            try
+            {
+                // Gọi hàm tìm kiếm, kết quả có thể là DataTable chứa 0 hoặc 1 dòng
+                DataTable ketQuaDT = QuanLyBanXe.TimKhachHangBangSDT(soDienThoai);
+
+                if (ketQuaDT != null && ketQuaDT.Rows.Count > 0)
+                {
+                    // Tìm thấy khách hàng
+                    DataRow row = ketQuaDT.Rows[0];
+
+                    // ⚠️ CHÚ Ý: Đảm bảo tên cột khớp với tên trong thủ tục SELECT!
+                    // Tên cột trong SP là "HoTen" và "DiaChi", không phải "TenKH"
+                    txtHoTen_XLDH.Text = row["HoTen"].ToString();
+                    txtDiaChi_XLDH.Text = row["DiaChi"].ToString();
+                    IdKH = Convert.ToInt32(row["KhachHangID"]);
+
+                    MessageBox.Show("Tìm thấy khách hàng trong hệ thống.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Khách hàng mới. Vui lòng nhập thông tin Khách hàng mới.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    txtHoTen_XLDH.Clear();
+                    txtDiaChi_XLDH.Clear();
+                    txtHoTen_XLDH.Focus();
+                }
+            }
+            catch (System.Data.SqlClient.SqlException sqlEx)
+            {
+                MessageBox.Show($"Lỗi kiểm tra dữ liệu: {sqlEx.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Đã xảy ra lỗi không xác định: {ex.Message}", "Lỗi Hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private DataTable TaoDataTableChiTietDonHang()
+        {
+            DataTable dt = new DataTable();
+    
+            // Cấu trúc cột phải khớp với ChiTietDonHangType trong SQL
+            dt.Columns.Add("XeCTID", typeof(int));
+            dt.Columns.Add("SoLuong", typeof(int));
+            dt.Columns.Add("DonGia", typeof(decimal));
+    
+            return dt;
+        }
+        private void btnXacNhanDH_Click(object sender, EventArgs e)
+        {
+            if (IdKH == 0)
+            {
+                try
+                {
+                    var parameters = new Dictionary<string, object>
+                    {
+                        { "@HoTen", txtHoTen_XLDH?.Text ?? string.Empty },
+                        { "@TenLoaiKH", "Khách mua xe"},
+                        { "@DiaChi", txtDiaChi_XLDH?.Text ?? string.Empty },
+                        { "@SoDienThoai", txtSoDT_XLDH?.Text ?? string.Empty },
+                    };
+
+                    
+                    object result = QuanLyBanXe.ExecuteScalar("sp_InsertKhachHangMoi", parameters);
+
+                    if (result != null && result != DBNull.Value)
+                    {
+                        
+                        int maKhachHangMoi = Convert.ToInt32(result);
+
+                        IdKH = maKhachHangMoi;
+
+                        MessageBox.Show($"Thêm khách hàng thành công! Mã Khách Hàng mới là: {IdKH}");
+                    }
+                    else
+                    {
+                        
+                        MessageBox.Show("Không thêm được khách hàng. (Không nhận được ID mới).");
+                    }
+                }
+                catch (SqlException sqlEx)
+                {
+                    MessageBox.Show("Lỗi SQL: " + sqlEx.Message);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi hệ thống: " + ex.Message);
+                }
+
+                
+            }
+
+
         }
     }
 }

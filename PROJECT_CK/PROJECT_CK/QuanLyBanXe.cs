@@ -18,6 +18,27 @@ namespace PROJECT_CK
             string connectionString = "Data Source=.;Initial Catalog=QuanLyXeMuaBanXeMay;Integrated Security=True;";
             return new SqlConnection(connectionString);
         }
+        public static object ExecuteScalar(string sql, Dictionary<string, object> parameters)
+        {
+            using (SqlConnection conn = GetConnection())
+            using (SqlCommand cmd = new SqlCommand(sql, conn))
+            {
+                // ⚠️ SỬA LỖI: PHẢI CHỈ ĐỊNH RẰNG ĐÂY LÀ STORES PROCEDURE
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                if (parameters != null)
+                {
+                    foreach (var param in parameters)
+                    {
+                        // Sử dụng AddWithValue an toàn
+                        cmd.Parameters.AddWithValue(param.Key, param.Value ?? DBNull.Value);
+                    }
+                }
+
+                conn.Open();
+                return cmd.ExecuteScalar();
+            }
+        }
         public static DataTable GetDoanhThuNamHienTai()
         {
             DataTable dt = new DataTable();
@@ -454,6 +475,88 @@ namespace PROJECT_CK
                 }
             }
             return dt;
+        }
+        public static DataTable TimKhachHangBangSDT(string soDienThoai)
+        {
+            // Tên Stored Procedure
+            string storedProcedureName = "TimKhachHangBangSDT";
+            DataTable dtKhachHang = new DataTable();
+
+            try
+            {
+                // Dùng lại mẫu: using (SqlConnection connection = GetConnection())
+                using (SqlConnection connection = GetConnection())
+                using (SqlCommand command = new SqlCommand(storedProcedureName, connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    // 1. Thêm tham số đầu vào
+                    command.Parameters.Add("@SoDienThoai", SqlDbType.VarChar, 15).Value = soDienThoai;
+
+                    connection.Open();
+
+                    // 2. Sử dụng SqlDataAdapter để điền dữ liệu
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        adapter.Fill(dtKhachHang);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                // Xử lý lỗi (ví dụ: lỗi kiểm tra độ dài/ký tự số từ RAISERROR trong SP)
+                Console.WriteLine($"Lỗi tìm kiếm khách hàng: {ex.Message}");
+                throw;
+            }
+
+            return dtKhachHang;
+        }
+        public int TaoDonHangVaChiTiet(int khachHangID,DataTable danhSachXe, int? maNV = null,string maUuDai = null,string ghiChu = null)
+        {
+            string storedProcedureName = "TaoDonHangVaChiTiet";
+            int maDonHangMoi = 0;
+
+            try
+            {
+                using (SqlConnection connection = GetConnection())
+                using (SqlCommand command = new SqlCommand(storedProcedureName, connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    // Thêm các tham số cơ bản
+                    command.Parameters.AddWithValue("@KhachHangID", khachHangID);
+                    command.Parameters.AddWithValue("@MaNV", maNV ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@MaUuDai", maUuDai ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@GhiChu", ghiChu ?? (object)DBNull.Value);
+                    // @NgayGiaoDich được bỏ qua vì SP xử lý NULL
+
+                    // Thêm tham số Biến Bảng (TVP)
+                    SqlParameter tvpParam = command.Parameters.AddWithValue("@DanhSachXe", danhSachXe);
+                    tvpParam.SqlDbType = SqlDbType.Structured;
+                    // Tên của kiểu dữ liệu bảng SQL
+                    tvpParam.TypeName = "ChiTietDonHangType";
+
+                    connection.Open();
+
+                    // Lấy MaDonHang mới (SP sử dụng SELECT)
+                    object result = command.ExecuteScalar();
+
+                    if (result != null && result != DBNull.Value)
+                    {
+                        maDonHangMoi = Convert.ToInt32(result);
+                        return maDonHangMoi;
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException("Giao dịch không thành công.");
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                // Bắt lỗi RAISERROR hoặc Transaction Rollback
+                throw new Exception($"Lỗi tạo đơn hàng: {ex.Message}", ex);
+            }
         }
     }
 }
