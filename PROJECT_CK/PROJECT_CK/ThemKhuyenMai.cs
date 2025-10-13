@@ -129,26 +129,67 @@ namespace PROJECT_CK
 
         private void btnLuu_Click(object sender, EventArgs e)
         {
-            if (update)
+           try
             {
-                if (cbbLoaiUudai.SelectedIndex == 0)
+                // --- 1. VALIDATION: Kiểm tra dữ liệu đầu vào trước khi xử lý ---
+                if (cbbLoaiUudai.SelectedIndex < 0)
                 {
-                    loaiUD = "TRUCTIEP";
+                    MessageBox.Show("Vui lòng chọn loại ưu đãi.", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return; // Dừng lại nếu chưa chọn loại
                 }
-                else if (cbbLoaiUudai.SelectedIndex == 1)
+
+                if (!decimal.TryParse(txtGiatri.Text, out decimal giaTri))
                 {
-                    loaiUD = "PHANTRAM";
+                    MessageBox.Show("Giá trị giảm không hợp lệ. Vui lòng nhập đúng định dạng số.", "Lỗi Dữ Liệu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
-                decimal giaTri = decimal.Parse(txtGiatri.Text);
-                QuanLyBanXe.UpdateUuDai(txtMaUD.Text, txtTenUD.Text, loaiUD, giaTri, dtTuNgay.Value, dtDenNgay.Value, txtMota.Text);
+
+                // SỬA: Thêm validation cho trường mới 'Điều kiện tối thiểu'
+                if (!decimal.TryParse(txtDK.Text, out decimal dieuKienToiThieu))
+                {
+                    MessageBox.Show("Điều kiện đơn tối thiểu không hợp lệ. Vui lòng nhập đúng định dạng số.", "Lỗi Dữ Liệu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // --- 2. THU THẬP DỮ LIỆU ---
+                string maUD = txtMaUD.Text;
+                string tenUD = txtTenUD.Text;
+                string loaiUD = (cbbLoaiUudai.SelectedIndex == 0) ? "TRUCTIEP" : "PHANTRAM"; // Cách viết gọn hơn
+                DateTime tuNgay = dtTuNgay.Value;
+                DateTime denNgay = dtDenNgay.Value;
+                string moTa = txtMota.Text;
+
+                // --- 3. THỰC THI HÀNH ĐỘNG ---
+                btnLuu.Enabled = false; // Vô hiệu hóa nút để tránh click nhiều lần
+                this.Cursor = Cursors.WaitCursor; // Đổi con trỏ chuột báo hiệu đang xử lý
+
+                if (update) // Chế độ Cập nhật
+                {
+                    // SỬA: Thêm tham số 'dieuKienToiThieu' vào lời gọi hàm
+                    QuanLyBanXe.UpdateUuDai(maUD, tenUD, loaiUD, giaTri, dieuKienToiThieu, tuNgay, denNgay, moTa);
+                    MessageBox.Show("Cập nhật ưu đãi thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else // Chế độ Thêm mới
+                {
+                    // SỬA: Thêm tham số 'dieuKienToiThieu' vào lời gọi hàm
+                    QuanLyBanXe.InsertUuDai(maUD, tenUD, loaiUD, giaTri, dieuKienToiThieu, tuNgay, denNgay, moTa);
+                    MessageBox.Show("Thêm mới ưu đãi thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+                this.DataChanged = true; // Báo hiệu dữ liệu đã thay đổi
+                this.Close(); // Đóng form sau khi thành công
             }
-            else
+            catch (Exception ex)
             {
-                decimal giaTri = decimal.Parse(txtGiatri.Text);
-                QuanLyBanXe.InsertUuDai(txtMaUD.Text, txtTenUD.Text, loaiUD, giaTri, dtTuNgay.Value, dtDenNgay.Value, txtMota.Text);
+                // Bắt tất cả các lỗi (bao gồm lỗi từ SQL RAISERROR) và hiển thị cho người dùng
+                MessageBox.Show(ex.Message, "Đã xảy ra lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            this.DataChanged = true;
-            this.Close();
+            finally
+            {
+                // Khối này LUÔN LUÔN được thực thi, dù thành công hay thất bại
+                btnLuu.Enabled = true; // Kích hoạt lại nút
+                this.Cursor = Cursors.Default; // Trả lại con trỏ chuột bình thường
+            }
         }
 
         private void btnHuy_Click(object sender, EventArgs e)

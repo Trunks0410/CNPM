@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Security.Cryptography;
 
 namespace PROJECT_CK
 {
@@ -263,15 +264,93 @@ namespace PROJECT_CK
             }
             return newMa;
         }
-        public static void InsertUuDai(string maUuDai, string tenUuDai, string loai, decimal giaTri, DateTime tuNgay, DateTime denNgay, string moTa)
+        
+        public static void InsertUuDai(
+            string maUuDai,
+            string tenUuDai,
+            string loai,
+            decimal giaTri,
+            decimal dieuKienToiThieu, // <-- THÊM MỚI: Tham số cho điều kiện tối thiểu
+            DateTime tuNgay,
+            DateTime denNgay,
+            string moTa)
+            {
+                // THÊM MỚI: Kiểm tra logic cho tham số mới ngay trên C#
+                if (dieuKienToiThieu < 0)
+                {
+                    throw new ArgumentException("Điều kiện tối thiểu không được là số âm.");
+                }
+                if (denNgay.Date < tuNgay.Date)
+                {
+                    throw new ArgumentException("Ngày kết thúc phải lớn hơn hoặc bằng Ngày bắt đầu.");
+                }
+
+                string query = "SP_UuDai_Insert";
+                SqlTransaction transaction = null;
+
+                using (SqlConnection connection = GetConnection())
+                {
+                    try
+                    {
+                        connection.Open();
+                        transaction = connection.BeginTransaction();
+
+                        using (SqlCommand command = new SqlCommand(query, connection, transaction))
+                        {
+                            command.CommandType = CommandType.StoredProcedure;
+
+                            // Thêm tham số
+                            command.Parameters.AddWithValue("@MaUuDai", maUuDai);
+                            command.Parameters.AddWithValue("@TenUuDai", tenUuDai);
+                            command.Parameters.AddWithValue("@LoaiUuDai", loai.ToUpper());
+                            command.Parameters.AddWithValue("@GiaTriGiam", giaTri);
+                            command.Parameters.AddWithValue("@DieuKienToiThieu", dieuKienToiThieu); // <-- THÊM MỚI
+                            command.Parameters.AddWithValue("@NgayBatDau", tuNgay.Date);
+                            command.Parameters.AddWithValue("@NgayKetThuc", denNgay.Date);
+                            command.Parameters.AddWithValue("@MoTa", string.IsNullOrEmpty(moTa) ? (object)DBNull.Value : moTa);
+
+                            command.ExecuteNonQuery();
+                            transaction.Commit();
+                        }
+                    }
+                    catch (SqlException ex)
+                    {
+                        if (transaction != null) transaction.Rollback();
+                        if (ex.Number == 2627)
+                        {
+                            throw new InvalidOperationException("Mã chương trình (MaUuDai) đã tồn tại.", ex);
+                        }
+                        // Ném lỗi từ RAISERROR của SP
+                        throw new InvalidOperationException("Lỗi Cơ Sở Dữ Liệu: " + ex.Message, ex);
+                    }
+                    catch (Exception ex)
+                    {
+                        if (transaction != null) transaction.Rollback();
+                        throw;
+                    }
+                }
+           }
+        public static void UpdateUuDai(
+     string maUuDai,
+     string tenUuDai,
+     string loai,
+     decimal giaTri,
+     decimal dieuKienToiThieu, // <-- THÊM MỚI: Tham số cho điều kiện tối thiểu
+     DateTime tuNgay,
+     DateTime denNgay,
+     string moTa)
         {
-            // Kiểm tra logic Ngày tháng và Giá trị (đã chuyển sang SP, nhưng nên giữ lại kiểm tra giá trị ở đây cho tốc độ)
+            // THÊM MỚI: Kiểm tra logic cho tham số mới
+            if (dieuKienToiThieu < 0)
+            {
+                throw new ArgumentException("Điều kiện tối thiểu không được là số âm.");
+            }
             if (denNgay.Date < tuNgay.Date)
             {
                 throw new ArgumentException("Ngày kết thúc phải lớn hơn hoặc bằng Ngày bắt đầu.");
             }
 
-            string query = "SP_UuDai_Insert";
+            string query = "SP_UuDai_Update";
             SqlTransaction transaction = null;
 
             using (SqlConnection connection = GetConnection())
@@ -288,94 +367,34 @@ namespace PROJECT_CK
                         // Thêm tham số
                         command.Parameters.AddWithValue("@MaUuDai", maUuDai);
                         command.Parameters.AddWithValue("@TenUuDai", tenUuDai);
-                        command.Parameters.AddWithValue("@LoaiUuDai", loai.ToUpper()); // Gửi chữ HOA để đồng bộ với ràng buộc UPPER()
+                        command.Parameters.AddWithValue("@LoaiUuDai", loai.ToUpper());
                         command.Parameters.AddWithValue("@GiaTriGiam", giaTri);
-                        command.Parameters.AddWithValue("@NgayBatDau", tuNgay.Date);
-                        command.Parameters.AddWithValue("@NgayKetThuc", denNgay.Date);
-                        command.Parameters.AddWithValue("@MoTa", string.IsNullOrEmpty(moTa) ? (object)DBNull.Value : moTa);
-
-                        command.ExecuteNonQuery();
-
-                        transaction.Commit();
-                        
-                    }
-                }
-                catch (SqlException ex)
-                {
-                    if (transaction != null) transaction.Rollback();
-
-                    // Mã lỗi 2627 là lỗi vi phạm Khóa Chính (MaUuDai)
-                    if (ex.Number == 2627)
-                    {
-                        throw new InvalidOperationException("Mã chương trình (MaUuDai) đã tồn tại. Vui lòng chọn mã khác.", ex);
-                    }
-                    // Ném lỗi SQL chung (bao gồm cả lỗi RAISERROR từ SP)
-                    throw new InvalidOperationException("Lỗi Cơ Sở Dữ Liệu: " + ex.Message, ex);
-                }
-                catch (Exception ex)
-                {
-                    if (transaction != null) transaction.Rollback();
-                    throw; // Ném lỗi khác về Form
-                }
-            }
-        }
-        public static void UpdateUuDai(string maUuDai, string tenUuDai, string loai, decimal giaTri, DateTime tuNgay, DateTime denNgay, string moTa)
-        {
-            // Kiểm tra logic Ngày tháng trước khi gọi SQL (Tăng tốc độ phản hồi)
-            if (denNgay.Date < tuNgay.Date)
-            {
-                throw new ArgumentException("Ngày kết thúc phải lớn hơn hoặc bằng Ngày bắt đầu.");
-            }
-
-            string query = "SP_UuDai_Update"; // Tên Stored Procedure
-            SqlTransaction transaction = null;
-
-            using (SqlConnection connection = GetConnection())
-            {
-                try
-                {
-                    connection.Open();
-                    transaction = connection.BeginTransaction(); // Bắt đầu Transaction
-
-                    using (SqlCommand command = new SqlCommand(query, connection, transaction))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-
-                        // Thêm tham số
-                        command.Parameters.AddWithValue("@MaUuDai", maUuDai);
-                        command.Parameters.AddWithValue("@TenUuDai", tenUuDai);
-                        command.Parameters.AddWithValue("@LoaiUuDai", loai.ToUpper()); // Gửi chữ HOA
-                        command.Parameters.AddWithValue("@GiaTriGiam", giaTri);
+                        command.Parameters.AddWithValue("@DieuKienToiThieu", dieuKienToiThieu); // <-- THÊM MỚI
                         command.Parameters.AddWithValue("@NgayBatDau", tuNgay.Date);
                         command.Parameters.AddWithValue("@NgayKetThuc", denNgay.Date);
                         command.Parameters.AddWithValue("@MoTa", string.IsNullOrEmpty(moTa) ? (object)DBNull.Value : moTa);
 
                         int rowsAffected = command.ExecuteNonQuery();
-
-                        transaction.Commit(); // Hoàn tất Transaction
+                        transaction.Commit();
 
                         if (rowsAffected == 0)
                         {
-                            // Ném lỗi nếu không tìm thấy mã để cập nhật
                             throw new InvalidOperationException($"Không tìm thấy Mã Ưu Đãi ({maUuDai}) để cập nhật.");
                         }
-                        
                     }
                 }
                 catch (SqlException ex)
                 {
-                    if (transaction != null) transaction.Rollback(); // Rollback nếu có lỗi SQL
-                                                                     // Ném lỗi chi tiết hơn về Form
+                    if (transaction != null) transaction.Rollback();
                     throw new InvalidOperationException("Lỗi Cơ Sở Dữ Liệu khi cập nhật: " + ex.Message, ex);
                 }
                 catch (Exception ex)
                 {
                     if (transaction != null) transaction.Rollback();
-                    throw; // Ném lỗi hệ thống hoặc logic khác
+                    throw;
                 }
             }
         }
-
         public static void DeleteUuDai(string maUuDai)
         {
             string query = "SP_UuDai_Delete"; // Tên Stored Procedure
@@ -556,6 +575,76 @@ namespace PROJECT_CK
             {
                 // Bắt lỗi RAISERROR hoặc Transaction Rollback
                 throw new Exception($"Lỗi tạo đơn hàng: {ex.Message}", ex);
+            }
+        }
+        public static async Task<int> TaoDonHangMoiAsync(
+        int khachHangID,
+        DataTable danhSachXe, // Dùng DataTable rất phù hợp
+        string phuongThucThanhToan,
+        int? maNV,
+        string maUuDai,
+        string ghiChu)
+        {
+            string storedProcedureName = "TaoDonHangVaChiTiet";
+            int maDonHangMoi = 0;
+
+            using (SqlConnection connection = GetConnection())
+            using (SqlCommand command = new SqlCommand(storedProcedureName, connection))
+            {
+                try
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    // 1. Thêm các tham số cơ bản
+                    command.Parameters.AddWithValue("@KhachHangID", khachHangID);
+                    command.Parameters.AddWithValue("@PhuongThucThanhToan", phuongThucThanhToan);
+                    command.Parameters.AddWithValue("@MaNV", (object)maNV ?? DBNull.Value);
+                    command.Parameters.AddWithValue("@MaUuDai", string.IsNullOrEmpty(maUuDai) ? (object)DBNull.Value : maUuDai);
+                    command.Parameters.AddWithValue("@GhiChu", string.IsNullOrEmpty(ghiChu) ? (object)DBNull.Value : ghiChu);
+                   
+
+                    // 2. Thêm tham số Biến Bảng (Table-Valued Parameter)
+                    SqlParameter tvpParam = command.Parameters.AddWithValue("@DanhSachXe", danhSachXe);
+                    tvpParam.SqlDbType = SqlDbType.Structured;
+                    
+                    tvpParam.TypeName = "dbo.ChiTietDonHangType";
+
+                    await connection.OpenAsync();
+
+                    // 3. Lấy MaDonHang mới mà Stored Procedure trả về
+                    object result = await command.ExecuteScalarAsync();
+
+                    if (result != null && result != DBNull.Value)
+                    {
+                        maDonHangMoi = Convert.ToInt32(result);
+                        return maDonHangMoi;
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException("Không nhận được mã đơn hàng trả về từ cơ sở dữ liệu.");
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    throw new Exception($"Lỗi khi tạo đơn hàng: {ex.Message}", ex);
+                }
+            }
+        }
+        public static async Task<object> ExecuteScalarAsync(string procedureName, Dictionary<string, object> parameters)
+        {
+            using (SqlConnection conn = GetConnection())
+            using (SqlCommand cmd = new SqlCommand(procedureName, conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                if (parameters != null)
+                {
+                    foreach (var param in parameters)
+                    {
+                        cmd.Parameters.AddWithValue(param.Key, param.Value ?? DBNull.Value);
+                    }
+                }
+                await conn.OpenAsync();
+                return await cmd.ExecuteScalarAsync();
             }
         }
     }

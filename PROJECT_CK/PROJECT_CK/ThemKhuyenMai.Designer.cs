@@ -46,6 +46,8 @@
             this.siticoneLabel55 = new SiticoneNetFrameworkUI.SiticoneLabel();
             this.siticoneLabel3 = new SiticoneNetFrameworkUI.SiticoneLabel();
             this.cbbLoaiUudai = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.txtDK = new Guna.UI2.WinForms.Guna2TextBox();
+            this.siticoneLabel5 = new SiticoneNetFrameworkUI.SiticoneLabel();
             this.SuspendLayout();
             // 
             // btnHuy
@@ -60,7 +62,7 @@
             this.btnHuy.FillColor = System.Drawing.Color.Crimson;
             this.btnHuy.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.btnHuy.ForeColor = System.Drawing.Color.White;
-            this.btnHuy.Location = new System.Drawing.Point(558, 451);
+            this.btnHuy.Location = new System.Drawing.Point(557, 470);
             this.btnHuy.Name = "btnHuy";
             this.btnHuy.Size = new System.Drawing.Size(150, 45);
             this.btnHuy.TabIndex = 127;
@@ -79,7 +81,7 @@
             this.btnLuu.FillColor = System.Drawing.Color.ForestGreen;
             this.btnLuu.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.btnLuu.ForeColor = System.Drawing.Color.White;
-            this.btnLuu.Location = new System.Drawing.Point(402, 451);
+            this.btnLuu.Location = new System.Drawing.Point(402, 470);
             this.btnLuu.Name = "btnLuu";
             this.btnLuu.Size = new System.Drawing.Size(150, 45);
             this.btnLuu.TabIndex = 126;
@@ -98,7 +100,7 @@
             this.btnKhoitao.FillColor = System.Drawing.Color.ForestGreen;
             this.btnKhoitao.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.btnKhoitao.ForeColor = System.Drawing.Color.White;
-            this.btnKhoitao.Location = new System.Drawing.Point(246, 451);
+            this.btnKhoitao.Location = new System.Drawing.Point(246, 470);
             this.btnKhoitao.Name = "btnKhoitao";
             this.btnKhoitao.Size = new System.Drawing.Size(150, 45);
             this.btnKhoitao.TabIndex = 125;
@@ -120,7 +122,7 @@
             this.txtMota.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMota.ForeColor = System.Drawing.Color.Black;
             this.txtMota.HoverState.BorderColor = System.Drawing.Color.Silver;
-            this.txtMota.Location = new System.Drawing.Point(222, 276);
+            this.txtMota.Location = new System.Drawing.Point(222, 327);
             this.txtMota.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtMota.MaxLength = 0;
             this.txtMota.Name = "txtMota";
@@ -135,7 +137,7 @@
             this.siticoneLabel4.BackColor = System.Drawing.Color.Transparent;
             this.siticoneLabel4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.siticoneLabel4.ForeColor = System.Drawing.Color.Black;
-            this.siticoneLabel4.Location = new System.Drawing.Point(12, 285);
+            this.siticoneLabel4.Location = new System.Drawing.Point(12, 340);
             this.siticoneLabel4.Name = "siticoneLabel4";
             this.siticoneLabel4.Size = new System.Drawing.Size(116, 35);
             this.siticoneLabel4.TabIndex = 123;
@@ -368,11 +370,50 @@
             this.cbbLoaiUudai.TabIndex = 129;
             this.cbbLoaiUudai.SelectedIndexChanged += new System.EventHandler(this.cbbLoaiUudai_SelectedIndexChanged);
             // 
+            // txtDK
+            // 
+            this.txtDK.BorderColor = System.Drawing.Color.DarkGreen;
+            this.txtDK.BorderRadius = 10;
+            this.txtDK.BorderThickness = 2;
+            this.txtDK.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtDK.DefaultText = "";
+            this.txtDK.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtDK.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtDK.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtDK.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtDK.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtDK.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDK.ForeColor = System.Drawing.Color.Black;
+            this.txtDK.HoverState.BorderColor = System.Drawing.Color.Silver;
+            this.txtDK.Location = new System.Drawing.Point(222, 279);
+            this.txtDK.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtDK.MaxLength = 0;
+            this.txtDK.Name = "txtDK";
+            this.txtDK.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.txtDK.PlaceholderText = "";
+            this.txtDK.SelectedText = "";
+            this.txtDK.Size = new System.Drawing.Size(233, 38);
+            this.txtDK.TabIndex = 130;
+            // 
+            // siticoneLabel5
+            // 
+            this.siticoneLabel5.BackColor = System.Drawing.Color.Transparent;
+            this.siticoneLabel5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.siticoneLabel5.ForeColor = System.Drawing.Color.Black;
+            this.siticoneLabel5.Location = new System.Drawing.Point(12, 279);
+            this.siticoneLabel5.Name = "siticoneLabel5";
+            this.siticoneLabel5.Size = new System.Drawing.Size(116, 35);
+            this.siticoneLabel5.TabIndex = 131;
+            this.siticoneLabel5.Text = "Điều kiện tối thiểu";
+            this.siticoneLabel5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // ThemKhuyenMai
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(719, 537);
+            this.Controls.Add(this.siticoneLabel5);
+            this.Controls.Add(this.txtDK);
             this.Controls.Add(this.cbbLoaiUudai);
             this.Controls.Add(this.siticoneLabel3);
             this.Controls.Add(this.btnHuy);
@@ -420,5 +461,7 @@
         private SiticoneNetFrameworkUI.SiticoneLabel siticoneLabel55;
         private SiticoneNetFrameworkUI.SiticoneLabel siticoneLabel3;
         private Guna.UI2.WinForms.Guna2ComboBox cbbLoaiUudai;
+        private Guna.UI2.WinForms.Guna2TextBox txtDK;
+        private SiticoneNetFrameworkUI.SiticoneLabel siticoneLabel5;
     }
 }

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using Guna.UI2.WinForms;
@@ -96,6 +97,9 @@ namespace PROJECT_CK
             btnXoaUD.Visible = false;
             KhoiTaoChiTietDonHang();
             LoadActiveUuDaiToComboBox();
+            guna2TabControl2.TabPages.Remove(tabPageXuLyDH);
+            guna2TabControl2.TabPages.Remove(tabPageChiTietHoaDon);
+            
 
         }
 
@@ -3105,6 +3109,7 @@ namespace PROJECT_CK
                 dgv.Columns["MaUuDai"].HeaderText = "Mã Ưu Đãi"; 
                 dgv.Columns["TenUuDai"].HeaderText = "Tên Chương Trình";
                 dgv.Columns["GiaTriGiam"].HeaderText = "Giá trị";
+                dgv.Columns["DieuKienToiThieu"].HeaderText = "Đơn Tối Thiểu";
                 dgv.Columns["LoaiUuDai"].HeaderText = "Loại";
                 dgv.Columns["NgayBatDau"].HeaderText = "Từ";
                 dgv.Columns["NgayKetThuc"].HeaderText = "Đến";
@@ -3177,10 +3182,11 @@ namespace PROJECT_CK
                         dgvDsUudai,
                         QuanLyBanXe.GetDanhSachUuDaiCombined(null, "TatCa")
                     );
+                    LoadActiveUuDaiToComboBox();
                 }
                 
             };
-            LoadActiveUuDaiToComboBox();
+            
 
         }
         
@@ -3534,8 +3540,11 @@ namespace PROJECT_CK
 
         private void btnTaoDonHang_Click(object sender, EventArgs e)
         {
+            guna2TabControl2.TabPages.Add(tabPageXuLyDH);
+            guna2TabControl2.SelectedTab = tabPageXuLyDH;
             lblTongtien.Text = "Tồng tiền (" + txtTongSoLuongDH.Text + ") sản phẩm";
             lblGiatri.Text = txtTongTienDH.Text;
+            lblTongcong.Text = txtTongTienDH.Text;
         }
 
         private void cbUD_SelectedIndexChanged(object sender, EventArgs e)
@@ -3674,50 +3683,179 @@ namespace PROJECT_CK
     
             return dt;
         }
-        private void btnXacNhanDH_Click(object sender, EventArgs e)
+        private async void btnXacNhanDH_Click(object sender, EventArgs e)
         {
-            if (IdKH == 0)
+            try
             {
-                try
-                {
-                    var parameters = new Dictionary<string, object>
-                    {
-                        { "@HoTen", txtHoTen_XLDH?.Text ?? string.Empty },
-                        { "@TenLoaiKH", "Khách mua xe"},
-                        { "@DiaChi", txtDiaChi_XLDH?.Text ?? string.Empty },
-                        { "@SoDienThoai", txtSoDT_XLDH?.Text ?? string.Empty },
-                    };
+                // Vô hiệu hóa nút và đổi con trỏ chuột ngay từ đầu
+                btnTaoDonHang.Enabled = false;
+                this.Cursor = Cursors.WaitCursor;
 
-                    
-                    object result = QuanLyBanXe.ExecuteScalar("sp_InsertKhachHangMoi", parameters);
+                // BƯỚC 1: THÊM KHÁCH HÀNG MỚI (NẾU CẦN)
+                if (IdKH == 0)
+                {
+                    // Validation thông tin khách hàng trước khi gọi DB
+                    if (string.IsNullOrWhiteSpace(txtHoTen_XLDH.Text) || string.IsNullOrWhiteSpace(txtSoDT_XLDH.Text))
+                    {
+                        MessageBox.Show("Vui lòng nhập đầy đủ Họ Tên và Số Điện Thoại cho khách hàng mới.", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return; // Dừng lại ngay lập tức
+                    }
+
+                    var parameters = new Dictionary<string, object>
+            {
+                { "@HoTen", txtHoTen_XLDH.Text },
+                { "@TenLoaiKH", "Khách mua xe" },
+                { "@DiaChi", txtDiaChi_XLDH.Text },
+                { "@SoDienThoai", txtSoDT_XLDH.Text },
+            };
+
+                    // Nên tạo một phiên bản async cho ExecuteScalar để không làm đơ UI
+                    object result = await QuanLyBanXe.ExecuteScalarAsync("sp_InsertKhachHangMoi", parameters);
 
                     if (result != null && result != DBNull.Value)
                     {
-                        
-                        int maKhachHangMoi = Convert.ToInt32(result);
-
-                        IdKH = maKhachHangMoi;
-
-                        MessageBox.Show($"Thêm khách hàng thành công! Mã Khách Hàng mới là: {IdKH}");
+                        IdKH = Convert.ToInt32(result);
+                        MessageBox.Show($"Thêm khách hàng mới thành công! Mã KH: {IdKH}", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
-                        
-                        MessageBox.Show("Không thêm được khách hàng. (Không nhận được ID mới).");
+                        // SỬA 2: Nếu không thêm được khách hàng, phải DỪNG lại
+                        MessageBox.Show("Không thêm được khách hàng. Vui lòng thử lại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return; // Rất quan trọng: Thoát khỏi phương thức
                     }
                 }
-                catch (SqlException sqlEx)
+
+                // BƯỚC 2: THU THẬP DỮ LIỆU ĐƠN HÀNG
+                string phuongThuc = cbPTTT.SelectedItem.ToString();
+                string maUuDai = cbUD.SelectedValue?.ToString() ?? string.Empty;
+
+                DataTable dtChiTiet = new DataTable();
+                dtChiTiet.Columns.Add("SoKhung", typeof(string));
+                dtChiTiet.Columns.Add("SoMay", typeof(string));
+                dtChiTiet.Columns.Add("SoLuong", typeof(int));
+                dtChiTiet.Columns.Add("DonGia", typeof(decimal));
+
+                DataTable dtHienThi = new DataTable();
+                dtHienThi.Columns.Add("TenSanPham", typeof(string));
+                dtHienThi.Columns.Add("SoKhung", typeof(string));
+                dtHienThi.Columns.Add("SoMay", typeof(string));
+                dtHienThi.Columns.Add("DonGia", typeof(decimal));
+
+                foreach (DataGridViewRow row in dgvDSSP.Rows)
                 {
-                    MessageBox.Show("Lỗi SQL: " + sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Lỗi hệ thống: " + ex.Message);
+                    if (row.IsNewRow) continue;
+                    // ... (code thêm row vào dtChiTiet và dtHienThi giữ nguyên)
+                    string tenXe = row.Cells["TenXe"].Value.ToString();
+                    string soKhung = row.Cells["SK"].Value.ToString();
+                    string soMay = row.Cells["SM"].Value.ToString();
+                    decimal donGia = Convert.ToDecimal(row.Cells["Gia"].Value);
+                    dtChiTiet.Rows.Add(soKhung, soMay, 1, donGia);
+                    dtHienThi.Rows.Add(tenXe, soKhung, soMay, donGia);
                 }
 
-                
+                if (dtChiTiet.Rows.Count == 0)
+                {
+                    MessageBox.Show("Vui lòng thêm xe vào đơn hàng.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // BƯỚC 3: GỌI TẠO ĐƠN HÀNG
+                int maDonHangMoi = await QuanLyBanXe.TaoDonHangMoiAsync(
+                    IdKH, dtChiTiet, phuongThuc, null, maUuDai, null
+                );
+
+                // BƯỚC 4: HIỂN THỊ KẾT QUẢ
+                MessageBox.Show($"Tạo đơn hàng thành công! Mã đơn hàng mới là: {maDonHangMoi}", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // ... (phần code hiển thị thông tin lên tab chi tiết giữ nguyên)
+                guna2TabControl2.TabPages.Add(tabPageChiTietHoaDon);
+                guna2TabControl2.SelectedTab = tabPageChiTietHoaDon;
+                guna2DataGridView4.DataSource = dtHienThi;
+                guna2DataGridView4.Columns["TenSanPham"].HeaderText = "Tên Sản Phẩm";
+
+                guna2DataGridView4.Columns["SoKhung"].HeaderText = "Số Khung";
+
+                guna2DataGridView4.Columns["SoMay"].HeaderText = "Số Máy";
+
+                guna2DataGridView4.Columns["DonGia"].HeaderText = "Đơn Giá";
+                lbNgay.Text = DateTime.Now.ToString("dd/MM/yyyy");
+
+                lbTenNV.Text = "Kiệt";
+
+                lbTenKH.Text = txtHoTen_XLDH.Text;
+
+                lbSoDT.Text = txtSoDT_XLDH.Text;
+
+                lbDiaChi.Text = txtDiaChi_XLDH.Text;
+
+                if (lblUudai.Text != "0 VNĐ")
+
+                {
+
+                    lbTru.Text = "-" + lblUudai.Text;
+
+                }
+
+                else
+
+                    lbTru.Text = "";
+
+                lbTongtien.Text = lblTongcong.Text;
+            }
+            catch (Exception ex) // Bắt TẤT CẢ các lỗi có thể xảy ra trong quá trình
+            {
+                MessageBox.Show(ex.Message, "Đã xảy ra lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally // Khối này LUÔN LUÔN được thực thi
+            {
+                btnTaoDonHang.Enabled = true;
+                this.Cursor = Cursors.Default;
             }
 
+
+        }
+
+        private void btnHuyDH_Click(object sender, EventArgs e)
+        {
+
+            guna2TabControl2.TabPages.Remove(tabPageXuLyDH);
+            guna2TabControl2.SelectedTab = tabPageDSSP;
+        }
+
+        private void btnDong_Click(object sender, EventArgs e)
+        {
+            if (tabPageXuLyDH != null)
+                tabPageXuLyDH.Visible = false;
+
+            if (tabPageChiTietHoaDon != null)
+                tabPageChiTietHoaDon.Visible = false;
+
+            guna2TabControl2.SelectedTab = tabPageDSSP;
+
+            if (dtChiTietDonHang != null)
+            {
+                dtChiTietDonHang.Rows.Clear();
+            }
+            
+            else if (dgvDSSP.DataSource == null)
+            {
+                dgvDSSP.Rows.Clear();
+            }
+            
+            IdKH = 0;
+            txtDiaChi_XLDH.Clear();
+            txtHoTen_XLDH.Clear();
+            txtSoDT_XLDH.Clear();
+
+            if (cbUD.Items.Count > 0)
+            {
+                cbUD.SelectedIndex = 0;
+            }
+
+            lblUudai.Text = "0 VNĐ";
+            lblTongcong.Text = "0 VNĐ";
+            txtTongSoLuongDH.Text = "0";
+            txtTongTienDH.Text = "0 VNĐ";
 
         }
     }

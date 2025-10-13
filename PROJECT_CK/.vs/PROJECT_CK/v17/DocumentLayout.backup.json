@@ -3,36 +3,28 @@
   "WorkspaceRootPath": "E:\\CNPM\\CNPM\\PROJECT_CK\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|E:\\CNPM\\CNPM\\PROJECT_CK\\project_ck\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|e:\\cnpm\\cnpm\\project_ck\\project_ck\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|solutionrelative:project_ck\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|E:\\CNPM\\CNPM\\PROJECT_CK\\project_ck\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|solutionrelative:project_ck\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|E:\\CNPM\\CNPM\\PROJECT_CK\\project_ck\\quanlynhapxe_kho.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|solutionrelative:project_ck\\quanlynhapxe_kho.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|E:\\CNPM\\CNPM\\PROJECT_CK\\project_ck\\quanlybanxe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|solutionrelative:project_ck\\quanlybanxe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|e:\\cnpm\\cnpm\\project_ck\\project_ck\\quanlykhachhang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|solutionrelative:project_ck\\quanlykhachhang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|e:\\cnpm\\cnpm\\project_ck\\project_ck\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|solutionrelative:project_ck\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|E:\\CNPM\\CNPM\\PROJECT_CK\\project_ck\\main.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|solutionrelative:project_ck\\main.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|E:\\CNPM\\CNPM\\PROJECT_CK\\project_ck\\themkhuyenmai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|solutionrelative:project_ck\\themkhuyenmai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|e:\\cnpm\\cnpm\\project_ck\\project_ck\\quanlynhapxe_kho.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|solutionrelative:project_ck\\quanlynhapxe_kho.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|E:\\CNPM\\CNPM\\PROJECT_CK\\project_ck\\themkhuyenmai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|solutionrelative:project_ck\\themkhuyenmai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|E:\\CNPM\\CNPM\\PROJECT_CK\\project_ck\\main.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|solutionrelative:project_ck\\main.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 11,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
@@ -66,72 +58,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "QuanLyNhapXe_Kho.cs",
-              "DocumentMoniker": "E:\\CNPM\\CNPM\\PROJECT_CK\\PROJECT_CK\\QuanLyNhapXe_Kho.cs",
-              "RelativeDocumentMoniker": "PROJECT_CK\\QuanLyNhapXe_Kho.cs",
-              "ToolTip": "E:\\CNPM\\CNPM\\PROJECT_CK\\PROJECT_CK\\QuanLyNhapXe_Kho.cs",
-              "RelativeToolTip": "PROJECT_CK\\QuanLyNhapXe_Kho.cs",
-              "ViewState": "AgIAADEAAAAAAAAAAAAYwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-12T17:15:27.42Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "QuanLyKhachHang.cs",
-              "DocumentMoniker": "E:\\CNPM\\CNPM\\PROJECT_CK\\PROJECT_CK\\QuanLyKhachHang.cs",
-              "RelativeDocumentMoniker": "PROJECT_CK\\QuanLyKhachHang.cs",
-              "ToolTip": "E:\\CNPM\\CNPM\\PROJECT_CK\\PROJECT_CK\\QuanLyKhachHang.cs",
-              "RelativeToolTip": "PROJECT_CK\\QuanLyKhachHang.cs",
-              "ViewState": "AgIAAHEAAAAAAAAAAAA7wHYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-12T17:15:07.438Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "ThemKhuyenMai.cs",
-              "DocumentMoniker": "E:\\CNPM\\CNPM\\PROJECT_CK\\PROJECT_CK\\ThemKhuyenMai.cs",
-              "RelativeDocumentMoniker": "PROJECT_CK\\ThemKhuyenMai.cs",
-              "ToolTip": "E:\\CNPM\\CNPM\\PROJECT_CK\\PROJECT_CK\\ThemKhuyenMai.cs",
-              "RelativeToolTip": "PROJECT_CK\\ThemKhuyenMai.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAAA1wDMAAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-12T06:20:06.111Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 4,
               "Title": "Main.Designer.cs",
               "DocumentMoniker": "E:\\CNPM\\CNPM\\PROJECT_CK\\PROJECT_CK\\Main.Designer.cs",
               "RelativeDocumentMoniker": "PROJECT_CK\\Main.Designer.cs",
               "ToolTip": "E:\\CNPM\\CNPM\\PROJECT_CK\\PROJECT_CK\\Main.Designer.cs",
               "RelativeToolTip": "PROJECT_CK\\Main.Designer.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAP8uAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABAuAAAAAAAAAAAgwBAuAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-10T16:48:48.587Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "QuanLyBanXe.cs",
               "DocumentMoniker": "E:\\CNPM\\CNPM\\PROJECT_CK\\PROJECT_CK\\QuanLyBanXe.cs",
               "RelativeDocumentMoniker": "PROJECT_CK\\QuanLyBanXe.cs",
               "ToolTip": "E:\\CNPM\\CNPM\\PROJECT_CK\\PROJECT_CK\\QuanLyBanXe.cs",
               "RelativeToolTip": "PROJECT_CK\\QuanLyBanXe.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAxwBQAAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAAGsCAAAAAAAAAAAwwIgCAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-10T16:01:53.776Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "ThemKhuyenMai.cs [Design]",
               "DocumentMoniker": "E:\\CNPM\\CNPM\\PROJECT_CK\\PROJECT_CK\\ThemKhuyenMai.cs",
               "RelativeDocumentMoniker": "PROJECT_CK\\ThemKhuyenMai.cs",
@@ -149,14 +102,14 @@
               "RelativeDocumentMoniker": "PROJECT_CK\\Main.cs",
               "ToolTip": "E:\\CNPM\\CNPM\\PROJECT_CK\\PROJECT_CK\\Main.cs*",
               "RelativeToolTip": "PROJECT_CK\\Main.cs*",
-              "ViewState": "AgIAAF4OAAAAAAAAAAA3wGkOAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAMYNAAAAAAAAAAA3wNoNAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-09T10:10:37.468Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "Main.cs [Design]",
               "DocumentMoniker": "E:\\CNPM\\CNPM\\PROJECT_CK\\PROJECT_CK\\Main.cs",
               "RelativeDocumentMoniker": "PROJECT_CK\\Main.cs",
@@ -165,6 +118,19 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-09T11:43:08.505Z",
               "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "QuanLyNhapXe_Kho.cs",
+              "DocumentMoniker": "E:\\CNPM\\CNPM\\PROJECT_CK\\PROJECT_CK\\QuanLyNhapXe_Kho.cs",
+              "RelativeDocumentMoniker": "PROJECT_CK\\QuanLyNhapXe_Kho.cs",
+              "ToolTip": "E:\\CNPM\\CNPM\\PROJECT_CK\\PROJECT_CK\\QuanLyNhapXe_Kho.cs",
+              "RelativeToolTip": "PROJECT_CK\\QuanLyNhapXe_Kho.cs",
+              "ViewState": "AgIAACsAAAAAAAAAAAA1wAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-12T17:15:27.42Z",
+              "EditorCaption": ""
             }
           ]
         }
