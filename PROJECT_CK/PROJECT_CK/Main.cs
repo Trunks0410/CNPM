@@ -35,13 +35,15 @@ namespace PROJECT_CK
         private DataTable dtChiTietDonHang;
         public QuanLyKhachHang quanLyKH;
         public int IdKH = 0;
-        public Main()
+        public Main(string username, string role, string connectionString)
         {
             InitializeComponent();
-
+            _username = username;
+            _role = role;
+            _connectionString = connectionString;
             quanLyNhapXe_Kho = new QuanLyNhapXe_Kho();
-            //ApplyRolePermissions();
             quanLyKH = new QuanLyKhachHang();
+            ApplyRolePermissions();
         }
 
         private void ApplyRolePermissions()

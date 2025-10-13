@@ -17,7 +17,7 @@ namespace PROJECT_CK
            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Main());
+            Application.Run(new DangNhap());
         }
     }
 }
