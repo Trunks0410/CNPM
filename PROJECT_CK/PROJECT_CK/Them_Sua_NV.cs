@@ -19,13 +19,8 @@ namespace PROJECT_CK
         {
             InitializeComponent();
             maNhanVienHienTai = maNV;
-            // Gọi hàm điền dữ liệu cho ComboBox
             PopulateComboBoxes();
             LoadInitialData();
-            btnLuuThongTin.Click += btnLuuThongTin_Click;
-
-            txtMatKhau.UseSystemPasswordChar = true;
-            cbAnHienMatKhau.Checked = false; 
         }
 
         private void PopulateComboBoxes()
@@ -54,108 +49,163 @@ namespace PROJECT_CK
 
         private void LoadInitialData()
         {
-            if (maNhanVienHienTai > 0)
+            if (maNhanVienHienTai > 0) // Chế độ Sửa
             {
                 this.Text = "Sửa thông tin nhân viên";
                 btnLuuThongTin.Text = "CẬP NHẬT";
                 LoadNhanVienData(maNhanVienHienTai);
+
+                txtMatKhau.UseSystemPasswordChar = true;
+                cbAnHienMatKhau.Checked = false;
+                cbAnHienMatKhau.Enabled = true; 
             }
-            else
+            else // Chế độ Thêm mới
             {
                 this.Text = "Thêm thông tin nhân viên";
                 btnLuuThongTin.Text = "LƯU THÔNG TIN";
-                // Khi thêm mới, cho phép nhập thông tin tài khoản
+
                 txtTenTaiKhoan.ReadOnly = false;
-                txtMatKhau.ReadOnly = false;
                 cbVaiTro.Enabled = true;
+
+                string matKhauNgauNhien = TaoMatKhauNgauNhien();
+                txtMatKhau.Text = matKhauNgauNhien;
+                txtMatKhau.ReadOnly = true;
+
+                cbAnHienMatKhau.Checked = true;  
+                cbAnHienMatKhau.Enabled = false; 
+
+                cbAnHienMatKhau_CheckedChanged(null, null);
             }
+        }
+
+        // Hàm để tạo một chuỗi mật khẩu ngẫu nhiên
+        private string TaoMatKhauNgauNhien(int length = 8)
+        {
+            const string validChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+            StringBuilder res = new StringBuilder();
+            Random rnd = new Random();
+            while (0 < length--)
+            {
+                res.Append(validChars[rnd.Next(validChars.Length)]);
+            }
+            return res.ToString();
         }
 
         private void LoadNhanVienData(int maNV)
         {
-            DataRow dr = qlnv.GetNhanVienById(maNV);
-            if (dr != null)
+            DataRow drNhanVien = qlnv.GetNhanVienById(maNV);
+            if (drNhanVien != null)
             {
-                // Thông tin cá nhân
-                txtHoTen.Text = dr["HoTenNV"].ToString();
-                dtpNgaySinh.Value = Convert.ToDateTime(dr["NgaySinh"]);
-                if (dr["GioiTinh"].ToString() == "Nam") rdoNam.Checked = true;
+                txtHoTen.Text = drNhanVien["HoTenNV"].ToString();
+                dtpNgaySinh.Value = Convert.ToDateTime(drNhanVien["NgaySinh"]);
+                if (drNhanVien["GioiTinh"].ToString() == "Nam") rdoNam.Checked = true;
                 else rdoNu.Checked = true;
-                txtDiaChi.Text = dr["DiaChi"].ToString();
-                txtCCCD.Text = dr["CCCD"].ToString();
+                txtDiaChi.Text = drNhanVien["DiaChi"].ToString();
+                txtCCCD.Text = drNhanVien["CCCD"].ToString();
 
-                // Thông tin liên hệ
-                txtSoDT.Text = dr["SoDT"].ToString();
-                txtEmail.Text = dr["Email"].ToString();
+                txtSoDT.Text = drNhanVien["SoDT"].ToString();
+                txtEmail.Text = drNhanVien["Email"].ToString();
 
-                // Thông tin công việc
-                // Gán giá trị Chức vụ đã đọc từ DB vào ComboBox
-                cbChucVu.Text = dr["ChucVu"].ToString();
-                dtpNgayNhanViec.Value = Convert.ToDateTime(dr["NgayNhanViec"]);
-                txtLuongCoBan.Text = dr["LuongCB"].ToString();
+                cbChucVu.Text = drNhanVien["ChucVu"].ToString();
+                dtpNgayNhanViec.Value = Convert.ToDateTime(drNhanVien["NgayNhanViec"]);
+                txtLuongCoBan.Text = drNhanVien["LuongCB"].ToString();
+
+                DataRow drTaiKhoan = qlnv.GetTaiKhoanByMaNV(maNV);
+                if (drTaiKhoan != null)
+                {
+                    txtTenTaiKhoan.Text = drTaiKhoan["TenTK"].ToString();
+                    txtMatKhau.Text = drTaiKhoan["MatKhau"].ToString();
+                    cbVaiTro.Text = drTaiKhoan["VaiTro"].ToString();
+                }
+                else
+                {
+                    txtTenTaiKhoan.Text = "(chưa có)";
+                    txtMatKhau.Text = "";
+                    cbVaiTro.SelectedIndex = -1; 
+                }
 
                 txtTenTaiKhoan.ReadOnly = true;
                 txtMatKhau.ReadOnly = true;
-                cbVaiTro.Enabled = false;
             }
         }
 
         private void btnLuuThongTin_Click(object sender, EventArgs e)
         {
-            // 1. Lấy dữ liệu và kiểm tra nhập liệu cơ bản
-            string hoTen = txtHoTen.Text;
+            string hoTen = txtHoTen.Text.Trim();
             DateTime ngaySinh = dtpNgaySinh.Value;
             string gioiTinh = rdoNam.Checked ? "Nam" : "Nữ";
-            string diaChi = txtDiaChi.Text;
-            string cccd = txtCCCD.Text;
-            string soDT = txtSoDT.Text;
-            string email = txtEmail.Text;
+            string diaChi = txtDiaChi.Text.Trim();
+            string cccd = txtCCCD.Text.Trim();
+            string soDT = txtSoDT.Text.Trim();
+            string email = txtEmail.Text.Trim();
             string chucVu = cbChucVu.Text;
             DateTime ngayNhanViec = dtpNgayNhanViec.Value;
             decimal luongCB;
+            string hinhAnh = ""; 
 
-            // Kiểm tra Lương
+            if (string.IsNullOrWhiteSpace(hoTen) || string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(chucVu))
+            {
+                MessageBox.Show("Vui lòng điền đầy đủ các thông tin bắt buộc.", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             if (!decimal.TryParse(txtLuongCoBan.Text, out luongCB))
             {
                 MessageBox.Show("Lương cơ bản không hợp lệ.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            string hinhAnh = ""; // Giả định
-
-            // 2. Xử lý Tài khoản (chỉ khi Thêm mới)
-            string tenTK = maNhanVienHienTai == 0 ? txtTenTaiKhoan.Text : null;
-            string matKhau = maNhanVienHienTai == 0 ? txtMatKhau.Text : null;
-            string vaiTro = maNhanVienHienTai == 0 ? cbVaiTro.Text : null;
-
-            // Kiểm tra tài khoản khi Thêm mới
-            if (maNhanVienHienTai == 0 && (string.IsNullOrEmpty(tenTK) || string.IsNullOrEmpty(matKhau) || string.IsNullOrEmpty(vaiTro)))
-            {
-                MessageBox.Show("Vui lòng nhập đầy đủ Tên tài khoản, Mật khẩu và Vai trò khi thêm nhân viên mới.", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
 
             try
             {
-                if (maNhanVienHienTai == 0) // Thêm mới
+                if (maNhanVienHienTai == 0) 
                 {
+                    string tenTK = txtTenTaiKhoan.Text.Trim();
+                    string matKhau = txtMatKhau.Text; 
+                    string vaiTro = cbVaiTro.Text;
+
+                    if (string.IsNullOrWhiteSpace(tenTK) || string.IsNullOrWhiteSpace(matKhau) || string.IsNullOrWhiteSpace(vaiTro))
+                    {
+                        MessageBox.Show("Vui lòng nhập đầy đủ Tên tài khoản, Mật khẩu và Vai trò khi thêm nhân viên mới.", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
                     qlnv.InsertNhanVien(hoTen, ngaySinh, gioiTinh, soDT, email, diaChi, cccd,
                                         chucVu, ngayNhanViec, luongCB, hinhAnh,
                                         tenTK, matKhau, vaiTro);
-                    MessageBox.Show("Thêm nhân viên thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    try
+                    {
+                        qlnv.GuiEmailMatKhau(email, hoTen, tenTK, matKhau);
+                        MessageBox.Show("Thêm nhân viên thành công! Mật khẩu đã được gửi đến email của nhân viên.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception exMail)
+                    {
+                        // Nếu gửi mail thất bại, vẫn thông báo thêm thành công nhưng cảnh báo về việc gửi email
+                        MessageBox.Show($"Thêm nhân viên thành công, nhưng không thể gửi email: {exMail.Message}", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
-                else // Cập nhật
+                else // Trường hợp: Cập nhật nhân viên
                 {
                     qlnv.UpdateNhanVien(maNhanVienHienTai, hoTen, ngaySinh, gioiTinh, soDT, email, diaChi, cccd,
                                         chucVu, ngayNhanViec, luongCB, hinhAnh);
-                    MessageBox.Show("Cập nhật nhân viên thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Cập nhật thông tin tài khoản (Mật khẩu và Vai trò)
+                    string matKhauMoi = txtMatKhau.Text;
+                    string vaiTroMoi = cbVaiTro.Text;
+                    if (!string.IsNullOrWhiteSpace(matKhauMoi) && !string.IsNullOrWhiteSpace(vaiTroMoi))
+                    {
+                        qlnv.UpdateTaiKhoan(maNhanVienHienTai, matKhauMoi, vaiTroMoi);
+                    }
+
+                    MessageBox.Show("Cập nhật thông tin nhân viên thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
+                // 4. Đóng form sau khi hoàn tất
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi Lưu dữ liệu: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Đã xảy ra lỗi khi lưu dữ liệu: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void cbAnHienMatKhau_CheckedChanged(object sender, EventArgs e)

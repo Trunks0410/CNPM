@@ -14,13 +14,14 @@ namespace PROJECT_CK
     {
         private int maChamCongHienTai = 0;
         private QuanLyNhanVien qlnv = new QuanLyNhanVien();
+
         public Them_Sua_ChamCong(int maCC)
         {
             InitializeComponent();
             maChamCongHienTai = maCC;
-            LoadInitialData();
         }
-        private void LoadInitialData()
+
+        private void Them_Sua_ChamCong_Load(object sender, EventArgs e)
         {
             if (maChamCongHienTai > 0)
             {
@@ -32,7 +33,22 @@ namespace PROJECT_CK
             {
                 this.Text = "Thêm chấm công";
                 btnLuuChamCong.Text = "LƯU CHẤM CÔNG";
+
+                dtpThoiGianVaoLam.Value = DateTime.Today.AddHours(8);  
+
+                dtpThoiGianVaoLam_ValueChanged(null, null);
+
+                rdoCoMat.Checked = true;
             }
+        }
+        private void dtpThoiGianVaoLam_ValueChanged(object sender, EventArgs e)
+        {
+            // Lấy thời gian vào làm mà người dùng đã chọn
+            DateTime thoiGianVao = dtpThoiGianVaoLam.Value;
+
+            DateTime thoiGianTan = thoiGianVao.AddHours(9);
+
+            dtpThoiGianTanCa.Value = thoiGianTan;
         }
 
         private void LoadChamCongData(int maCC)
@@ -42,10 +58,9 @@ namespace PROJECT_CK
             {
                 txtMaNV.Text = dr["MaNV"].ToString();
                 dtpNgayLamViec.Value = Convert.ToDateTime(dr["NgayLamViec"]);
-                dtpThoiGianVaoLam.Value = DateTime.Today.Add((TimeSpan)dr["TgVaoLam"]); 
-                dtpThoiGianTanCa.Value = DateTime.Today.Add((TimeSpan)dr["TgTanCa"]); 
+                dtpThoiGianVaoLam.Value = DateTime.Today.Add((TimeSpan)dr["TgVaoLam"]);
+                dtpThoiGianTanCa.Value = DateTime.Today.Add((TimeSpan)dr["TgTanCa"]);
 
-                // Xử lý RadioButton Trang thái
                 string trangThai = dr["TrangThai"].ToString();
                 if (trangThai == "Có mặt") rdoCoMat.Checked = true;
                 else if (trangThai == "Vắng") rdoVang.Checked = true;
@@ -59,7 +74,6 @@ namespace PROJECT_CK
 
         private void btnLuuChamCong_Click(object sender, EventArgs e)
         {
-            // 1. Lấy dữ liệu
             int maNV;
             if (!int.TryParse(txtMaNV.Text, out maNV))
             {

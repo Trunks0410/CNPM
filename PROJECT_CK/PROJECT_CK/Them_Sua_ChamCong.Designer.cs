@@ -265,6 +265,7 @@
             this.dtpThoiGianVaoLam.Size = new System.Drawing.Size(497, 45);
             this.dtpThoiGianVaoLam.TabIndex = 25;
             this.dtpThoiGianVaoLam.Value = new System.DateTime(2025, 9, 17, 7, 59, 6, 104);
+            this.dtpThoiGianVaoLam.ValueChanged += new System.EventHandler(this.dtpThoiGianVaoLam_ValueChanged);
             // 
             // dtpThoiGianTanCa
             // 
@@ -331,6 +332,7 @@
             this.Name = "Them_Sua_ChamCong";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Thêm/ Sửa chấm công";
+            this.Load += new System.EventHandler(this.Them_Sua_ChamCong_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

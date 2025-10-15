@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
+using System.Net;
+using System.Net.Mail;
 
 namespace PROJECT_CK
 {
@@ -13,8 +15,8 @@ namespace PROJECT_CK
         private string connectionString = "Data Source=.;Initial Catalog=QuanLyXeMuaBanXeMay;Integrated Security=True";
 
         public int InsertNhanVien(string hoTen, DateTime ngaySinh, string gioiTinh, string soDT, string email, string diaChi, string cccd,
-                                 string chucVu, DateTime ngayNhanViec, decimal luongCB, string hinhAnh,
-                                 string tenTK = null, string matKhau = null, string vaiTro = null)
+                                  string chucVu, DateTime ngayNhanViec, decimal luongCB, string hinhAnh,
+                                  string tenTK = null, string matKhau = null, string vaiTro = null)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -42,9 +44,8 @@ namespace PROJECT_CK
             }
         }
 
-        // Update UpdateNhanVien để thêm CCCD
         public void UpdateNhanVien(int maNV, string hoTen, DateTime ngaySinh, string gioiTinh, string soDT, string email,
-                                   string diaChi, string cccd, string chucVu, DateTime ngayNhanViec, decimal luongCB, string hinhAnh)
+                                  string diaChi, string cccd, string chucVu, DateTime ngayNhanViec, decimal luongCB, string hinhAnh)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -72,7 +73,6 @@ namespace PROJECT_CK
 
         public void DeleteNhanVien(int maNV)
         {
-            // Cần tạo Stored Procedure 'sp_DeleteNhanVien' trong SQL Server trước khi dùng
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -123,7 +123,6 @@ namespace PROJECT_CK
                     cmd.Parameters.AddWithValue("@ThoiGianTanCa", thoiGianTanCa);
                     cmd.Parameters.AddWithValue("@TrangThai", trangThai);
 
-                    // Xử lý giá trị NULL cho LyDoNghiPhep
                     if (!string.IsNullOrEmpty(lyDoNghiPhep))
                         cmd.Parameters.AddWithValue("@LyDoNghiPhep", lyDoNghiPhep);
                     else
@@ -148,7 +147,6 @@ namespace PROJECT_CK
             }
         }
 
-        // Thêm method cho InsertThongBao
         public void InsertThongBao(string tieuDe, string loaiThongBao, string noiDung, int? maNV = null)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -173,18 +171,15 @@ namespace PROJECT_CK
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                // Sử dụng Stored Procedure
                 using (SqlCommand cmd = new SqlCommand("sp_DeleteThongBao", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    // Tên cột MaThongBao đã được đổi thành MaTB trong SP trước
                     cmd.Parameters.AddWithValue("@MaTB", maTB);
                     cmd.ExecuteNonQuery();
                 }
             }
         }
 
-        // Lấy tổng số nhân viên
         public int GetTongNhanVien()
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -197,7 +192,6 @@ namespace PROJECT_CK
             }
         }
 
-        // Lấy trung bình KPI
         public decimal GetTrungBinhKPI(int thang, int nam)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -224,7 +218,6 @@ namespace PROJECT_CK
             }
         }
 
-        // Lấy tổng lương tháng
         public decimal GetTongLuongThang(int thang, int nam)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -239,7 +232,6 @@ namespace PROJECT_CK
             }
         }
 
-        // Lấy dữ liệu biểu đồ tròn (Pie Chart) cho nhân viên
         public DataTable GetDataForPieChartNhanVien(string criteria)
         {
             DataTable dt = new DataTable();
@@ -256,7 +248,6 @@ namespace PROJECT_CK
             return dt;
         }
 
-        // Lấy dữ liệu biểu đồ cột (Bar Chart) cho KPI
         public DataTable GetDataForBarChartKPI(int nam)
         {
             DataTable dt = new DataTable();
@@ -273,14 +264,17 @@ namespace PROJECT_CK
             return dt;
         }
 
-        // Lấy dữ liệu biểu đồ đường (Line Chart) cho Lương (xu hướng lương theo thời gian)
         public DataTable GetDataForLineChartLuong()
         {
             DataTable dt = new DataTable();
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand("SELECT ThangLuong AS Thang, AVG(LgThucNhan) AS LuongTrungBinh FROM Luong GROUP BY ThangLuong ORDER BY ThangLuong", conn))
+                using (SqlCommand cmd = new SqlCommand(@"
+              SELECT FORMAT(ThangLuong, 'yyyy-MM') AS Thang, AVG(LgThucNhan) AS LuongTrungBinh 
+              FROM Luong 
+              GROUP BY FORMAT(ThangLuong, 'yyyy-MM')
+              ORDER BY FORMAT(ThangLuong, 'yyyy-MM')", conn))
                 {
                     SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                     adapter.Fill(dt);
@@ -289,14 +283,17 @@ namespace PROJECT_CK
             return dt;
         }
 
-        // Lấy dữ liệu biểu đồ cột (Bar Chart) cho Lương
         public DataTable GetDataForBarChartLuongTong()
         {
             DataTable dt = new DataTable();
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand("SELECT ThangLuong AS Thang, SUM(LgThucNhan) AS TongLuong FROM Luong GROUP BY ThangLuong", conn))
+                using (SqlCommand cmd = new SqlCommand(@"
+              SELECT FORMAT(ThangLuong, 'yyyy-MM') AS Thang, SUM(LgThucNhan) AS TongLuong 
+              FROM Luong 
+              GROUP BY FORMAT(ThangLuong, 'yyyy-MM')
+              ORDER BY FORMAT(ThangLuong, 'yyyy-MM')", conn))
                 {
                     SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                     adapter.Fill(dt);
@@ -305,7 +302,6 @@ namespace PROJECT_CK
             return dt;
         }
 
-        // Lấy dữ liệu biểu đồ cột (Bar Chart) cho Chấm công
         public DataTable GetDataForBarChartChamCong()
         {
             DataTable dt = new DataTable();
@@ -333,15 +329,6 @@ namespace PROJECT_CK
                     adapter.Fill(dt);
                 }
             }
-            if (dt.Columns.Contains("MaNV")) dt.Columns["MaNV"].ColumnName = "Mã NV";
-            if (dt.Columns.Contains("HoTenNV")) dt.Columns["HoTenNV"].ColumnName = "Họ tên NV";
-            if (dt.Columns.Contains("NgaySinh")) dt.Columns["NgaySinh"].ColumnName = "Ngày sinh";
-            if (dt.Columns.Contains("GioiTinh")) dt.Columns["GioiTinh"].ColumnName = "Giới tính";
-            if (dt.Columns.Contains("SoDT")) dt.Columns["SoDT"].ColumnName = "Số ĐT";
-            if (dt.Columns.Contains("Email")) dt.Columns["Email"].ColumnName = "Email";
-            if (dt.Columns.Contains("ChucVu")) dt.Columns["ChucVu"].ColumnName = "Chức vụ";
-            if (dt.Columns.Contains("LuongCB")) dt.Columns["LuongCB"].ColumnName = "Lương cơ bản";
-
             return dt;
         }
 
@@ -413,17 +400,14 @@ namespace PROJECT_CK
                 }
             }
 
-            // Thêm cột tính toán Tổng Thời Gian vào DataTable
             dt.Columns.Add("TongThoiGianLamViec", typeof(string));
 
             foreach (DataRow row in dt.Rows)
             {
-                TimeSpan timeIn = (TimeSpan)row["TgVaoLam"];
-                TimeSpan timeOut = (TimeSpan)row["TgTanCa"];
-
-                if (row["TrangThai"].ToString() == "Có mặt")
+                if (row["TrangThai"].ToString() == "Có mặt" && row["TgVaoLam"] != DBNull.Value && row["TgTanCa"] != DBNull.Value)
                 {
-                    // Giả định GetTongThoiGianLamViec là một hàm có sẵn trong class này
+                    TimeSpan timeIn = (TimeSpan)row["TgVaoLam"];
+                    TimeSpan timeOut = (TimeSpan)row["TgTanCa"];
                     TimeSpan duration = this.GetTongThoiGianLamViec(timeIn, timeOut);
                     row["TongThoiGianLamViec"] = $"{duration.Hours:D2}:{duration.Minutes:D2}";
                 }
@@ -432,16 +416,6 @@ namespace PROJECT_CK
                     row["TongThoiGianLamViec"] = "00:00";
                 }
             }
-            if (dt.Columns.Contains("MaChamCong")) dt.Columns["MaChamCong"].ColumnName = "Mã CC";
-            if (dt.Columns.Contains("MaNV")) dt.Columns["MaNV"].ColumnName = "Mã NV";
-            if (dt.Columns.Contains("HoTenNV")) dt.Columns["HoTenNV"].ColumnName = "Họ tên";
-            if (dt.Columns.Contains("NgayLamViec")) dt.Columns["NgayLamViec"].ColumnName = "Ngày làm";
-            if (dt.Columns.Contains("TgVaoLam")) dt.Columns["TgVaoLam"].ColumnName = "Giờ vào";
-            if (dt.Columns.Contains("TgTanCa")) dt.Columns["TgTanCa"].ColumnName = "Giờ tan";
-            if (dt.Columns.Contains("TrangThai")) dt.Columns["TrangThai"].ColumnName = "Trạng thái";
-            if (dt.Columns.Contains("LyDoNghiPhep")) dt.Columns["LyDoNghiPhep"].ColumnName = "Lý do nghỉ";
-            if (dt.Columns.Contains("TongThoiGianLamViec")) dt.Columns["TongThoiGianLamViec"].ColumnName = "Tổng giờ làm";
-
             return dt;
         }
 
@@ -459,12 +433,6 @@ namespace PROJECT_CK
                     adapter.Fill(dt);
                 }
             }
-            if (dt.Columns.Contains("MaThongBao")) dt.Columns["MaThongBao"].ColumnName = "Mã TB";
-            if (dt.Columns.Contains("TieuDe")) dt.Columns["TieuDe"].ColumnName = "Tiêu đề";
-            if (dt.Columns.Contains("LoaiThongBao")) dt.Columns["LoaiThongBao"].ColumnName = "Loại thông báo";
-            if (dt.Columns.Contains("NoiDung")) dt.Columns["NoiDung"].ColumnName = "Nội dung";
-            if (dt.Columns.Contains("NgayTao")) dt.Columns["NgayTao"].ColumnName = "Ngày tạo";
-
             return dt;
         }
 
@@ -472,16 +440,15 @@ namespace PROJECT_CK
         {
             DataTable dt = new DataTable();
 
-            // Nếu chuỗi tìm kiếm rỗng, trả về toàn bộ danh sách
             if (string.IsNullOrWhiteSpace(searchText))
             {
-                return GetNhanVienList(); 
+                return GetNhanVienList();
             }
 
             string query = @"
                 SELECT MaNV, HoTenNV, NgaySinh, GioiTinh, SoDT, Email, ChucVu, LuongCB 
                 FROM NhanVien 
-                WHERE MaNV = @searchText 
+                WHERE (@MaNV IS NOT NULL AND MaNV = @MaNV) 
                    OR HoTenNV LIKE '%' + @searchText + '%'";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -489,6 +456,10 @@ namespace PROJECT_CK
                 conn.Open();
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
+                    if (int.TryParse(searchText, out int maNV))
+                        cmd.Parameters.AddWithValue("@MaNV", maNV);
+                    else
+                        cmd.Parameters.AddWithValue("@MaNV", DBNull.Value);
                     cmd.Parameters.AddWithValue("@searchText", searchText);
 
                     SqlDataAdapter adapter = new SqlDataAdapter(cmd);
@@ -497,6 +468,7 @@ namespace PROJECT_CK
             }
             return dt;
         }
+
         public DataTable SearchChamCong(DateTime? ngayLamViec, string maNVText)
         {
             DataTable dt = new DataTable();
@@ -517,13 +489,11 @@ namespace PROJECT_CK
                 conn.Open();
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                    // Tham số Ngày làm việc
                     if (ngayLamViec.HasValue)
                         cmd.Parameters.AddWithValue("@NgayLamViec", ngayLamViec.Value.Date);
                     else
                         cmd.Parameters.AddWithValue("@NgayLamViec", DBNull.Value);
 
-                    // Tham số Mã NV
                     if (!string.IsNullOrWhiteSpace(maNVText) && int.TryParse(maNVText, out int maNV))
                         cmd.Parameters.AddWithValue("@MaNV", maNV);
                     else
@@ -551,6 +521,7 @@ namespace PROJECT_CK
             }
             return dt;
         }
+
         public decimal GetLuongCoBanByMaNV(int maNV)
         {
             decimal luongCB = 0;
@@ -576,29 +547,32 @@ namespace PROJECT_CK
         {
             DataTable dt = new DataTable();
 
-            // Lấy ngày đầu và ngày cuối của tháng được chọn
             DateTime firstDay = new DateTime(monthYear.Year, monthYear.Month, 1);
             DateTime lastDay = firstDay.AddMonths(1).AddDays(-1);
 
-            // Truy vấn kết hợp thông tin nhân viên và tính tổng giờ làm
             string query = @"
-        SELECT 
-            NV.MaNV, 
-            NV.HoTenNV, 
-            NV.ChucVu, 
-            NV.LuongCB, -- Giữ lại LuongCB để tính toán sau
-            SUM(CASE 
-                WHEN CC.TrangThai = N'Có mặt' THEN DATEDIFF(MINUTE, CC.TgVaoLam, CC.TgTanCa)
-                ELSE 0 
-            END) AS TongSoPhutLam,
-            CAST(MONTH(@monthYear) AS NVARCHAR) + '/' + CAST(YEAR(@monthYear) AS NVARCHAR) AS ThangNamHienThi
-        FROM NhanVien NV
-        LEFT JOIN ChamCong CC ON NV.MaNV = CC.MaNV 
-            AND CC.NgayLamViec BETWEEN @FirstDay AND @LastDay
-        GROUP BY 
-            NV.MaNV, NV.HoTenNV, NV.ChucVu, NV.LuongCB
-        ORDER BY 
-            NV.MaNV";
+          SELECT 
+              NV.MaNV, 
+              NV.HoTenNV, 
+              NV.ChucVu, 
+              NV.LuongCB,
+              SUM(CASE 
+                  WHEN CC.TrangThai = N'Có mặt' THEN DATEDIFF(MINUTE, CC.TgVaoLam, CC.TgTanCa)
+                  ELSE 0 
+              END) AS TongSoPhutLam,
+              CAST(MONTH(@monthYear) AS NVARCHAR) + '/' + CAST(YEAR(@monthYear) AS NVARCHAR) AS ThangNamHienThi,
+              ISNULL(L.LgThucNhan, 0) AS LuongThucNhan,
+              ISNULL(L.TienThuong, 0) AS KhoanThuong,
+              ISNULL(L.KhauTru, 0) AS KhoanKhauTru
+          FROM NhanVien NV
+          LEFT JOIN ChamCong CC ON NV.MaNV = CC.MaNV 
+              AND CC.NgayLamViec BETWEEN @FirstDay AND @LastDay
+          LEFT JOIN Luong L ON NV.MaNV = L.MaNV 
+              AND YEAR(L.ThangLuong) = YEAR(@monthYear) AND MONTH(L.ThangLuong) = MONTH(@monthYear)
+          GROUP BY 
+              NV.MaNV, NV.HoTenNV, NV.ChucVu, NV.LuongCB, L.LgThucNhan, L.TienThuong, L.KhauTru
+          ORDER BY 
+              NV.MaNV";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -616,7 +590,7 @@ namespace PROJECT_CK
 
             dt.Columns.Add("MaLuong", typeof(int));
             dt.Columns.Add("TongGioLam", typeof(string));
-            dt.Columns.Add("LuongThucNhanTamTinh", typeof(decimal)); 
+            dt.Columns.Add("LuongThucNhanTamTinh", typeof(decimal));
 
             int counter = 1;
 
@@ -630,58 +604,140 @@ namespace PROJECT_CK
                 row["MaLuong"] = counter++;
                 row["TongGioLam"] = $"{hours} giờ {minutes} phút";
 
-                decimal luongCoBan = Convert.ToDecimal(row["LuongCB"]);
-                decimal luongThucNhanTamTinh = (luongCoBan / 176) * (totalMinutes / 60m);
-                row["LuongThucNhanTamTinh"] = Math.Round(luongThucNhanTamTinh, 0);
+                decimal luongThucNhan = Convert.ToDecimal(row["LuongThucNhan"]);
+                if (luongThucNhan == 0)
+                {
+                    decimal luongCoBan = Convert.ToDecimal(row["LuongCB"]);
+                    decimal luongThucNhanTamTinh = (luongCoBan / 176) * (totalMinutes / 60m);
+                    row["LuongThucNhanTamTinh"] = Math.Round(luongThucNhanTamTinh, 0);
+                }
+                else
+                {
+                    row["LuongThucNhanTamTinh"] = luongThucNhan;
+                }
             }
 
             if (dt.Columns.Contains("TongSoPhutLam")) dt.Columns.Remove("TongSoPhutLam");
 
-            if (dt.Columns.Contains("MaLuong")) dt.Columns["MaLuong"].ColumnName = "Mã lương";
-            if (dt.Columns.Contains("MaNV")) dt.Columns["MaNV"].ColumnName = "Mã NV";
-            if (dt.Columns.Contains("HoTenNV")) dt.Columns["HoTenNV"].ColumnName = "Họ tên NV";
-            if (dt.Columns.Contains("ChucVu")) dt.Columns["ChucVu"].ColumnName = "Chức vụ";
-            if (dt.Columns.Contains("ThangNamHienThi")) dt.Columns["ThangNamHienThi"].ColumnName = "Tháng/Năm";
-            if (dt.Columns.Contains("TongGioLam")) dt.Columns["TongGioLam"].ColumnName = "Tổng giờ làm";
-            if (dt.Columns.Contains("LuongCB")) dt.Columns["LuongCB"].ColumnName = "Lương cơ bản";
-            if (dt.Columns.Contains("LuongThucNhanTamTinh")) dt.Columns["LuongThucNhanTamTinh"].ColumnName = "Lương tạm tính";
-
             return dt;
         }
 
-        public bool LuuBangLuong(int maNV, DateTime thangNam, decimal luongThucNhan, decimal khoanThuong, decimal khoanKhauTru)
+        public bool LuuBangLuong(int maNV, DateTime thangNam, decimal luongThucNhan, decimal khoanThuong, decimal khoanKhauTru, decimal tongGioThang = 0, decimal gioLamThem = 0)
         {
-            string query = @"
-        IF EXISTS (SELECT 1 FROM BangLuong WHERE MaNV = @MaNV AND MONTH(ThangNam) = MONTH(@ThangNam) AND YEAR(ThangNam) = YEAR(@ThangNam))
-        BEGIN
-            UPDATE BangLuong
-            SET LuongThucNhan = @LuongThucNhan, KhoanThuong = @KhoanThuong, KhoanKhauTru = @KhoanKhauTru
-            WHERE MaNV = @MaNV AND MONTH(ThangNam) = MONTH(@ThangNam) AND YEAR(ThangNam) = YEAR(@ThangNam);
-        END
-        ELSE
-        BEGIN
-            INSERT INTO BangLuong (MaNV, ThangNam, LuongThucNhan, KhoanThuong, KhoanKhauTru)
-            VALUES (@MaNV, @ThangNam, @LuongThucNhan, @KhoanThuong, @KhoanKhauTru);
-        END";
-
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand("sp_LuuBangLuong", conn))
                 {
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@MaNV", maNV);
-                    cmd.Parameters.AddWithValue("@ThangNam", new DateTime(thangNam.Year, thangNam.Month, 1)); // Chỉ lưu tháng/năm
+                    cmd.Parameters.AddWithValue("@ThangLuong", new DateTime(thangNam.Year, thangNam.Month, 1));
                     cmd.Parameters.AddWithValue("@LuongThucNhan", luongThucNhan);
                     cmd.Parameters.AddWithValue("@KhoanThuong", khoanThuong);
                     cmd.Parameters.AddWithValue("@KhoanKhauTru", khoanKhauTru);
-
-                    conn.Open();
+                    cmd.Parameters.AddWithValue("@TongGioThang", tongGioThang);
+                    cmd.Parameters.AddWithValue("@GioLamThem", gioLamThem);
                     return cmd.ExecuteNonQuery() > 0;
                 }
             }
         }
 
+        public DataTable GetKPIList()
+        {
+            DataTable dt = new DataTable();
+            string query = @"
+        SELECT 
+            NV.MaNV, 
+            NV.HoTenNV, 
+            NV.ChucVu, 
+            ISNULL(K.DiemKPI, 0) AS DiemKPI
+        FROM 
+            NhanVien NV
+        LEFT JOIN 
+            KPI_Thang K ON NV.MaNV = K.MaNV 
+                        AND K.Thang = MONTH(GETDATE()) 
+                        AND K.Nam = YEAR(GETDATE())
+        ORDER BY 
+            NV.MaNV;";
 
-        // Helper method để gọi function trả về DataTable
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    adapter.Fill(dt);
+                }
+            }
+            return dt;
+        }
+        public DataRow GetTaiKhoanByMaNV(int maNV)
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                string query = "SELECT TenTK, MatKhau, VaiTro FROM TaiKhoan WHERE MaNV = @MaNV";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@MaNV", maNV);
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    adapter.Fill(dt);
+                }
+            }
+            return dt.Rows.Count > 0 ? dt.Rows[0] : null;
+        }
+        public void GuiEmailMatKhau(string emailNguoiNhan, string tenNhanVien, string tenTaiKhoan, string matKhau)
+        {
+            string fromMail = "thanhtrung050410@gmail.com"; 
+            string fromPassword = "rhjv ibjj myyt qfoh"; 
+
+            MailMessage message = new MailMessage();
+            message.From = new MailAddress(fromMail);
+            message.Subject = "Thông tin tài khoản nhân viên mới";
+            message.To.Add(new MailAddress(emailNguoiNhan));
+
+            // Nội dung email
+            message.Body = $@"
+        <html>
+        <body>
+            <p>Chào {tenNhanVien},</p>
+            <p>Tài khoản của bạn đã được tạo thành công trên hệ thống của chúng tôi.</p>
+            <p>Dưới đây là thông tin đăng nhập của bạn:</p>
+            <ul>
+                <li><strong>Tên tài khoản:</strong> {tenTaiKhoan}</li>
+                <li><strong>Mật khẩu:</strong> {matKhau}</li>
+            </ul>
+            <p>Vui lòng đổi mật khẩu sau khi đăng nhập lần đầu tiên để đảm bảo an toàn.</p>
+            <p>Trân trọng,<br>Cửa hàng UTE BIKE</p>
+        </body>
+        </html>";
+            message.IsBodyHtml = true;
+
+            var smtpClient = new SmtpClient("smtp.gmail.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential(fromMail, fromPassword),
+                EnableSsl = true,
+            };
+
+            smtpClient.Send(message);
+        }
+        public void UpdateTaiKhoan(int maNV, string matKhau, string vaiTro)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                string query = "UPDATE TaiKhoan SET MatKhau = @MatKhau, VaiTro = @VaiTro WHERE MaNV = @MaNV";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@MaNV", maNV);
+                    cmd.Parameters.AddWithValue("@MatKhau", matKhau);
+                    cmd.Parameters.AddWithValue("@VaiTro", vaiTro);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
         private DataTable GetDataFromFunction(string query, SqlParameter parameter = null)
         {
             DataTable dt = new DataTable();
@@ -699,4 +755,3 @@ namespace PROJECT_CK
         }
     }
 }
-

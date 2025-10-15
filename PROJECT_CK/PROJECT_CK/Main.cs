@@ -82,17 +82,14 @@ namespace PROJECT_CK
             //---
             LoadDataKhachHang();
             LoadDataLichHen();
-            //Nhân viên
-            dgvDSNV.AutoGenerateColumns = true;
+            //--- Quản lý Nhân viên ---
             LoadNhanVienList();
-            dgvChamCong.AutoGenerateColumns = true;
-          //  LoadChamCongList();
-            dgvThongBao.AutoGenerateColumns = true;
-          //  LoadThongBaoList();
-            dgvBangLuong.AutoGenerateColumns = true;
-          //  LoadBangLuong();
-          //  SetupCbbTieuChiNV();
-          //  LoadTatCaBaoCao();
+            LoadChamCongList();
+            LoadThongBaoList();
+            LoadBangLuong();
+            SetupCbbTieuChiNV();
+            LoadTongQuanData(); 
+            LoadTatCaBaoCao();
             //Bán xe
             radioAll.Checked = true;
             btnSuaUD.Visible = false;
@@ -2154,17 +2151,68 @@ namespace PROJECT_CK
             dgvLichHen.DataSource = dt;
         }
 
+        private void LoadTongQuanData()
+        {
+            try
+            {
+                int thangHienTai = DateTime.Now.Month;
+                int namHienTai = DateTime.Now.Year;
+
+                decimal kpiTB = qlnv.GetTrungBinhKPI(thangHienTai, namHienTai);
+                int tongNV = qlnv.GetTongNhanVien();
+                int nvMoi = qlnv.GetTongNhanVienMoi();
+                decimal tongLuong = qlnv.GetTongLuongThang(thangHienTai, namHienTai);
+
+
+                labelTrungBinhKPI.Text = kpiTB.ToString("0.00");
+                labelTongNhanVien.Text = tongNV.ToString();
+                labelTongNhanVienMoi.Text = nvMoi.ToString();
+                labelTongLuong.Text = tongLuong.ToString("N0"); 
+
+                dgvKPI.DataSource = qlnv.GetKPIList();
+                if (dgvKPI.Columns.Contains("MaNV")) dgvKPI.Columns["MaNV"].HeaderText = "Mã NV";
+                if (dgvKPI.Columns.Contains("HoTenNV")) dgvKPI.Columns["HoTenNV"].HeaderText = "Họ tên NV";
+                if (dgvKPI.Columns.Contains("ChucVu")) dgvKPI.Columns["ChucVu"].HeaderText = "Chức vụ";
+                if (dgvKPI.Columns.Contains("DiemKPI")) dgvKPI.Columns["DiemKPI"].HeaderText = "Điểm KPI";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tải dữ liệu tổng quan: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void btnLoadTongQuan_Click(object sender, EventArgs e)
+        {
+            LoadTongQuanData();
+            LoadTatCaBaoCao();
+
+            MessageBox.Show("Đã cập nhật dữ liệu tổng quan!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
         private void LoadNhanVienList()
         {
             try
             {
                 dgvDSNV.DataSource = qlnv.GetNhanVienList();
+
+                // Đặt lại tiêu đề cột để hiển thị cho người dùng
+                if (dgvDSNV.Columns.Contains("MaNV")) dgvDSNV.Columns["MaNV"].HeaderText = "Mã NV";
+                if (dgvDSNV.Columns.Contains("HoTenNV")) dgvDSNV.Columns["HoTenNV"].HeaderText = "Họ tên NV";
+                if (dgvDSNV.Columns.Contains("NgaySinh")) dgvDSNV.Columns["NgaySinh"].HeaderText = "Ngày sinh";
+                if (dgvDSNV.Columns.Contains("GioiTinh")) dgvDSNV.Columns["GioiTinh"].HeaderText = "Giới tính";
+                if (dgvDSNV.Columns.Contains("SoDT")) dgvDSNV.Columns["SoDT"].HeaderText = "Số ĐT";
+                if (dgvDSNV.Columns.Contains("Email")) dgvDSNV.Columns["Email"].HeaderText = "Email";
+                if (dgvDSNV.Columns.Contains("ChucVu")) dgvDSNV.Columns["ChucVu"].HeaderText = "Chức vụ";
+                if (dgvDSNV.Columns.Contains("LuongCB"))
+                {
+                    dgvDSNV.Columns["LuongCB"].HeaderText = "Lương cơ bản";
+                    dgvDSNV.Columns["LuongCB"].DefaultCellStyle.Format = "N0";
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi khi tải danh sách nhân viên: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void btnThemNV_Click(object sender, EventArgs e)
         {
             Them_Sua_NV f = new Them_Sua_NV(0);
@@ -2173,12 +2221,12 @@ namespace PROJECT_CK
                 LoadNhanVienList();
             }
         }
+
         private void btnCapNhatNV_Click(object sender, EventArgs e)
         {
             if (dgvDSNV.SelectedRows.Count > 0)
             {
                 int maNV = Convert.ToInt32(dgvDSNV.SelectedRows[0].Cells["MaNV"].Value);
-                // Gọi Form Them_Sua_NV với MaNV > 0 (Cập nhật)
                 Them_Sua_NV f = new Them_Sua_NV(maNV);
                 if (f.ShowDialog() == DialogResult.OK)
                 {
@@ -2190,6 +2238,7 @@ namespace PROJECT_CK
                 MessageBox.Show("Vui lòng chọn một nhân viên để cập nhật.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
         private void btnXoaNV_Click(object sender, EventArgs e)
         {
             if (dgvDSNV.SelectedRows.Count > 0)
@@ -2197,7 +2246,7 @@ namespace PROJECT_CK
                 int maNV = Convert.ToInt32(dgvDSNV.SelectedRows[0].Cells["MaNV"].Value);
                 string hoTen = dgvDSNV.SelectedRows[0].Cells["HoTenNV"].Value.ToString();
 
-                if (MessageBox.Show($"Xóa nhân viên **{hoTen}**?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show($"Xóa nhân viên {hoTen}?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     try
                     {
@@ -2212,17 +2261,29 @@ namespace PROJECT_CK
                 }
             }
         }
+
         private void LoadChamCongList()
         {
             try
             {
                 dgvChamCong.DataSource = qlnv.GetChamCongList();
+
+                if (dgvChamCong.Columns.Contains("MaChamCong")) dgvChamCong.Columns["MaChamCong"].HeaderText = "Mã CC";
+                if (dgvChamCong.Columns.Contains("MaNV")) dgvChamCong.Columns["MaNV"].HeaderText = "Mã NV";
+                if (dgvChamCong.Columns.Contains("HoTenNV")) dgvChamCong.Columns["HoTenNV"].HeaderText = "Họ tên";
+                if (dgvChamCong.Columns.Contains("NgayLamViec")) dgvChamCong.Columns["NgayLamViec"].HeaderText = "Ngày làm";
+                if (dgvChamCong.Columns.Contains("TgVaoLam")) dgvChamCong.Columns["TgVaoLam"].HeaderText = "Giờ vào";
+                if (dgvChamCong.Columns.Contains("TgTanCa")) dgvChamCong.Columns["TgTanCa"].HeaderText = "Giờ tan";
+                if (dgvChamCong.Columns.Contains("TrangThai")) dgvChamCong.Columns["TrangThai"].HeaderText = "Trạng thái";
+                if (dgvChamCong.Columns.Contains("LyDoNghiPhep")) dgvChamCong.Columns["LyDoNghiPhep"].HeaderText = "Lý do nghỉ";
+                if (dgvChamCong.Columns.Contains("TongThoiGianLamViec")) dgvChamCong.Columns["TongThoiGianLamViec"].HeaderText = "Tổng giờ làm";
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi khi tải danh sách chấm công: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void btnThemCC_Click(object sender, EventArgs e)
         {
             Them_Sua_ChamCong f = new Them_Sua_ChamCong(0);
@@ -2231,11 +2292,12 @@ namespace PROJECT_CK
                 LoadChamCongList();
             }
         }
+
         private void btnCapNhatCC_Click(object sender, EventArgs e)
         {
             if (dgvChamCong.SelectedRows.Count > 0)
             {
-                int maCC = Convert.ToInt32(dgvChamCong.SelectedRows[0].Cells["MaCC"].Value);
+                int maCC = Convert.ToInt32(dgvChamCong.SelectedRows[0].Cells["MaChamCong"].Value);
                 Them_Sua_ChamCong f = new Them_Sua_ChamCong(maCC);
                 if (f.ShowDialog() == DialogResult.OK)
                 {
@@ -2247,11 +2309,12 @@ namespace PROJECT_CK
                 MessageBox.Show("Vui lòng chọn một bản ghi chấm công để cập nhật.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
         private void btnXoaCC_Click(object sender, EventArgs e)
         {
             if (dgvChamCong.SelectedRows.Count > 0)
             {
-                int maCC = Convert.ToInt32(dgvChamCong.SelectedRows[0].Cells["MaCC"].Value);
+                int maCC = Convert.ToInt32(dgvChamCong.SelectedRows[0].Cells["MaChamCong"].Value);
 
                 if (MessageBox.Show($"Xóa bản ghi chấm công Mã CC: {maCC}?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
@@ -2268,23 +2331,30 @@ namespace PROJECT_CK
                 }
             }
         }
+
         private void LoadThongBaoList()
         {
             try
             {
                 dgvThongBao.DataSource = qlnv.GetThongBaoList();
+
+                if (dgvThongBao.Columns.Contains("MaThongBao")) dgvThongBao.Columns["MaThongBao"].HeaderText = "Mã TB";
+                if (dgvThongBao.Columns.Contains("TieuDe")) dgvThongBao.Columns["TieuDe"].HeaderText = "Tiêu đề";
+                if (dgvThongBao.Columns.Contains("LoaiThongBao")) dgvThongBao.Columns["LoaiThongBao"].HeaderText = "Loại thông báo";
+                if (dgvThongBao.Columns.Contains("NoiDung")) dgvThongBao.Columns["NoiDung"].HeaderText = "Nội dung";
+                if (dgvThongBao.Columns.Contains("NgayTao")) dgvThongBao.Columns["NgayTao"].HeaderText = "Ngày tạo";
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi khi tải danh sách thông báo: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void dgvThongBao_SelectionChanged(object sender, EventArgs e)
         {
             if (dgvThongBao.SelectedRows.Count > 0)
             {
                 DataGridViewRow selectedRow = dgvThongBao.SelectedRows[0];
-
                 object noiDungValue = selectedRow.Cells["NoiDung"].Value;
 
                 if (noiDungValue != null)
@@ -2301,25 +2371,27 @@ namespace PROJECT_CK
                 txtNoiDungChiTiet.Clear();
             }
         }
+
         private void btnThemThongBao_Click(object sender, EventArgs e)
         {
-            // Gọi Form ThemThongBao
             ThemThongBao f = new ThemThongBao();
             if (f.ShowDialog() == DialogResult.OK)
             {
                 LoadThongBaoList();
             }
         }
+
         private void btnXoaThongBao_Click(object sender, EventArgs e)
         {
             if (dgvThongBao.SelectedRows.Count > 0)
             {
-                int maTB = Convert.ToInt32(dgvThongBao.SelectedRows[0].Cells["MaTB"].Value);
+                int maTB = Convert.ToInt32(dgvThongBao.SelectedRows[0].Cells["MaThongBao"].Value);
 
                 if (MessageBox.Show($"Xóa thông báo Mã TB: {maTB}?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     try
                     {
+                        qlnv.DeleteThongBao(maTB);
                         MessageBox.Show("Xóa thông báo thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         LoadThongBaoList();
                     }
@@ -2330,6 +2402,7 @@ namespace PROJECT_CK
                 }
             }
         }
+
         private void btnTaiLaiThongBao_Click(object sender, EventArgs e)
         {
             LoadThongBaoList();
@@ -2341,54 +2414,49 @@ namespace PROJECT_CK
             try
             {
                 string searchText = txtTimKiemTTNV.Text.Trim();
-
                 dgvDSNV.DataSource = qlnv.SearchNhanVien(searchText);
-
-                LoadNhanVienList();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi khi tìm kiếm nhân viên: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void ThucHienTimKiemChamCong()
         {
             try
             {
                 DateTime? ngayLamViec = dtpChamCong.Value.Date;
-
                 string maNVText = txtTimKiemCC.Text.Trim();
-
-                // 3. Gọi hàm tìm kiếm từ DAL
                 dgvChamCong.DataSource = qlnv.SearchChamCong(ngayLamViec, maNVText);
-
-                LoadChamCongList();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi khi tìm kiếm chấm công: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void btnTimKiemCC_Click(object sender, EventArgs e)
         {
             ThucHienTimKiemChamCong();
         }
+
         private void dtpChamCong_ValueChanged(object sender, EventArgs e)
         {
             ThucHienTimKiemChamCong();
         }
+
         private int selectedMaNVLuong = -1;
         private DataTable currentBangLuong = null;
+
         private void LoadBangLuong()
         {
             try
             {
                 DateTime selectedMonth = dtpLuong.Value.Date;
-
                 currentBangLuong = qlnv.GetBangLuongList(selectedMonth);
                 dgvBangLuong.DataSource = currentBangLuong;
-
-                FormatDGVLuong(); 
+                FormatDGVLuong();
 
                 if (dgvBangLuong.Rows.Count > 0)
                 {
@@ -2408,15 +2476,24 @@ namespace PROJECT_CK
 
         private void FormatDGVLuong()
         {
-            if (dgvBangLuong.Columns.Contains("Lương tạm tính"))
+            if (dgvBangLuong.Columns.Contains("LuongThucNhanTamTinh"))
             {
-                dgvBangLuong.Columns["Lương tạm tính"].DefaultCellStyle.Format = "N0"; 
+                dgvBangLuong.Columns["LuongThucNhanTamTinh"].HeaderText = "Lương tạm tính";
+                dgvBangLuong.Columns["LuongThucNhanTamTinh"].DefaultCellStyle.Format = "N0";
             }
-
-            if (dgvBangLuong.Columns.Contains("Lương cơ bản"))
+            if (dgvBangLuong.Columns.Contains("LuongCB"))
             {
-                dgvBangLuong.Columns["Lương cơ bản"].Visible = false;
+                dgvBangLuong.Columns["LuongCB"].HeaderText = "Lương cơ bản";
+                dgvBangLuong.Columns["LuongCB"].Visible = false;
             }
+            if (dgvBangLuong.Columns.Contains("MaNV")) dgvBangLuong.Columns["MaNV"].HeaderText = "Mã NV";
+            if (dgvBangLuong.Columns.Contains("HoTenNV")) dgvBangLuong.Columns["HoTenNV"].HeaderText = "Họ tên NV";
+            if (dgvBangLuong.Columns.Contains("ChucVu")) dgvBangLuong.Columns["ChucVu"].HeaderText = "Chức vụ";
+            if (dgvBangLuong.Columns.Contains("ThangNamHienThi")) dgvBangLuong.Columns["ThangNamHienThi"].HeaderText = "Tháng/Năm";
+            if (dgvBangLuong.Columns.Contains("TongGioLam")) dgvBangLuong.Columns["TongGioLam"].HeaderText = "Tổng giờ làm";
+            if (dgvBangLuong.Columns.Contains("LuongThucNhan")) dgvBangLuong.Columns["LuongThucNhan"].HeaderText = "Lương thực nhận";
+            if (dgvBangLuong.Columns.Contains("KhoanThuong")) dgvBangLuong.Columns["KhoanThuong"].HeaderText = "Khoản thưởng";
+            if (dgvBangLuong.Columns.Contains("KhoanKhauTru")) dgvBangLuong.Columns["KhoanKhauTru"].HeaderText = "Khoản khấu trừ";
         }
 
         private void ClearChiTietLuong()
@@ -2427,48 +2504,52 @@ namespace PROJECT_CK
             txtLuongThucNhan.Text = "0";
             selectedMaNVLuong = -1;
         }
+
         private void dtpLuong_ValueChanged(object sender, EventArgs e)
         {
             LoadBangLuong();
         }
+
         private void dgvBangLuong_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0 || e.RowIndex >= dgvBangLuong.Rows.Count) return;
 
             DataGridViewRow row = dgvBangLuong.Rows[e.RowIndex];
 
-            if (row.Cells["Mã NV"].Value == null) return;
+            if (row.Cells["MaNV"].Value == null || row.Cells["MaNV"].Value == DBNull.Value) return;
 
-            selectedMaNVLuong = Convert.ToInt32(row.Cells["Mã NV"].Value);
-            decimal luongTamTinh = Convert.ToDecimal(row.Cells["Lương tạm tính"].Value);
+            selectedMaNVLuong = Convert.ToInt32(row.Cells["MaNV"].Value);
+            decimal luongTamTinh = Convert.ToDecimal(row.Cells["LuongThucNhanTamTinh"].Value);
             decimal luongCoBan = qlnv.GetLuongCoBanByMaNV(selectedMaNVLuong);
             decimal phuCapThuong = 0;
             decimal khauTru = 0;
+
             string thuongText = txtKhoanThuongPhuCap.Text.Replace(",", "").Replace(".", "");
             if (!decimal.TryParse(thuongText, out phuCapThuong))
             {
                 phuCapThuong = 0;
-                txtKhoanThuongPhuCap.Text = phuCapThuong.ToString("N0");
             }
+            txtKhoanThuongPhuCap.Text = phuCapThuong.ToString("N0");
+
 
             string khauTruText = txtKhoanKhauTru.Text.Replace(",", "").Replace(".", "");
             if (!decimal.TryParse(khauTruText, out khauTru))
             {
                 khauTru = 0;
-                txtKhoanKhauTru.Text = khauTru.ToString("N0");
             }
+            txtKhoanKhauTru.Text = khauTru.ToString("N0");
+
             decimal luongThucNhanCuoi = luongTamTinh + phuCapThuong - khauTru;
             txtLuongCoBan.Text = luongCoBan.ToString("N0");
             txtLuongThucNhan.Text = luongThucNhanCuoi.ToString("N0");
         }
+
         private void UpdateLuongThucNhan(object sender, EventArgs e)
         {
-            if (selectedMaNVLuong == -1) return;
-
-            if (dgvBangLuong.SelectedRows.Count == 0) return;
+            if (selectedMaNVLuong == -1 || dgvBangLuong.SelectedRows.Count == 0) return;
 
             DataGridViewRow row = dgvBangLuong.SelectedRows[0];
-            decimal luongTamTinh = Convert.ToDecimal(row.Cells["Lương tạm tính"].Value);
+            decimal luongTamTinh = Convert.ToDecimal(row.Cells["LuongThucNhanTamTinh"].Value);
 
             decimal phuCapThuong = 0;
             decimal khauTru = 0;
@@ -2476,18 +2557,19 @@ namespace PROJECT_CK
             if (decimal.TryParse(thuongText, out decimal tempThuong))
             {
                 phuCapThuong = tempThuong;
-                txtKhoanThuongPhuCap.Text = phuCapThuong.ToString("N0"); 
+                txtKhoanThuongPhuCap.Text = phuCapThuong.ToString("N0");
             }
 
             string khauTruText = txtKhoanKhauTru.Text.Replace(",", "").Replace(".", "");
             if (decimal.TryParse(khauTruText, out decimal tempKhauTru))
             {
                 khauTru = tempKhauTru;
-                txtKhoanKhauTru.Text = khauTru.ToString("N0"); 
+                txtKhoanKhauTru.Text = khauTru.ToString("N0");
             }
             decimal luongThucNhanCuoi = luongTamTinh + phuCapThuong - khauTru;
             txtLuongThucNhan.Text = luongThucNhanCuoi.ToString("N0");
         }
+
         private void btnTinhLuong_Click(object sender, EventArgs e)
         {
             if (selectedMaNVLuong == -1 || dgvBangLuong.SelectedRows.Count == 0)
@@ -2499,10 +2581,10 @@ namespace PROJECT_CK
             try
             {
                 DateTime thangTinhLuong = dtpLuong.Value.Date;
-
                 decimal luongThucNhan = decimal.Parse(txtLuongThucNhan.Text.Replace(",", "").Replace(".", ""));
                 decimal khoanThuong = decimal.Parse(txtKhoanThuongPhuCap.Text.Replace(",", "").Replace(".", ""));
                 decimal khoanKhauTru = decimal.Parse(txtKhoanKhauTru.Text.Replace(",", "").Replace(".", ""));
+
                 bool success = qlnv.LuuBangLuong(
                     selectedMaNVLuong,
                     thangTinhLuong,
@@ -2526,6 +2608,7 @@ namespace PROJECT_CK
                 MessageBox.Show("Lỗi khi tính và lưu lương: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void ExportToExcel(DataTable dt, string sheetName)
         {
             if (dt == null || dt.Rows.Count == 0)
@@ -2571,6 +2654,7 @@ namespace PROJECT_CK
                 }
             }
         }
+
         private void btnXuatExcel_Click(object sender, EventArgs e)
         {
             if (currentBangLuong == null || currentBangLuong.Rows.Count == 0)
@@ -2581,6 +2665,7 @@ namespace PROJECT_CK
 
             ExportToExcel(currentBangLuong, "BangLuong");
         }
+
         private void LoadTatCaBaoCao()
         {
             try
@@ -2597,28 +2682,26 @@ namespace PROJECT_CK
                 }
 
                 DataTable dtKPI = qlnv.GetDataForBarChartKPI(nam);
-                LoadBarChart(chartKPI, dtKPI, "Thang", "DiemTrungBinh", "KPI TB", $"Biểu đồ KPI ({nam})");
+                LoadBarChart(chartKPI, dtKPI, "Thang", "TrungBinhKPI", "KPI TB", $"Biểu đồ KPI ({nam})");
 
                 DataTable dtLuongBar = qlnv.GetDataForBarChartLuongTong();
                 LoadBarChart(chartLuongTong, dtLuongBar, "Thang", "TongLuong", "Tổng lương", "Biểu đồ tổng lương");
 
-                // Biểu đồ 3: Lương (Đường - Lương TB)
                 DataTable dtLuongLine = qlnv.GetDataForLineChartLuong();
                 LoadLineChart(chartLuongTB, dtLuongLine, "Thang", "LuongTrungBinh", "Lương TB", "Biểu đồ xu hướng lương TB");
 
-                // Biểu đồ 4: Chấm công (Cột - Trạng thái)
                 DataTable dtChamCong = qlnv.GetDataForBarChartChamCong();
                 LoadBarChart(chartChamCong, dtChamCong, "TrangThai", "SoLuong", "Số lượng", "Biểu đồ chấm công");
 
-                // Biểu đồ 5: Nhân viên (Tròn)
                 DataTable dtNhanVien = qlnv.GetDataForPieChartNhanVien(criteriaNV);
-                LoadPieChart(chartNhanVien, dtNhanVien, "Tiêu chí", "Số lượng", $"Biểu đồ nhân viên theo {criteriaNV}");
+                LoadPieChart(chartNhanVien, dtNhanVien, "Category", "Count", $"Biểu đồ nhân viên theo {criteriaNV}");
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi khi tải dữ liệu báo cáo: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void LoadBarChart(Chart chartControl, DataTable dt, string xValue, string yValue, string seriesName, string chartTitle)
         {
             chartControl.Series.Clear();
@@ -2641,6 +2724,7 @@ namespace PROJECT_CK
             }
             chartControl.Titles.Add(chartTitle);
         }
+
         private void LoadLineChart(Chart chartControl, DataTable dt, string xValue, string yValue, string seriesName, string chartTitle)
         {
             chartControl.Series.Clear();
@@ -2664,6 +2748,7 @@ namespace PROJECT_CK
             }
             chartControl.Titles.Add(chartTitle);
         }
+
         private void LoadPieChart(Chart chartControl, DataTable dt, string nameValue, string yValue, string chartTitle)
         {
             chartControl.Series.Clear();
