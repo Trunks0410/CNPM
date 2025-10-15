@@ -55,6 +55,11 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
@@ -177,11 +182,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle118 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle119 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle120 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
             this.guna2CirclePictureBox1 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             this.tabControlMain = new Guna.UI2.WinForms.Guna2TabControl();
             this.tabPageTrangChu = new System.Windows.Forms.TabPage();
@@ -259,6 +259,7 @@
             this.guna2GroupBox33 = new Guna.UI2.WinForms.Guna2GroupBox();
             this.txtNoiDungChiTiet = new System.Windows.Forms.RichTextBox();
             this.guna2GroupBox32 = new Guna.UI2.WinForms.Guna2GroupBox();
+            this.dgvThongBao = new Guna.UI2.WinForms.Guna2DataGridView();
             this.tabPageDoanhThu = new System.Windows.Forms.TabPage();
             this.guna2GroupBox34 = new Guna.UI2.WinForms.Guna2GroupBox();
             this.guna2Panel22 = new Guna.UI2.WinForms.Guna2Panel();
@@ -765,7 +766,6 @@
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.siticoneShimmerLabel1 = new SiticoneNetFrameworkUI.SiticoneShimmerLabel();
             this.btnThoat = new SiticoneNetFrameworkUI.SiticoneCloseButton();
-            this.dgvThongBao = new Guna.UI2.WinForms.Guna2DataGridView();
             this.btnLoadTongQuan = new Guna.UI2.WinForms.Guna2ImageButton();
             ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox1)).BeginInit();
             this.tabControlMain.SuspendLayout();
@@ -804,6 +804,7 @@
             this.tabPageThongBao.SuspendLayout();
             this.guna2GroupBox33.SuspendLayout();
             this.guna2GroupBox32.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvThongBao)).BeginInit();
             this.tabPageDoanhThu.SuspendLayout();
             this.guna2GroupBox34.SuspendLayout();
             this.guna2Panel22.SuspendLayout();
@@ -919,7 +920,6 @@
             this.tabPageCaiDat.SuspendLayout();
             this.panelCaiDat.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvThongBao)).BeginInit();
             this.SuspendLayout();
             // 
             // guna2CirclePictureBox1
@@ -2215,6 +2215,82 @@
             this.guna2GroupBox32.TabIndex = 64;
             this.guna2GroupBox32.Text = "Danh sách thông báo";
             this.guna2GroupBox32.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // dgvThongBao
+            // 
+            dataGridViewCellStyle21.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.Color.White;
+            this.dgvThongBao.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle21;
+            this.dgvThongBao.BackgroundColor = System.Drawing.Color.DarkSeaGreen;
+            this.dgvThongBao.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle22.BackColor = System.Drawing.Color.DarkGreen;
+            dataGridViewCellStyle22.Font = new System.Drawing.Font("Segoe UI Black", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            dataGridViewCellStyle22.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle22.SelectionBackColor = System.Drawing.Color.ForestGreen;
+            dataGridViewCellStyle22.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvThongBao.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle22;
+            this.dgvThongBao.ColumnHeadersHeight = 60;
+            this.dgvThongBao.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle23.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle23.Font = new System.Drawing.Font("Segoe UI Black", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            dataGridViewCellStyle23.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle23.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvThongBao.DefaultCellStyle = dataGridViewCellStyle23;
+            this.dgvThongBao.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvThongBao.GridColor = System.Drawing.Color.White;
+            this.dgvThongBao.Location = new System.Drawing.Point(0, 40);
+            this.dgvThongBao.Name = "dgvThongBao";
+            this.dgvThongBao.ReadOnly = true;
+            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle24.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle24.Font = new System.Drawing.Font("Segoe UI Black", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            dataGridViewCellStyle24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            dataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvThongBao.RowHeadersDefaultCellStyle = dataGridViewCellStyle24;
+            this.dgvThongBao.RowHeadersVisible = false;
+            this.dgvThongBao.RowHeadersWidth = 60;
+            dataGridViewCellStyle25.BackColor = System.Drawing.Color.MintCream;
+            dataGridViewCellStyle25.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle25.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle25.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle25.SelectionForeColor = System.Drawing.Color.White;
+            this.dgvThongBao.RowsDefaultCellStyle = dataGridViewCellStyle25;
+            this.dgvThongBao.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.dgvThongBao.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.ForestGreen;
+            this.dgvThongBao.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White;
+            this.dgvThongBao.RowTemplate.Height = 60;
+            this.dgvThongBao.Size = new System.Drawing.Size(928, 706);
+            this.dgvThongBao.TabIndex = 12;
+            this.dgvThongBao.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
+            this.dgvThongBao.ThemeStyle.AlternatingRowsStyle.Font = null;
+            this.dgvThongBao.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
+            this.dgvThongBao.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
+            this.dgvThongBao.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
+            this.dgvThongBao.ThemeStyle.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.dgvThongBao.ThemeStyle.GridColor = System.Drawing.Color.White;
+            this.dgvThongBao.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.White;
+            this.dgvThongBao.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dgvThongBao.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvThongBao.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.Black;
+            this.dgvThongBao.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            this.dgvThongBao.ThemeStyle.HeaderStyle.Height = 60;
+            this.dgvThongBao.ThemeStyle.ReadOnly = true;
+            this.dgvThongBao.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
+            this.dgvThongBao.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.dgvThongBao.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvThongBao.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.Black;
+            this.dgvThongBao.ThemeStyle.RowsStyle.Height = 60;
+            this.dgvThongBao.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.dgvThongBao.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.White;
+            this.dgvThongBao.SelectionChanged += new System.EventHandler(this.dgvThongBao_SelectionChanged);
             // 
             // tabPageDoanhThu
             // 
@@ -8621,6 +8697,7 @@
             this.btnXoaKH.Size = new System.Drawing.Size(202, 58);
             this.btnXoaKH.TabIndex = 9;
             this.btnXoaKH.Text = "Xoá khách hàng";
+            this.btnXoaKH.Click += new System.EventHandler(this.btnXoaKH_Click_1);
             // 
             // btnSuaKH
             // 
@@ -11746,82 +11823,6 @@
             this.btnThoat.Text = "siticoneCloseButton1";
             this.btnThoat.TooltipText = "Close button";
             // 
-            // dgvThongBao
-            // 
-            dataGridViewCellStyle21.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.Color.White;
-            this.dgvThongBao.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle21;
-            this.dgvThongBao.BackgroundColor = System.Drawing.Color.DarkSeaGreen;
-            this.dgvThongBao.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle22.BackColor = System.Drawing.Color.DarkGreen;
-            dataGridViewCellStyle22.Font = new System.Drawing.Font("Segoe UI Black", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            dataGridViewCellStyle22.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle22.SelectionBackColor = System.Drawing.Color.ForestGreen;
-            dataGridViewCellStyle22.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvThongBao.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle22;
-            this.dgvThongBao.ColumnHeadersHeight = 60;
-            this.dgvThongBao.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle23.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle23.Font = new System.Drawing.Font("Segoe UI Black", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            dataGridViewCellStyle23.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle23.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvThongBao.DefaultCellStyle = dataGridViewCellStyle23;
-            this.dgvThongBao.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvThongBao.GridColor = System.Drawing.Color.White;
-            this.dgvThongBao.Location = new System.Drawing.Point(0, 40);
-            this.dgvThongBao.Name = "dgvThongBao";
-            this.dgvThongBao.ReadOnly = true;
-            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle24.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle24.Font = new System.Drawing.Font("Segoe UI Black", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            dataGridViewCellStyle24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            dataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvThongBao.RowHeadersDefaultCellStyle = dataGridViewCellStyle24;
-            this.dgvThongBao.RowHeadersVisible = false;
-            this.dgvThongBao.RowHeadersWidth = 60;
-            dataGridViewCellStyle25.BackColor = System.Drawing.Color.MintCream;
-            dataGridViewCellStyle25.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle25.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle25.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle25.SelectionForeColor = System.Drawing.Color.White;
-            this.dgvThongBao.RowsDefaultCellStyle = dataGridViewCellStyle25;
-            this.dgvThongBao.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.dgvThongBao.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.ForestGreen;
-            this.dgvThongBao.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White;
-            this.dgvThongBao.RowTemplate.Height = 60;
-            this.dgvThongBao.Size = new System.Drawing.Size(928, 706);
-            this.dgvThongBao.TabIndex = 12;
-            this.dgvThongBao.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
-            this.dgvThongBao.ThemeStyle.AlternatingRowsStyle.Font = null;
-            this.dgvThongBao.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
-            this.dgvThongBao.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
-            this.dgvThongBao.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
-            this.dgvThongBao.ThemeStyle.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.dgvThongBao.ThemeStyle.GridColor = System.Drawing.Color.White;
-            this.dgvThongBao.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.White;
-            this.dgvThongBao.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.dgvThongBao.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dgvThongBao.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.Black;
-            this.dgvThongBao.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            this.dgvThongBao.ThemeStyle.HeaderStyle.Height = 60;
-            this.dgvThongBao.ThemeStyle.ReadOnly = true;
-            this.dgvThongBao.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
-            this.dgvThongBao.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            this.dgvThongBao.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dgvThongBao.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.Black;
-            this.dgvThongBao.ThemeStyle.RowsStyle.Height = 60;
-            this.dgvThongBao.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.DarkSeaGreen;
-            this.dgvThongBao.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.White;
-            this.dgvThongBao.SelectionChanged += new System.EventHandler(this.dgvThongBao_SelectionChanged);
-            // 
             // btnLoadTongQuan
             // 
             this.btnLoadTongQuan.CheckedState.ImageSize = new System.Drawing.Size(64, 64);
@@ -11891,6 +11892,7 @@
             this.tabPageThongBao.ResumeLayout(false);
             this.guna2GroupBox33.ResumeLayout(false);
             this.guna2GroupBox32.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvThongBao)).EndInit();
             this.tabPageDoanhThu.ResumeLayout(false);
             this.guna2GroupBox34.ResumeLayout(false);
             this.guna2Panel22.ResumeLayout(false);
@@ -12019,7 +12021,6 @@
             this.panelCaiDat.ResumeLayout(false);
             this.panelCaiDat.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvThongBao)).EndInit();
             this.ResumeLayout(false);
 
         }

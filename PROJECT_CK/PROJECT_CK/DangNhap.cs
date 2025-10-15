@@ -22,8 +22,8 @@ namespace PROJECT_CK
         // Event click nút đăng nhập
         private void guna2GradientButton1_Click(object sender, EventArgs e)
         {
-            string tenTK = guna2TextBox1.Text.Trim(); // Tên tài khoản
-            string matKhau = guna2TextBox2.Text.Trim(); // Mật khẩu
+            string tenTK = txtTenTaiKhoan.Text.Trim(); // Tên tài khoản
+            string matKhau = txtMatKhau.Text.Trim(); // Mật khẩu
 
             if (string.IsNullOrEmpty(tenTK) || string.IsNullOrEmpty(matKhau))
             {
@@ -56,8 +56,16 @@ namespace PROJECT_CK
 
                                 // Mở form chính, truyền username, role và connection string
                                 Main mainForm = new Main(tenTK, vaiTro, connectionString);
+                                // Khi form Main đóng, hiển thị lại form đăng nhập
+                                mainForm.FormClosed += (s, args) =>
+                                {
+                                    this.Show(); // hiện lại form đăng nhập
+                                    txtMatKhau.Clear(); // Xóa mật khẩu
+                                    txtTenTaiKhoan.Clear(); // Xóa tên tài khoản
+                                };
+
                                 mainForm.Show();
-                                this.Hide(); // Ẩn form đăng nhập
+                                this.Hide();
                             }
                             else
                             {
@@ -76,7 +84,7 @@ namespace PROJECT_CK
         // Event checkbox ẩn/hiện mật khẩu
         private void cbAnHienMatKhau_CheckedChanged(object sender, EventArgs e)
         {
-            guna2TextBox2.UseSystemPasswordChar = !cbAnHienMatKhau.Checked; // Toggle ẩn/hiện mật khẩu
+            txtMatKhau.UseSystemPasswordChar = !cbAnHienMatKhau.Checked; // Toggle ẩn/hiện mật khẩu
         }
 
         // Event link quên mật khẩu

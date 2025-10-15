@@ -35,10 +35,10 @@
             this.cbAnHienMatKhau = new Guna.UI2.WinForms.Guna2ImageCheckBox();
             this.guna2GradientButton1 = new Guna.UI2.WinForms.Guna2GradientButton();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.guna2TextBox2 = new Guna.UI2.WinForms.Guna2TextBox();
+            this.txtMatKhau = new Guna.UI2.WinForms.Guna2TextBox();
             this.siticoneLabel3 = new SiticoneNetFrameworkUI.SiticoneLabel();
             this.siticoneLabel2 = new SiticoneNetFrameworkUI.SiticoneLabel();
-            this.guna2TextBox1 = new Guna.UI2.WinForms.Guna2TextBox();
+            this.txtTenTaiKhoan = new Guna.UI2.WinForms.Guna2TextBox();
             this.siticoneLabel1 = new SiticoneNetFrameworkUI.SiticoneLabel();
             this.guna2CustomGradientPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox1)).BeginInit();
@@ -79,10 +79,10 @@
             this.guna2Panel1.Controls.Add(this.cbAnHienMatKhau);
             this.guna2Panel1.Controls.Add(this.guna2GradientButton1);
             this.guna2Panel1.Controls.Add(this.linkLabel1);
-            this.guna2Panel1.Controls.Add(this.guna2TextBox2);
+            this.guna2Panel1.Controls.Add(this.txtMatKhau);
             this.guna2Panel1.Controls.Add(this.siticoneLabel3);
             this.guna2Panel1.Controls.Add(this.siticoneLabel2);
-            this.guna2Panel1.Controls.Add(this.guna2TextBox1);
+            this.guna2Panel1.Controls.Add(this.txtTenTaiKhoan);
             this.guna2Panel1.Controls.Add(this.siticoneLabel1);
             this.guna2Panel1.Location = new System.Drawing.Point(67, 172);
             this.guna2Panel1.Name = "guna2Panel1";
@@ -138,28 +138,28 @@
             this.linkLabel1.Text = "Quên mật khẩu?";
             this.linkLabel1.VisitedLinkColor = System.Drawing.Color.Red;
             // 
-            // guna2TextBox2
+            // txtMatKhau
             // 
-            this.guna2TextBox2.BorderColor = System.Drawing.Color.DarkSeaGreen;
-            this.guna2TextBox2.BorderRadius = 10;
-            this.guna2TextBox2.BorderThickness = 2;
-            this.guna2TextBox2.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.guna2TextBox2.DefaultText = "";
-            this.guna2TextBox2.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.guna2TextBox2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.guna2TextBox2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox2.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox2.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox2.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2TextBox2.ForeColor = System.Drawing.Color.Black;
-            this.guna2TextBox2.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox2.Location = new System.Drawing.Point(175, 158);
-            this.guna2TextBox2.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this.guna2TextBox2.Name = "guna2TextBox2";
-            this.guna2TextBox2.PlaceholderText = "Mật khẩu...";
-            this.guna2TextBox2.SelectedText = "";
-            this.guna2TextBox2.Size = new System.Drawing.Size(500, 48);
-            this.guna2TextBox2.TabIndex = 4;
+            this.txtMatKhau.BorderColor = System.Drawing.Color.DarkSeaGreen;
+            this.txtMatKhau.BorderRadius = 10;
+            this.txtMatKhau.BorderThickness = 2;
+            this.txtMatKhau.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtMatKhau.DefaultText = "";
+            this.txtMatKhau.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtMatKhau.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtMatKhau.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtMatKhau.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtMatKhau.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtMatKhau.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMatKhau.ForeColor = System.Drawing.Color.Black;
+            this.txtMatKhau.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtMatKhau.Location = new System.Drawing.Point(175, 158);
+            this.txtMatKhau.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            this.txtMatKhau.Name = "txtMatKhau";
+            this.txtMatKhau.PlaceholderText = "Mật khẩu...";
+            this.txtMatKhau.SelectedText = "";
+            this.txtMatKhau.Size = new System.Drawing.Size(500, 48);
+            this.txtMatKhau.TabIndex = 4;
             // 
             // siticoneLabel3
             // 
@@ -183,28 +183,28 @@
             this.siticoneLabel2.Text = "Tài khoản";
             this.siticoneLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // guna2TextBox1
+            // txtTenTaiKhoan
             // 
-            this.guna2TextBox1.BorderColor = System.Drawing.Color.DarkSeaGreen;
-            this.guna2TextBox1.BorderRadius = 10;
-            this.guna2TextBox1.BorderThickness = 2;
-            this.guna2TextBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.guna2TextBox1.DefaultText = "";
-            this.guna2TextBox1.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.guna2TextBox1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.guna2TextBox1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox1.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox1.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2TextBox1.ForeColor = System.Drawing.Color.Black;
-            this.guna2TextBox1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox1.Location = new System.Drawing.Point(175, 98);
-            this.guna2TextBox1.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this.guna2TextBox1.Name = "guna2TextBox1";
-            this.guna2TextBox1.PlaceholderText = "Tên tài khoản...";
-            this.guna2TextBox1.SelectedText = "";
-            this.guna2TextBox1.Size = new System.Drawing.Size(500, 48);
-            this.guna2TextBox1.TabIndex = 1;
+            this.txtTenTaiKhoan.BorderColor = System.Drawing.Color.DarkSeaGreen;
+            this.txtTenTaiKhoan.BorderRadius = 10;
+            this.txtTenTaiKhoan.BorderThickness = 2;
+            this.txtTenTaiKhoan.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtTenTaiKhoan.DefaultText = "";
+            this.txtTenTaiKhoan.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtTenTaiKhoan.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtTenTaiKhoan.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtTenTaiKhoan.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtTenTaiKhoan.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtTenTaiKhoan.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTenTaiKhoan.ForeColor = System.Drawing.Color.Black;
+            this.txtTenTaiKhoan.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtTenTaiKhoan.Location = new System.Drawing.Point(175, 98);
+            this.txtTenTaiKhoan.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            this.txtTenTaiKhoan.Name = "txtTenTaiKhoan";
+            this.txtTenTaiKhoan.PlaceholderText = "Tên tài khoản...";
+            this.txtTenTaiKhoan.SelectedText = "";
+            this.txtTenTaiKhoan.Size = new System.Drawing.Size(500, 48);
+            this.txtTenTaiKhoan.TabIndex = 1;
             // 
             // siticoneLabel1
             // 
@@ -239,10 +239,10 @@
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
         private SiticoneNetFrameworkUI.SiticoneLabel siticoneLabel1;
         private System.Windows.Forms.LinkLabel linkLabel1;
-        private Guna.UI2.WinForms.Guna2TextBox guna2TextBox2;
+        private Guna.UI2.WinForms.Guna2TextBox txtMatKhau;
         private SiticoneNetFrameworkUI.SiticoneLabel siticoneLabel3;
         private SiticoneNetFrameworkUI.SiticoneLabel siticoneLabel2;
-        private Guna.UI2.WinForms.Guna2TextBox guna2TextBox1;
+        private Guna.UI2.WinForms.Guna2TextBox txtTenTaiKhoan;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton1;
         private Guna.UI2.WinForms.Guna2CirclePictureBox guna2CirclePictureBox1;
         private Guna.UI2.WinForms.Guna2ImageCheckBox cbAnHienMatKhau;
