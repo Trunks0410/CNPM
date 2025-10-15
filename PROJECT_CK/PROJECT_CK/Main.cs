@@ -1858,6 +1858,45 @@ namespace PROJECT_CK
             LoadDataKhachHang();
         }
 
+        private void btnXoaKH_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(txtMaKH.Text))
+                {
+                    MessageBox.Show("Vui lòng chọn khách hàng cần xóa!");
+                    return;
+                }
+
+                DialogResult dr = MessageBox.Show(
+                    "Bạn có chắc chắn muốn xóa khách hàng này?",
+                    "Xác nhận xóa",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning);
+
+                if (dr == DialogResult.Yes)
+                {
+                    var parameters = new Dictionary<string, object>
+                    {
+                        { "@MaKH", txtMaKH.Text }
+                    };
+
+                    int rows = quanLyKH.ExecuteNonQuery("sp_DeleteKhachHang", parameters);
+
+                    if (rows > 0)
+                        MessageBox.Show("Xóa khách hàng thành công!");
+                    else
+                        MessageBox.Show("Không thể xóa khách hàng.");
+
+                    LoadDataKhachHang();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi: " + ex.Message);
+            }
+        }
+
         private void btnSuaKH_Click(object sender, EventArgs e)
         {
             try
@@ -3907,43 +3946,6 @@ namespace PROJECT_CK
 
         }
 
-        private void btnXoaKH_Click_1(object sender, EventArgs e)
-        {
-            try
-            {
-                if (string.IsNullOrWhiteSpace(txtMaKH.Text))
-                {
-                    MessageBox.Show("Vui lòng chọn khách hàng cần xóa!");
-                    return;
-                }
-
-                DialogResult dr = MessageBox.Show(
-                    "Bạn có chắc chắn muốn xóa khách hàng này?",
-                    "Xác nhận xóa",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Warning);
-
-                if (dr == DialogResult.Yes)
-                {
-                    var parameters = new Dictionary<string, object>
-                    {
-                        { "@MaKH", txtMaKH.Text }
-                    };
-
-                    int rows = quanLyKH.ExecuteNonQuery("sp_DeleteKhachHang", parameters);
-
-                    if (rows > 0)
-                        MessageBox.Show("Xóa khách hàng thành công!");
-                    else
-                        MessageBox.Show("Không thể xóa khách hàng.");
-
-                    LoadDataKhachHang();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi: " + ex.Message);
-            }
-        }
+        
     }
 }
