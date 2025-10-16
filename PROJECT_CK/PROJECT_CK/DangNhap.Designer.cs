@@ -153,12 +153,12 @@
             this.txtMatKhau.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMatKhau.ForeColor = System.Drawing.Color.Black;
             this.txtMatKhau.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtMatKhau.Location = new System.Drawing.Point(175, 158);
+            this.txtMatKhau.Location = new System.Drawing.Point(188, 158);
             this.txtMatKhau.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.txtMatKhau.Name = "txtMatKhau";
             this.txtMatKhau.PlaceholderText = "Mật khẩu...";
             this.txtMatKhau.SelectedText = "";
-            this.txtMatKhau.Size = new System.Drawing.Size(500, 48);
+            this.txtMatKhau.Size = new System.Drawing.Size(487, 48);
             this.txtMatKhau.TabIndex = 4;
             // 
             // siticoneLabel3
@@ -167,7 +167,7 @@
             this.siticoneLabel3.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.siticoneLabel3.Location = new System.Drawing.Point(45, 158);
             this.siticoneLabel3.Name = "siticoneLabel3";
-            this.siticoneLabel3.Size = new System.Drawing.Size(122, 48);
+            this.siticoneLabel3.Size = new System.Drawing.Size(135, 48);
             this.siticoneLabel3.TabIndex = 3;
             this.siticoneLabel3.Text = "Mật khẩu";
             this.siticoneLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -178,7 +178,7 @@
             this.siticoneLabel2.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.siticoneLabel2.Location = new System.Drawing.Point(45, 98);
             this.siticoneLabel2.Name = "siticoneLabel2";
-            this.siticoneLabel2.Size = new System.Drawing.Size(122, 48);
+            this.siticoneLabel2.Size = new System.Drawing.Size(135, 48);
             this.siticoneLabel2.TabIndex = 2;
             this.siticoneLabel2.Text = "Tài khoản";
             this.siticoneLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -198,12 +198,12 @@
             this.txtTenTaiKhoan.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTenTaiKhoan.ForeColor = System.Drawing.Color.Black;
             this.txtTenTaiKhoan.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtTenTaiKhoan.Location = new System.Drawing.Point(175, 98);
+            this.txtTenTaiKhoan.Location = new System.Drawing.Point(188, 98);
             this.txtTenTaiKhoan.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.txtTenTaiKhoan.Name = "txtTenTaiKhoan";
             this.txtTenTaiKhoan.PlaceholderText = "Tên tài khoản...";
             this.txtTenTaiKhoan.SelectedText = "";
-            this.txtTenTaiKhoan.Size = new System.Drawing.Size(500, 48);
+            this.txtTenTaiKhoan.Size = new System.Drawing.Size(487, 48);
             this.txtTenTaiKhoan.TabIndex = 1;
             // 
             // siticoneLabel1

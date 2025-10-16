@@ -1092,12 +1092,30 @@ namespace QuanLyMuaBanXeMay
             );
         }
 
+        public (string Ten, string DiaChi)? TimThongTinTheoSDT(string loai, string soDT)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlCommand cmd = new SqlCommand("sp_TimThongTinTheoSDT", conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Loai", loai);
+                cmd.Parameters.AddWithValue("@SoDienThoai", soDT);
 
-
-
-
-
-
-
-    }
+                conn.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        string ten = reader["Ten"].ToString();
+                        string diaChi = reader["DiaChi"].ToString();
+                        return (ten, diaChi);
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+        }
+     }
 }

@@ -320,3 +320,4 @@ C:\Users\Admin\CNPM\PROJECT_CK\PROJECT_CK\obj\Debug\PROJECT_CK.csproj.CoreCompil
 C:\Users\Admin\CNPM\PROJECT_CK\PROJECT_CK\obj\Debug\PROJECT_CK.csproj.Up2Date
 C:\Users\Admin\CNPM\PROJECT_CK\PROJECT_CK\obj\Debug\PROJECT_CK.exe
 C:\Users\Admin\CNPM\PROJECT_CK\PROJECT_CK\obj\Debug\PROJECT_CK.pdb
+D:\Code\Winform\CNPM\PROJECT_CK\PROJECT_CK\obj\Debug\PROJECT_CK.ThemKhuyenMai.resources
