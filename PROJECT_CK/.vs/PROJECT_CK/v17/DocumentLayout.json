@@ -1,69 +1,69 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Admin\\CNPM\\PROJECT_CK\\",
+  "WorkspaceRootPath": "C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|c:\\users\\admin\\cnpm\\project_ck\\project_ck\\quanlynhanvien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|solutionrelative:project_ck\\quanlynhanvien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|C:\\Users\\Admin\\CNPM\\PROJECT_CK\\project_ck\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\project_ck\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|solutionrelative:project_ck\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|C:\\Users\\Admin\\CNPM\\PROJECT_CK\\project_ck\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\project_ck\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|solutionrelative:project_ck\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|C:\\Users\\Admin\\CNPM\\PROJECT_CK\\project_ck\\them_sua_nv.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|c:\\users\\tuf gaming f15\\onedrive\\ta\u0300i li\u00EA\u0323u\\cnpm\\project_ck\\project_ck\\quanlynhanvien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|solutionrelative:project_ck\\quanlynhanvien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\project_ck\\them_sua_nv.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|solutionrelative:project_ck\\them_sua_nv.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|C:\\Users\\Admin\\CNPM\\PROJECT_CK\\project_ck\\them_sua_nv.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\project_ck\\them_sua_nv.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|solutionrelative:project_ck\\them_sua_nv.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|C:\\Users\\Admin\\CNPM\\PROJECT_CK\\project_ck\\quanlynhapxe_kho.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\project_ck\\quanlynhapxe_kho.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|solutionrelative:project_ck\\quanlynhapxe_kho.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|C:\\Users\\Admin\\CNPM\\PROJECT_CK\\project_ck\\main.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\project_ck\\main.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|solutionrelative:project_ck\\main.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|C:\\Users\\Admin\\CNPM\\PROJECT_CK\\project_ck\\dangnhap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\project_ck\\dangnhap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|solutionrelative:project_ck\\dangnhap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|C:\\Users\\Admin\\CNPM\\PROJECT_CK\\project_ck\\dangnhap.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\project_ck\\dangnhap.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|solutionrelative:project_ck\\dangnhap.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|C:\\Users\\Admin\\CNPM\\PROJECT_CK\\project_ck\\them_sua_chamcong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\project_ck\\them_sua_chamcong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|solutionrelative:project_ck\\them_sua_chamcong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|C:\\Users\\Admin\\CNPM\\PROJECT_CK\\project_ck\\dangnhap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\project_ck\\dangnhap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|solutionrelative:project_ck\\dangnhap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|C:\\Users\\Admin\\CNPM\\PROJECT_CK\\project_ck\\them_sua_chamcong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\project_ck\\them_sua_chamcong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|solutionrelative:project_ck\\them_sua_chamcong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|C:\\Users\\Admin\\CNPM\\PROJECT_CK\\project_ck\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\project_ck\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|solutionrelative:project_ck\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|C:\\Users\\Admin\\CNPM\\PROJECT_CK\\project_ck\\quanlybanxe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\project_ck\\quanlybanxe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|solutionrelative:project_ck\\quanlybanxe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|C:\\Users\\Admin\\CNPM\\PROJECT_CK\\project_ck\\themkhuyenmai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\project_ck\\themkhuyenmai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|solutionrelative:project_ck\\themkhuyenmai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|C:\\Users\\Admin\\CNPM\\PROJECT_CK\\project_ck\\quanlykhachhang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\project_ck\\quanlykhachhang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FDD31BBC-3E34-4508-BD05-CE02DE53787A}|PROJECT_CK\\PROJECT_CK.csproj|solutionrelative:project_ck\\quanlykhachhang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -74,7 +74,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -82,45 +82,47 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Main.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\Admin\\CNPM\\PROJECT_CK\\PROJECT_CK\\Main.cs",
+              "DocumentMoniker": "C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\PROJECT_CK\\Main.cs",
               "RelativeDocumentMoniker": "PROJECT_CK\\Main.cs",
-              "ToolTip": "C:\\Users\\Admin\\CNPM\\PROJECT_CK\\PROJECT_CK\\Main.cs [Design]",
+              "ToolTip": "C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\PROJECT_CK\\Main.cs [Design]",
               "RelativeToolTip": "PROJECT_CK\\Main.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-16T04:11:13.575Z"
+              "WhenOpened": "2025-10-16T04:11:13.575Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "Main.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\CNPM\\PROJECT_CK\\PROJECT_CK\\Main.cs",
+              "DocumentMoniker": "C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\PROJECT_CK\\Main.cs",
               "RelativeDocumentMoniker": "PROJECT_CK\\Main.cs",
-              "ToolTip": "C:\\Users\\Admin\\CNPM\\PROJECT_CK\\PROJECT_CK\\Main.cs",
+              "ToolTip": "C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\PROJECT_CK\\Main.cs",
               "RelativeToolTip": "PROJECT_CK\\Main.cs",
-              "ViewState": "AgIAAAgLAAAAAAAAAAArwBsLAABRAAAAAAAAAA==",
+              "ViewState": "AgIAAN4HAAAAAAAAAAAmwPEHAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-09T10:10:37.468Z"
+              "WhenOpened": "2025-10-09T10:10:37.468Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
               "Title": "Them_Sua_NV.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\Admin\\CNPM\\PROJECT_CK\\PROJECT_CK\\Them_Sua_NV.cs",
+              "DocumentMoniker": "C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\PROJECT_CK\\Them_Sua_NV.cs",
               "RelativeDocumentMoniker": "PROJECT_CK\\Them_Sua_NV.cs",
               "ToolTip": "C:\\Users\\Admin\\CNPM\\PROJECT_CK\\PROJECT_CK\\Them_Sua_NV.cs [Design]",
-              "RelativeToolTip": "PROJECT_CK\\Them_Sua_NV.cs [Design]",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\Admin\\CNPM\\PROJECT_CK\\PROJECT_CK\\Them_Sua_NV.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-13T08:43:44.574Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "QuanLyNhanVien.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\CNPM\\PROJECT_CK\\PROJECT_CK\\QuanLyNhanVien.cs",
+              "DocumentMoniker": "C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\PROJECT_CK\\QuanLyNhanVien.cs",
               "RelativeDocumentMoniker": "PROJECT_CK\\QuanLyNhanVien.cs",
-              "ToolTip": "C:\\Users\\Admin\\CNPM\\PROJECT_CK\\PROJECT_CK\\QuanLyNhanVien.cs",
+              "ToolTip": "C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\PROJECT_CK\\QuanLyNhanVien.cs",
               "RelativeToolTip": "PROJECT_CK\\QuanLyNhanVien.cs",
               "ViewState": "AgIAACQCAAAAAAAAAAAIwAgAAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -131,21 +133,22 @@
               "$type": "Document",
               "DocumentIndex": 6,
               "Title": "Main.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\CNPM\\PROJECT_CK\\PROJECT_CK\\Main.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\PROJECT_CK\\Main.Designer.cs",
               "RelativeDocumentMoniker": "PROJECT_CK\\Main.Designer.cs",
-              "ToolTip": "C:\\Users\\Admin\\CNPM\\PROJECT_CK\\PROJECT_CK\\Main.Designer.cs",
+              "ToolTip": "C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\PROJECT_CK\\Main.Designer.cs",
               "RelativeToolTip": "PROJECT_CK\\Main.Designer.cs",
               "ViewState": "AgIAAJYUAAAAAAAAAAAqwKsUAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-10T16:48:48.587Z"
+              "WhenOpened": "2025-10-10T16:48:48.587Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "Them_Sua_NV.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\CNPM\\PROJECT_CK\\PROJECT_CK\\Them_Sua_NV.cs",
+              "DocumentMoniker": "C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\PROJECT_CK\\Them_Sua_NV.cs",
               "RelativeDocumentMoniker": "PROJECT_CK\\Them_Sua_NV.cs",
-              "ToolTip": "C:\\Users\\Admin\\CNPM\\PROJECT_CK\\PROJECT_CK\\Them_Sua_NV.cs",
+              "ToolTip": "C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\PROJECT_CK\\Them_Sua_NV.cs",
               "RelativeToolTip": "PROJECT_CK\\Them_Sua_NV.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -155,9 +158,9 @@
               "$type": "Document",
               "DocumentIndex": 10,
               "Title": "DangNhap.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\CNPM\\PROJECT_CK\\PROJECT_CK\\DangNhap.cs",
+              "DocumentMoniker": "C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\PROJECT_CK\\DangNhap.cs",
               "RelativeDocumentMoniker": "PROJECT_CK\\DangNhap.cs",
-              "ToolTip": "C:\\Users\\Admin\\CNPM\\PROJECT_CK\\PROJECT_CK\\DangNhap.cs",
+              "ToolTip": "C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\PROJECT_CK\\DangNhap.cs",
               "RelativeToolTip": "PROJECT_CK\\DangNhap.cs",
               "ViewState": "AgIAADEAAAAAAAAAAAAwwEAAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -167,7 +170,7 @@
               "$type": "Document",
               "DocumentIndex": 7,
               "Title": "DangNhap.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\Admin\\CNPM\\PROJECT_CK\\PROJECT_CK\\DangNhap.cs",
+              "DocumentMoniker": "C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\PROJECT_CK\\DangNhap.cs",
               "RelativeDocumentMoniker": "PROJECT_CK\\DangNhap.cs",
               "ToolTip": "D:\\Code\\Winform\\CNPM\\PROJECT_CK\\PROJECT_CK\\DangNhap.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -177,7 +180,7 @@
               "$type": "Document",
               "DocumentIndex": 9,
               "Title": "Them_Sua_ChamCong.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\Admin\\CNPM\\PROJECT_CK\\PROJECT_CK\\Them_Sua_ChamCong.cs",
+              "DocumentMoniker": "C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\PROJECT_CK\\Them_Sua_ChamCong.cs",
               "RelativeDocumentMoniker": "PROJECT_CK\\Them_Sua_ChamCong.cs",
               "ToolTip": "D:\\Code\\Winform\\CNPM\\PROJECT_CK\\PROJECT_CK\\Them_Sua_ChamCong.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -187,9 +190,9 @@
               "$type": "Document",
               "DocumentIndex": 11,
               "Title": "Them_Sua_ChamCong.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\CNPM\\PROJECT_CK\\PROJECT_CK\\Them_Sua_ChamCong.cs",
+              "DocumentMoniker": "C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\PROJECT_CK\\Them_Sua_ChamCong.cs",
               "RelativeDocumentMoniker": "PROJECT_CK\\Them_Sua_ChamCong.cs",
-              "ToolTip": "C:\\Users\\Admin\\CNPM\\PROJECT_CK\\PROJECT_CK\\Them_Sua_ChamCong.cs",
+              "ToolTip": "C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\PROJECT_CK\\Them_Sua_ChamCong.cs",
               "RelativeToolTip": "PROJECT_CK\\Them_Sua_ChamCong.cs",
               "ViewState": "AgIAAFEAAAAAAAAAAAAkwHQAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -199,9 +202,9 @@
               "$type": "Document",
               "DocumentIndex": 12,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\CNPM\\PROJECT_CK\\PROJECT_CK\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\PROJECT_CK\\Program.cs",
               "RelativeDocumentMoniker": "PROJECT_CK\\Program.cs",
-              "ToolTip": "C:\\Users\\Admin\\CNPM\\PROJECT_CK\\PROJECT_CK\\Program.cs",
+              "ToolTip": "C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\PROJECT_CK\\Program.cs",
               "RelativeToolTip": "PROJECT_CK\\Program.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAAAAABUAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -211,9 +214,9 @@
               "$type": "Document",
               "DocumentIndex": 8,
               "Title": "DangNhap.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\CNPM\\PROJECT_CK\\PROJECT_CK\\DangNhap.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\PROJECT_CK\\DangNhap.Designer.cs",
               "RelativeDocumentMoniker": "PROJECT_CK\\DangNhap.Designer.cs",
-              "ToolTip": "C:\\Users\\Admin\\CNPM\\PROJECT_CK\\PROJECT_CK\\DangNhap.Designer.cs",
+              "ToolTip": "C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\PROJECT_CK\\DangNhap.Designer.cs",
               "RelativeToolTip": "PROJECT_CK\\DangNhap.Designer.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -223,9 +226,9 @@
               "$type": "Document",
               "DocumentIndex": 15,
               "Title": "QuanLyKhachHang.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\CNPM\\PROJECT_CK\\PROJECT_CK\\QuanLyKhachHang.cs",
+              "DocumentMoniker": "C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\PROJECT_CK\\QuanLyKhachHang.cs",
               "RelativeDocumentMoniker": "PROJECT_CK\\QuanLyKhachHang.cs",
-              "ToolTip": "C:\\Users\\Admin\\CNPM\\PROJECT_CK\\PROJECT_CK\\QuanLyKhachHang.cs",
+              "ToolTip": "C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\PROJECT_CK\\QuanLyKhachHang.cs",
               "RelativeToolTip": "PROJECT_CK\\QuanLyKhachHang.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -235,9 +238,9 @@
               "$type": "Document",
               "DocumentIndex": 13,
               "Title": "QuanLyBanXe.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\CNPM\\PROJECT_CK\\PROJECT_CK\\QuanLyBanXe.cs",
+              "DocumentMoniker": "C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\PROJECT_CK\\QuanLyBanXe.cs",
               "RelativeDocumentMoniker": "PROJECT_CK\\QuanLyBanXe.cs",
-              "ToolTip": "C:\\Users\\Admin\\CNPM\\PROJECT_CK\\PROJECT_CK\\QuanLyBanXe.cs",
+              "ToolTip": "C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\PROJECT_CK\\QuanLyBanXe.cs",
               "RelativeToolTip": "PROJECT_CK\\QuanLyBanXe.cs",
               "ViewState": "AgIAACcAAAAAAAAAAAAYwBIAAAB0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -247,7 +250,7 @@
               "$type": "Document",
               "DocumentIndex": 14,
               "Title": "ThemKhuyenMai.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\Admin\\CNPM\\PROJECT_CK\\PROJECT_CK\\ThemKhuyenMai.cs",
+              "DocumentMoniker": "C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\PROJECT_CK\\ThemKhuyenMai.cs",
               "RelativeDocumentMoniker": "PROJECT_CK\\ThemKhuyenMai.cs",
               "ToolTip": "D:\\Code\\Winform\\CNPM\\PROJECT_CK\\PROJECT_CK\\ThemKhuyenMai.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -257,9 +260,9 @@
               "$type": "Document",
               "DocumentIndex": 5,
               "Title": "QuanLyNhapXe_Kho.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\CNPM\\PROJECT_CK\\PROJECT_CK\\QuanLyNhapXe_Kho.cs",
+              "DocumentMoniker": "C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\PROJECT_CK\\QuanLyNhapXe_Kho.cs",
               "RelativeDocumentMoniker": "PROJECT_CK\\QuanLyNhapXe_Kho.cs",
-              "ToolTip": "C:\\Users\\Admin\\CNPM\\PROJECT_CK\\PROJECT_CK\\QuanLyNhapXe_Kho.cs",
+              "ToolTip": "C:\\Users\\TUF GAMING F15\\OneDrive\\Ta\u0300i li\u00EA\u0323u\\CNPM\\PROJECT_CK\\PROJECT_CK\\QuanLyNhapXe_Kho.cs",
               "RelativeToolTip": "PROJECT_CK\\QuanLyNhapXe_Kho.cs",
               "ViewState": "AgIAACIAAAAAAAAAAAAqwEEAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",

@@ -1998,6 +1998,57 @@ namespace PROJECT_CK
             }
         }
 
+        private void btnTimXeCuaKhachDaMua_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtMaKH.Text))
+            {
+                MessageBox.Show("Vui lòng nhập mã khách hàng.");
+                return;
+            }
+
+            if (!int.TryParse(txtMaKH.Text, out int maKH))
+            {
+                MessageBox.Show("Mã khách hàng phải là số.");
+                return;
+            }
+
+            string query = "SELECT * FROM fn_XeCuaKhach(@KhachHangID)";
+            SqlParameter param = new SqlParameter("@KhachHangID", maKH);
+
+            DataTable dt = db.ExecuteQuery(query, param);
+
+            if (dt.Rows.Count > 0)
+            {
+                dgvXeCuaKhach.DataSource = dt;
+            }
+            else
+            {
+                MessageBox.Show("Không tìm thấy xe nào cho khách hàng này.");
+                var schema = (dgvXeCuaKhach.DataSource as DataTable)?.Clone() ?? new DataTable();
+                dgvXeCuaKhach.DataSource = schema;
+            }
+        }
+
+        private void btnDatLichHen_Click(object sender, EventArgs e)
+        {
+            if (dgvXeCuaKhach.CurrentRow == null)
+            {
+                MessageBox.Show("Vui lòng chọn một xe trong danh sách trước khi đặt lịch hẹn.");
+                return;
+            }
+
+            var maXeValue = dgvXeCuaKhach.CurrentRow.Cells["XeCTID"].Value;
+            if (maXeValue == null)
+            {
+                MessageBox.Show("Không thể lấy mã xe. Vui lòng kiểm tra lại dữ liệu.");
+                return;
+            }
+
+            txtXeCTID.Text = maXeValue.ToString();
+
+            tabControlMain.SelectedTab = tabPageLichHen;
+        }
+
         public void LoadDataLichHen()
         {
             try
