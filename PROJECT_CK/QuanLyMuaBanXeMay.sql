@@ -186,9 +186,8 @@ CREATE TABLE NhanVien (
     GioiTinh NVARCHAR(10),
     SoDT VARCHAR(15),
     Email VARCHAR(100) UNIQUE,
-	CCCD VARCHAR(20) NULL, 
+    CCCD VARCHAR(20) NULL,
     DiaChi NVARCHAR(255),
-    ChucVu NVARCHAR(50),
     NgayNhanViec DATE NOT NULL,
     LuongCB DECIMAL(18,2) NOT NULL,
     HinhAnh NVARCHAR(255)
@@ -201,23 +200,23 @@ CREATE TABLE ChamCong (
     NgayLamViec DATE NOT NULL,
     TgVaoLam TIME,
     TgTanCa TIME,
-    TrangThai NVARCHAR(50) DEFAULT N'Có mặt', 
+    TrangThai NVARCHAR(50) DEFAULT N'Có mặt',
     LyDoNghiPhep NVARCHAR(255),
-    FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV)
+    FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV) ON DELETE CASCADE
 );
 GO
 
 CREATE TABLE Luong (
     MaLuong INT PRIMARY KEY IDENTITY(1,1),
     MaNV INT NOT NULL,
-    ThangLuong DATE NOT NULL, 
-    TongGioThang DECIMAL(10,2), 
+    ThangLuong DATE NOT NULL,
+    TongGioThang DECIMAL(10,2),
     GioLamThem DECIMAL(10,2) DEFAULT 0,
-    KhauTru DECIMAL(18,2) DEFAULT 0, 
+    KhauTru DECIMAL(18,2) DEFAULT 0,
     TienThuong DECIMAL(18,2) DEFAULT 0,
     LgThucNhan DECIMAL(18,2) NOT NULL,
     NgayThanhToan DATE,
-    FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV)
+    FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV) ON DELETE CASCADE
 );
 GO
 
@@ -227,19 +226,18 @@ CREATE TABLE TaiKhoan (
     TenTK VARCHAR(50) NOT NULL,
     MatKhau VARCHAR(255) NOT NULL,
     VaiTro NVARCHAR(100) NOT NULL,
-    FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV)
+    FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV) ON DELETE CASCADE
 );
 GO
 
-CREATE TABLE KPI_Thang (
-    MaKPI INT PRIMARY KEY IDENTITY(1,1),
-    MaNV INT NOT NULL,
-    Thang INT NOT NULL,
-    Nam INT NOT NULL,
-    DiemKPI DECIMAL(5,2) NOT NULL, 
-    NgayCapNhat DATETIME DEFAULT GETDATE(),
-    FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV),
-    CONSTRAINT UQ_KPI_Thang UNIQUE (MaNV, Thang, Nam)
+CREATE TABLE ThongBao (
+    MaThongBao INT PRIMARY KEY IDENTITY(1,1),
+    TieuDe NVARCHAR(255) NOT NULL,
+    LoaiThongBao NVARCHAR(100) NOT NULL,
+    NoiDung NVARCHAR(MAX) NOT NULL,
+    NgayTao DATETIME DEFAULT GETDATE(),
+    MaNV INT NULL,
+    FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV) ON DELETE SET NULL
 );
 GO
 
@@ -2212,54 +2210,31 @@ END
 GO
 
 -- Functions đã sửa drop
-IF OBJECT_ID('fn_GetDataForPieChartNhanVien', 'TF') IS NOT NULL
-    DROP FUNCTION fn_GetDataForPieChartNhanVien;
+IF OBJECT_ID('fn_GetNhanVienExperienceDistribution', 'TF') IS NOT NULL
+    DROP FUNCTION fn_GetNhanVienExperienceDistribution;
 GO
-CREATE FUNCTION fn_GetDataForPieChartNhanVien(@Criteria NVARCHAR(50))
+CREATE FUNCTION fn_GetNhanVienExperienceDistribution()
 RETURNS TABLE
 AS
 RETURN
 (
-    SELECT 
-        CASE 
-            WHEN @Criteria = 'GioiTinh' THEN GioiTinh
-            WHEN @Criteria = 'ChucVu' THEN ChucVu
-            ELSE 'Unknown'
-        END AS Category,
-        COUNT(*) AS Count
-    FROM NhanVien
-    GROUP BY 
-        CASE 
-            WHEN @Criteria = 'GioiTinh' THEN GioiTinh
-            WHEN @Criteria = 'ChucVu' THEN ChucVu
-            ELSE 'Unknown'
+    SELECT
+        CASE
+            WHEN DATEDIFF(YEAR, NgayNhanViec, GETDATE()) < 1 THEN N'Dưới 1 năm'
+            WHEN DATEDIFF(YEAR, NgayNhanViec, GETDATE()) BETWEEN 1 AND 3 THEN N'Từ 1 - 3 năm'
+            WHEN DATEDIFF(YEAR, NgayNhanViec, GETDATE()) BETWEEN 3 AND 5 THEN N'Từ 3 - 5 năm'
+            ELSE N'Trên 5 năm'
+        END AS KinhNghiem,
+        COUNT(MaNV) AS SoLuong
+    FROM
+        NhanVien
+    GROUP BY
+        CASE
+            WHEN DATEDIFF(YEAR, NgayNhanViec, GETDATE()) < 1 THEN N'Dưới 1 năm'
+            WHEN DATEDIFF(YEAR, NgayNhanViec, GETDATE()) BETWEEN 1 AND 3 THEN N'Từ 1 - 3 năm'
+            WHEN DATEDIFF(YEAR, NgayNhanViec, GETDATE()) BETWEEN 3 AND 5 THEN N'Từ 3 - 5 năm'
+            ELSE N'Trên 5 năm'
         END
-);
-GO
-
-IF OBJECT_ID('fn_GetDataForBarChartKPI', 'TF') IS NOT NULL
-    DROP FUNCTION fn_GetDataForBarChartKPI;
-GO
-CREATE FUNCTION fn_GetDataForBarChartKPI(@Nam INT)
-RETURNS TABLE
-AS
-RETURN
-(
-    SELECT Thang, AVG(DiemKPI) AS TrungBinhKPI
-    FROM KPI_Thang
-    WHERE Nam = @Nam
-    GROUP BY Thang
-);
-GO
-
-CREATE TABLE ThongBao (
-    MaThongBao INT PRIMARY KEY IDENTITY(1,1),
-    TieuDe NVARCHAR(255) NOT NULL,
-    LoaiThongBao NVARCHAR(100) NOT NULL,
-    NoiDung NVARCHAR(MAX) NOT NULL,
-    NgayTao DATETIME DEFAULT GETDATE(),
-    MaNV INT NULL,
-    FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV)
 );
 GO
 
@@ -2275,7 +2250,6 @@ CREATE PROCEDURE sp_InsertNhanVien
     @Email VARCHAR(100),
     @DiaChi NVARCHAR(255),
     @CCCD VARCHAR(20),
-    @ChucVu NVARCHAR(50),
     @NgayNhanViec DATE,
     @LuongCB DECIMAL(18,2),
     @HinhAnh NVARCHAR(255),
@@ -2286,8 +2260,8 @@ AS
 BEGIN
     DECLARE @MaNV INT;
 
-    INSERT INTO NhanVien (HoTenNV, NgaySinh, GioiTinh, SoDT, Email, DiaChi, CCCD, ChucVu, NgayNhanViec, LuongCB, HinhAnh)
-    VALUES (@HoTenNV, @NgaySinh, @GioiTinh, @SoDT, @Email, @DiaChi, @CCCD, @ChucVu, @NgayNhanViec, @LuongCB, @HinhAnh);
+    INSERT INTO NhanVien (HoTenNV, NgaySinh, GioiTinh, SoDT, Email, DiaChi, CCCD, NgayNhanViec, LuongCB, HinhAnh)
+    VALUES (@HoTenNV, @NgaySinh, @GioiTinh, @SoDT, @Email, @DiaChi, @CCCD, @NgayNhanViec, @LuongCB, @HinhAnh);
 
     SET @MaNV = SCOPE_IDENTITY();
 
@@ -2314,7 +2288,6 @@ CREATE PROCEDURE sp_UpdateNhanVien
     @Email VARCHAR(100),
     @DiaChi NVARCHAR(255),
     @CCCD VARCHAR(20),
-    @ChucVu NVARCHAR(50),
     @NgayNhanViec DATE,
     @LuongCB DECIMAL(18,2),
     @HinhAnh NVARCHAR(255)
@@ -2328,7 +2301,6 @@ BEGIN
         Email = @Email,
         DiaChi = @DiaChi,
         CCCD = @CCCD,
-        ChucVu = @ChucVu,
         NgayNhanViec = @NgayNhanViec,
         LuongCB = @LuongCB,
         HinhAnh = @HinhAnh
@@ -2344,13 +2316,13 @@ CREATE PROCEDURE sp_DeleteNhanVien
     @MaNV INT
 AS
 BEGIN
-    -- Xóa các bản ghi liên quan trước (nếu cần cascade)
+    -- Xóa các bản ghi liên quan trước
     DELETE FROM TaiKhoan WHERE MaNV = @MaNV;
     DELETE FROM ChamCong WHERE MaNV = @MaNV;
     DELETE FROM Luong WHERE MaNV = @MaNV;
-    DELETE FROM KPI_Thang WHERE MaNV = @MaNV;
     DELETE FROM ThongBao WHERE MaNV = @MaNV;
-
+    
+    -- Cuối cùng, xóa nhân viên
     DELETE FROM NhanVien WHERE MaNV = @MaNV;
 END
 GO
@@ -2447,22 +2419,6 @@ RETURNS INT
 AS
 BEGIN
     RETURN (SELECT COUNT(*) FROM NhanVien);
-END
-GO
-
--- Function: fn_GetTrungBinhKPI
-IF OBJECT_ID('fn_GetTrungBinhKPI', 'FN') IS NOT NULL
-    DROP FUNCTION fn_GetTrungBinhKPI;
-GO
-CREATE FUNCTION fn_GetTrungBinhKPI(@Thang INT, @Nam INT)
-RETURNS DECIMAL(5,2)
-AS
-BEGIN
-    DECLARE @AvgKPI DECIMAL(5,2);
-    SELECT @AvgKPI = AVG(DiemKPI)
-    FROM KPI_Thang
-    WHERE Thang = @Thang AND Nam = @Nam;
-    RETURN ISNULL(@AvgKPI, 0);
 END
 GO
 

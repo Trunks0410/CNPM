@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Them_Sua_NV));
             this.dtpNgayNhanViec = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.dtpNgaySinh = new Guna.UI2.WinForms.Guna2DateTimePicker();
-            this.cbChucVu = new Guna.UI2.WinForms.Guna2ComboBox();
             this.txtLuongCoBan = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtEmail = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtSoDT = new Guna.UI2.WinForms.Guna2TextBox();
@@ -41,7 +40,6 @@
             this.label41 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
-            this.label31 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.label33 = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
@@ -83,7 +81,7 @@
             this.dtpNgayNhanViec.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.dtpNgayNhanViec.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpNgayNhanViec.HoverState.FillColor = System.Drawing.Color.White;
-            this.dtpNgayNhanViec.Location = new System.Drawing.Point(176, 504);
+            this.dtpNgayNhanViec.Location = new System.Drawing.Point(164, 464);
             this.dtpNgayNhanViec.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
             this.dtpNgayNhanViec.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
             this.dtpNgayNhanViec.Name = "dtpNgayNhanViec";
@@ -112,28 +110,6 @@
             this.dtpNgaySinh.TabIndex = 125;
             this.dtpNgaySinh.Value = new System.DateTime(2025, 9, 17, 7, 59, 6, 104);
             // 
-            // cbChucVu
-            // 
-            this.cbChucVu.BackColor = System.Drawing.Color.Transparent;
-            this.cbChucVu.BorderColor = System.Drawing.Color.DarkGreen;
-            this.cbChucVu.BorderRadius = 10;
-            this.cbChucVu.BorderThickness = 2;
-            this.cbChucVu.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cbChucVu.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbChucVu.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cbChucVu.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cbChucVu.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbChucVu.ForeColor = System.Drawing.Color.Black;
-            this.cbChucVu.ItemHeight = 35;
-            this.cbChucVu.Items.AddRange(new object[] {
-            "Họ tên",
-            "CCCD",
-            "SĐT"});
-            this.cbChucVu.Location = new System.Drawing.Point(176, 455);
-            this.cbChucVu.Name = "cbChucVu";
-            this.cbChucVu.Size = new System.Drawing.Size(453, 41);
-            this.cbChucVu.TabIndex = 124;
-            // 
             // txtLuongCoBan
             // 
             this.txtLuongCoBan.BorderColor = System.Drawing.Color.DarkGreen;
@@ -149,7 +125,7 @@
             this.txtLuongCoBan.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtLuongCoBan.ForeColor = System.Drawing.Color.Black;
             this.txtLuongCoBan.HoverState.BorderColor = System.Drawing.Color.Silver;
-            this.txtLuongCoBan.Location = new System.Drawing.Point(176, 550);
+            this.txtLuongCoBan.Location = new System.Drawing.Point(164, 510);
             this.txtLuongCoBan.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtLuongCoBan.MaxLength = 0;
             this.txtLuongCoBan.Name = "txtLuongCoBan";
@@ -301,7 +277,7 @@
             this.label29.AutoSize = true;
             this.label29.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label29.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label29.Location = new System.Drawing.Point(7, 551);
+            this.label29.Location = new System.Drawing.Point(7, 520);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(137, 28);
             this.label29.TabIndex = 116;
@@ -313,24 +289,12 @@
             this.label30.AutoSize = true;
             this.label30.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label30.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label30.Location = new System.Drawing.Point(6, 505);
+            this.label30.Location = new System.Drawing.Point(7, 474);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(152, 28);
             this.label30.TabIndex = 115;
             this.label30.Text = "Ngày nhận việc";
             this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label31.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label31.Location = new System.Drawing.Point(7, 459);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(85, 28);
-            this.label31.TabIndex = 114;
-            this.label31.Text = "Chức vụ";
-            this.label31.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label32
             // 
@@ -616,18 +580,19 @@
             this.guna2Panel1.BorderThickness = 2;
             this.guna2Panel1.Controls.Add(this.label40);
             this.guna2Panel1.Controls.Add(this.label39);
+            this.guna2Panel1.Controls.Add(this.dtpNgayNhanViec);
+            this.guna2Panel1.Controls.Add(this.txtLuongCoBan);
             this.guna2Panel1.Controls.Add(this.label37);
             this.guna2Panel1.Controls.Add(this.label36);
             this.guna2Panel1.Controls.Add(this.label41);
             this.guna2Panel1.Controls.Add(this.label34);
             this.guna2Panel1.Controls.Add(this.label33);
-            this.guna2Panel1.Controls.Add(this.label31);
             this.guna2Panel1.Controls.Add(this.label30);
             this.guna2Panel1.Controls.Add(this.label29);
             this.guna2Panel1.Controls.Add(this.label35);
             this.guna2Panel1.Location = new System.Drawing.Point(12, 9);
             this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.Size = new System.Drawing.Size(642, 604);
+            this.guna2Panel1.Size = new System.Drawing.Size(642, 562);
             this.guna2Panel1.TabIndex = 135;
             // 
             // guna2Panel2
@@ -660,7 +625,7 @@
             this.btnLuuThongTin.FillColor = System.Drawing.Color.ForestGreen;
             this.btnLuuThongTin.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLuuThongTin.ForeColor = System.Drawing.Color.White;
-            this.btnLuuThongTin.Location = new System.Drawing.Point(745, 550);
+            this.btnLuuThongTin.Location = new System.Drawing.Point(753, 508);
             this.btnLuuThongTin.Name = "btnLuuThongTin";
             this.btnLuuThongTin.Size = new System.Drawing.Size(253, 63);
             this.btnLuuThongTin.TabIndex = 137;
@@ -683,13 +648,10 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1085, 621);
+            this.ClientSize = new System.Drawing.Size(1085, 580);
             this.Controls.Add(this.HinhAnh);
             this.Controls.Add(this.btnLuuThongTin);
-            this.Controls.Add(this.dtpNgayNhanViec);
             this.Controls.Add(this.dtpNgaySinh);
-            this.Controls.Add(this.cbChucVu);
-            this.Controls.Add(this.txtLuongCoBan);
             this.Controls.Add(this.txtEmail);
             this.Controls.Add(this.txtSoDT);
             this.Controls.Add(this.txtCCCD);
@@ -719,7 +681,6 @@
 
         private Guna.UI2.WinForms.Guna2DateTimePicker dtpNgayNhanViec;
         private Guna.UI2.WinForms.Guna2DateTimePicker dtpNgaySinh;
-        private Guna.UI2.WinForms.Guna2ComboBox cbChucVu;
         private Guna.UI2.WinForms.Guna2TextBox txtLuongCoBan;
         private Guna.UI2.WinForms.Guna2TextBox txtEmail;
         private Guna.UI2.WinForms.Guna2TextBox txtSoDT;
@@ -729,7 +690,6 @@
         private System.Windows.Forms.Label label41;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Label label30;
-        private System.Windows.Forms.Label label31;
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.Label label34;

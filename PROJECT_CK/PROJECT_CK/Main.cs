@@ -90,7 +90,6 @@ namespace PROJECT_CK
             LoadChamCongList();
             LoadThongBaoList();
             LoadBangLuong();
-            SetupCbbTieuChiNV(); 
             LoadTatCaBaoCao();
             //Bán xe
             radioAll.Checked = true;
@@ -2171,15 +2170,12 @@ namespace PROJECT_CK
             try
             {
                 dgvDSNV.DataSource = qlnv.GetNhanVienList();
-
-                // Đặt lại tiêu đề cột để hiển thị cho người dùng
-                if (dgvDSNV.Columns.Contains("MaNV")) dgvDSNV.Columns["MaNV"].HeaderText = "Mã NV";
-                if (dgvDSNV.Columns.Contains("HoTenNV")) dgvDSNV.Columns["HoTenNV"].HeaderText = "Họ tên NV";
-                if (dgvDSNV.Columns.Contains("NgaySinh")) dgvDSNV.Columns["NgaySinh"].HeaderText = "Ngày sinh";
-                if (dgvDSNV.Columns.Contains("GioiTinh")) dgvDSNV.Columns["GioiTinh"].HeaderText = "Giới tính";
-                if (dgvDSNV.Columns.Contains("SoDT")) dgvDSNV.Columns["SoDT"].HeaderText = "Số ĐT";
-                if (dgvDSNV.Columns.Contains("Email")) dgvDSNV.Columns["Email"].HeaderText = "Email";
-                if (dgvDSNV.Columns.Contains("ChucVu")) dgvDSNV.Columns["ChucVu"].HeaderText = "Chức vụ";
+                dgvDSNV.Columns["MaNV"].HeaderText = "Mã NV";
+                dgvDSNV.Columns["HoTenNV"].HeaderText = "Họ tên NV";
+                dgvDSNV.Columns["NgaySinh"].HeaderText = "Ngày sinh";
+                dgvDSNV.Columns["GioiTinh"].HeaderText = "Giới tính";
+                dgvDSNV.Columns["SoDT"].HeaderText = "Số ĐT";
+                dgvDSNV.Columns["Email"].HeaderText = "Email";
                 if (dgvDSNV.Columns.Contains("LuongCB"))
                 {
                     dgvDSNV.Columns["LuongCB"].HeaderText = "Lương cơ bản";
@@ -2649,17 +2645,6 @@ namespace PROJECT_CK
         {
             try
             {
-                string criteriaNV = "ChucVu";
-
-                if (cbbTieuChiNV.SelectedItem != null)
-                {
-                    if (cbbTieuChiNV.SelectedItem.ToString() == "Giới tính")
-                        criteriaNV = "GioiTinh";
-                    else
-                        criteriaNV = "ChucVu";
-                }
-
-
                 DataTable dtLuongBar = qlnv.GetDataForBarChartLuongTong();
                 LoadBarChart(chartLuongTong, dtLuongBar, "Thang", "TongLuong", "Tổng lương", "Biểu đồ tổng lương");
 
@@ -2669,8 +2654,15 @@ namespace PROJECT_CK
                 DataTable dtChamCong = qlnv.GetDataForBarChartChamCong();
                 LoadBarChart(chartChamCong, dtChamCong, "TrangThai", "SoLuong", "Số lượng", "Biểu đồ chấm công");
 
-                DataTable dtNhanVien = qlnv.GetDataForPieChartNhanVien(criteriaNV);
-                LoadPieChart(chartNhanVien, dtNhanVien, "Category", "Count", $"Biểu đồ nhân viên theo {criteriaNV}");
+                DataTable dtNhanVien = qlnv.GetDataForPieChartNhanVienExperience();
+
+                LoadPieChart(
+                    chartNhanVien,
+                    dtNhanVien,
+                    "KinhNghiem",    
+                    "SoLuong",       
+                    "Biểu đồ phân bố kinh nghiệm nhân viên" 
+                );
             }
             catch (Exception ex)
             {
@@ -2895,35 +2887,16 @@ namespace PROJECT_CK
                 }
             }
 
-            // Nếu không có dữ liệu > 0, dừng lại
             if (!hasData)
             {
-                // Có thể thêm một điểm dữ liệu "Không có dữ liệu" nếu cần
                 chartControl.Titles.Add("Không có dữ liệu đơn hàng trong năm này.");
                 return;
             }
 
-            // 4. Tùy chỉnh hiển thị
             series["PieLabelStyle"] = "Outside";
             series["PieStartAngle"] = "270";
 
-            // 5. Thêm Series vào Chart Control
             chartControl.Series.Add(series);
-        }
-
-        private void SetupCbbTieuChiNV()
-        {
-            if (cbbTieuChiNV == null) return;
-
-            cbbTieuChiNV.Items.Clear();
-
-            cbbTieuChiNV.Items.Add("Chức vụ");
-            cbbTieuChiNV.Items.Add("Giới tính");
-
-            if (cbbTieuChiNV.Items.Count > 0)
-            {
-                cbbTieuChiNV.SelectedIndex = 0;
-            }
         }
         private void dtpBaoCao_ValueChanged(object sender, EventArgs e)
         {
