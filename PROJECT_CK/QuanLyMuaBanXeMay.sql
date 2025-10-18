@@ -1311,6 +1311,21 @@ RETURN
 GO
 
 
+CREATE FUNCTION fn_XeCuaKhach(@KhachHangID INT)
+RETURNS TABLE
+AS
+RETURN
+(
+    SELECT dh.KhachHangID,
+           ctdh.XeCTID,
+           xct.SoKhung
+    FROM DonHang AS dh
+    INNER JOIN ChiTietDonHang AS ctdh ON dh.MaDonHang = ctdh.MaDonHang
+    INNER JOIN XeChiTiet AS xct ON ctdh.XeCTID = xct.XeCTID
+    WHERE dh.KhachHangID = @KhachHangID AND xct.TrangThai = 'Daban'
+);
+GO
+
 
 CREATE PROCEDURE sp_DatLichHen
     @XeCTID INT,
