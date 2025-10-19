@@ -2015,7 +2015,7 @@ namespace PROJECT_CK
             string query = "SELECT * FROM fn_XeCuaKhach(@KhachHangID)";
             SqlParameter param = new SqlParameter("@KhachHangID", maKH);
 
-            DataTable dt = db.ExecuteQuery(query, param);
+            DataTable dt = quanLyKH.ExecuteQuery(query, param);
 
             if (dt.Rows.Count > 0)
             {

@@ -50,7 +50,7 @@ namespace PROJECT_CK
                 // Biến số (Cần Parse hoặc Convert)
                 // DECIMAL trong DB tương ứng với decimal trong C#
                 txtGiatri.Text = row["GiaTriGiam"].ToString();
-
+                txtDK.Text = row["DieuKienToiThieu"].ToString();
                 // Biến Ngày tháng (Cần Convert)
                 dtTuNgay.Value = Convert.ToDateTime(row["NgayBatDau"]);
                 dtDenNgay.Value = Convert.ToDateTime(row["NgayKetThuc"]);

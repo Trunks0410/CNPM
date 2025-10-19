@@ -402,7 +402,7 @@
             this.siticoneLabel5.ForeColor = System.Drawing.Color.Black;
             this.siticoneLabel5.Location = new System.Drawing.Point(12, 279);
             this.siticoneLabel5.Name = "siticoneLabel5";
-            this.siticoneLabel5.Size = new System.Drawing.Size(116, 35);
+            this.siticoneLabel5.Size = new System.Drawing.Size(204, 35);
             this.siticoneLabel5.TabIndex = 131;
             this.siticoneLabel5.Text = "Điều kiện tối thiểu";
             this.siticoneLabel5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
