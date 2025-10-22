@@ -86,7 +86,10 @@ namespace PROJECT_CK
             LoadDataKhachHang();
             LoadDataLichHen();
             //--- Quản lý Nhân viên ---
-            LoadNhanVienList();
+            if (_role == "RoleAdmin")
+            {
+                LoadNhanVienList();
+            }
             LoadChamCongList();
             LoadThongBaoList();
             LoadBangLuong();
