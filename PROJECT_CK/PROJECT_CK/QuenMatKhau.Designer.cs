@@ -105,7 +105,7 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(669, 218);
+            this.ClientSize = new System.Drawing.Size(669, 350); // Tăng kích thước form để chứa panel mới
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btn_TimKiemQLNX);
             this.Controls.Add(this.guna2TextBox2);

@@ -90,7 +90,8 @@ namespace PROJECT_CK
         // Event link quên mật khẩu
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            MessageBox.Show("Chức năng quên mật khẩu đang được phát triển. Vui lòng liên hệ admin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            QuenMatKhau quenMatKhauForm = new QuenMatKhau(connectionString); // Truyền connectionString
+            quenMatKhauForm.ShowDialog();
         }
     }
 }
