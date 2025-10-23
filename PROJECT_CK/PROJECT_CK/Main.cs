@@ -3684,6 +3684,14 @@ namespace PROJECT_CK
                     decimal giaTriGiam = Convert.ToDecimal(row["GiaTriGiam"]);
                     DateTime from = Convert.ToDateTime(row["NgayBatDau"]);
                     DateTime to = Convert.ToDateTime(row["NgayKetThuc"]);
+                    decimal dk = Convert.ToDecimal(row["DieuKienToiThieu"]);
+                    if(tongTienTruocGiam < dk)
+                    {
+                        MessageBox.Show($"Đơn hàng chưa đủ điều kiện áp dụng ưu đãi '{maUuDaiText}'. \nĐiều kiện tối thiểu là {dk.ToString("N0")} VNĐ.", "Lỗi Ưu đãi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        cbUD.SelectedIndex = 0; // Đặt lại về không áp dụng
+                        CapNhatGiaoDienUuDai(0, tongTienTruocGiam);
+                        return;
+                    }
 
                     // 3. KIỂM TRA HIỆU LỰC
                     if (DateTime.Today >= from.Date && DateTime.Today <= to.Date)
